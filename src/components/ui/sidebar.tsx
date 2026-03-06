@@ -229,10 +229,11 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed z-10 hidden w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "top-2 bottom-2 h-[calc(100svh-1rem)] rounded-xl",
           side === "left"
-            ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
-            : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+            ? "left-4 md:left-6 group-data-[collapsible=offcanvas]:left-[calc(-1*var(--sidebar-width)-1rem)] md:group-data-[collapsible=offcanvas]:left-[calc(-1*var(--sidebar-width)-1.5rem)]"
+            : "right-4 md:right-6 group-data-[collapsible=offcanvas]:right-[calc(-1*var(--sidebar-width)-1rem)] md:group-data-[collapsible=offcanvas]:right-[calc(-1*var(--sidebar-width)-1.5rem)]",
           // Adjust the padding for floating and inset variants.
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
@@ -244,7 +245,11 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm"
+          className={cn(
+            "flex h-full w-full flex-col bg-sidebar overflow-hidden",
+            "rounded-xl",
+            "group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm"
+          )}
         >
           {children}
         </div>
