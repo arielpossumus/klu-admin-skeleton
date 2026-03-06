@@ -1,8 +1,8 @@
 "use client";
-import { ButtonGroup } from "@/components/ui/button-group";
-import { Button } from "@/components/ui/button";
-import { TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/lib/utils";
 
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import {
   ChartContainer,
   ChartLegend,
@@ -10,38 +10,20 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { BAR_CHART_CONFIG } from "@/lib/utils";
+import { BAR_CHART_CONFIG, TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/lib/utils";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { useState } from "react";
 import ParagraphH4 from "../text/ParagraphH4";
+import graphDataJson from "../../../public/mockups/getAllTransactionsForGraph.json" with { type: "json" };
 
-const chartData = [
-  { hour: "00:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "01:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "02:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "03:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "04:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "05:00", aprobadas: 6, rechazadas: 16 },
-  { hour: "06:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "07:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "08:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "09:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "10:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "11:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "12:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "13:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "14:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "15:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "16:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "17:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "18:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "19:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "20:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "21:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "22:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "23:00", aprobadas: 0, rechazadas: 0 },
-  { hour: "24:00", aprobadas: 0, rechazadas: 0 },
-];
+type GraphChartItem = { columnName: string; totalApproved: number; totalRejected: number };
+type GraphDataResponse = { chartData?: GraphChartItem[] };
+
+const graphData = graphDataJson as GraphDataResponse;
+const chartDataFromApi = (graphData.chartData ?? []).map((item) => ({
+  hour: item.columnName,
+  aprobadas: item.totalApproved,
+  rechazadas: item.totalRejected,
+}));
 
 export function BarCharts() {
   const [timePeriod, setTimePeriod] = useState<TimePeriodOption>("Anual");
@@ -63,7 +45,7 @@ export function BarCharts() {
         </ButtonGroup>
       </div>
       <ChartContainer config={BAR_CHART_CONFIG} className="h-[400px] w-full">
-        <BarChart accessibilityLayer data={chartData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+        <BarChart accessibilityLayer data={chartDataFromApi} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
           <YAxis domain={[0, 16]} tickLine={false} axisLine={false} tickMargin={8} />
