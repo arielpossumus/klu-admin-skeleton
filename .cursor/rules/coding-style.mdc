@@ -1,0 +1,60 @@
+---
+description: Estilo de código React (componentes, hooks, nombres, estilos Tailwind/Shadcn, accesibilidad)
+globs:
+alwaysApply: true
+---
+- type: coding-style
+  value: >
+  # Componentes React
+  - Usar solo componentes funcionales y hooks (useState, useEffect, useRef, useContext); no clases
+  - Componentes pequeños y una sola responsabilidad; lógica compleja en custom hooks
+  - Un componente por archivo; archivos nombrados como el componente (PascalCase), extensión .tsx
+
+  # Nomenclatura
+  - Handlers con prefijo handle (handleClick, handleSubmit, handleKeyDown)
+  - Const para funciones: const nombre = () => {} en lugar de function nombre() {}
+  - Variables y constantes con nombres descriptivos
+
+  # Props y estado
+  - Destructuring de props; tipar con interface/type (ver regla typescript-standards)
+  - Props opcionales con ? y valores por defecto en la desestructuración cuando corresponda
+  - Estado lo más local posible; evitar prop drilling con Context cuando tenga sentido
+
+  # Funciones y render
+  - Early returns para mejorar legibilidad
+  - Evitar funciones anónimas en JSX; extraer a handlers o variables
+  - Callbacks que se pasan a hijos memoizar con useCallback si son dependencia de efecto o de memo
+  - Lógica condicional compleja fuera del JSX; usar variables o componentes auxiliares
+  - Fragmentos (<></> o <Fragment>) para no añadir divs innecesarios
+
+  # Estilos (Tailwind + Shadcn)
+  - Estilizar solo con clases de Tailwind; no estilos inline ni <style>
+  - Preferir class: (classnames/condición) en lugar de ternarios largos en className
+  - Componentes de UI base desde Shadcn en @/components/ui; personalizar con Tailwind
+  - Consistencia visual usando tokens del tema y componentes Shadcn
+
+  # Hooks
+  - Respetar reglas de hooks (solo en top-level de componentes/hooks)
+  - Dependencias de useEffect correctas; cleanup (return) cuando haya suscripciones o timers
+  - Lógica reutilizable en custom hooks en src/hooks
+
+  # Formularios
+  - Componentes controlados; validación según requisitos del feature
+  - Considerar react-hook-form o similar si los formularios crecen en complejidad
+  - Feedback visual claro (errores, loading, éxito)
+
+  # Manejo de errores
+  - Try/catch en async; mensajes de error amigables en UI
+  - Error Boundaries para contener fallos en el árbol de componentes cuando aporten valor
+
+  # Accesibilidad
+  - Atributos semánticos y ARIA cuando haga falta (aria-label, roles, etc.)
+  - Navegación por teclado (tabindex, onKeyDown donde haya interacción custom)
+  - Enlaces y botones accesibles: focus visible, texto o aria-label descriptivo
+
+  # Performance
+  - React.memo solo donde se demuestre re-render innecesario; lazy/dynamic import para rutas o módulos pesados
+  - No optimizar de más sin medir
+
+  # Documentación
+  - Comentarios solo donde la intención no sea obvia; JSDoc en APIs públicas o helpers no triviales

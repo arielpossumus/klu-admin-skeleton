@@ -1,0 +1,14 @@
+---
+description: Uso de Shadcn UI; priorizar componentes de la librería siempre que sea posible
+globs:
+alwaysApply: true
+---
+- type: coding-style
+  value: >
+  # Shadcn UI
+  - Usar siempre que sea posible los componentes de Shadcn en lugar de implementar UI desde cero.
+  - Los componentes están en @/components/ui (Button, Card, Input, Dialog, DropdownMenu, Table, etc.).
+  - Agregar nuevos con: npx shadcn@latest add <nombre> (ej. npx shadcn@latest add card).
+  - Personalizar con clases de Tailwind y props del componente; no reemplazar por divs o HTML crudo si existe un equivalente en Shadcn.
+  - El proyecto usa estilo "new-york" e íconos Lucide; mantener esa línea al extender o componer.
+  - Para variantes (tamaño, variant), usar las props que trae cada componente (ej. variant="outline", size="sm") y className para ajustes puntuales.

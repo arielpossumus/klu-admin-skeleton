@@ -1,0 +1,15 @@
+---
+description: Uso de React Hook Form para formularios; integración con Shadcn
+globs:
+alwaysApply: true
+---
+- type: library
+  value: react-hook-form
+  rules: >
+  # React Hook Form
+  - Usar React Hook Form para todos los formularios (useForm, register, handleSubmit, formState).
+  - Integrar controles con componentes Shadcn: usar Controller cuando el componente no acepte ref (ej. Select, custom), o register + ref en Input/Checkbox cuando sí lo acepten.
+  - Validación: preferir resolver con esquema (ej. @hookform/resolvers + zod) para validación tipada; o rules en register para casos simples.
+  - Tipar el formulario con useForm<FormValues>({ ... }); definir interface FormValues con los nombres de los campos.
+  - Mostrar errores con formState.errors y el componente de error de Shadcn (o texto junto al campo); no solo console o alert.
+  - Evitar estado local duplicado por campo; usar watch o setValue si hace falta leer/escribir valores desde fuera del submit.

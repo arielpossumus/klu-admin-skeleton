@@ -1,0 +1,6 @@
+{
+  "recommendations": [
+    "esbenpeter.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ]
+}

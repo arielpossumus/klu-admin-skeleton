@@ -1,0 +1,52 @@
+---
+description: Convenciones de build con Vite 7 (React + TypeScript + Tailwind)
+globs:
+alwaysApply: true
+---
+- type: build-tool
+  value: vite
+  rules: >
+  # Configuración base
+  - Usar vite.config.ts para la configuración principal (TypeScript)
+  - Definir alias de paths en resolve.alias (ej. "@" → "./src"); ya configurado en el proyecto
+  - Usar defineConfig de "vite" para tipado correcto del config
+  - Variables de entorno con archivos .env (.env, .env.local, .env.production); acceder con import.meta.env
+
+  # Plugins del proyecto
+  - @vitejs/plugin-react para React (JSX, Fast Refresh/HMR)
+  - @tailwindcss/vite para Tailwind CSS v4; mantener el orden plugins: [react(), tailwindcss()]
+  - Añadir solo plugins necesarios; evitar plugins redundantes con el ecosistema actual
+
+  # Desarrollo
+  - npm run dev: servidor de desarrollo con HMR (Hot Module Replacement) por defecto
+  - Source maps habilitados en desarrollo por defecto en Vite 7
+  - Proxy para APIs: configurar en vite.config.ts → server.proxy si hace falta
+  - Usar solo plugins oficiales o muy mantenidos cuando se agreguen nuevos
+
+  # Producción
+  - Build con npm run build (tsc -b && vite build): compilar TypeScript y luego Vite
+  - Code splitting y tree shaking habilitados por defecto; chunks por entrada y dinámicos
+  - Optimización de bundles automática; ajustar build.rollupOptions solo si se necesita control fino
+  - Preview local con npm run preview para probar el build
+
+  # Assets
+  - Archivos estáticos sin procesar en public/; referenciar con "/ruta" desde la raíz
+  - Assets en src/ importados por URL; usar import.meta.url para rutas dinámicas si aplica
+  - Imágenes y assets en src/assets/; Vite optimiza y hashea en build
+
+  # Performance
+  - Dynamic imports: import() para lazy loading de rutas o componentes pesados
+  - Mantener chunks razonables; build.chunkSizeWarningLimit si se quieren ajustar avisos
+  - No añadir optimizaciones prematuras; medir antes de optimizar
+
+  # TypeScript
+  - El build usa tsc -b antes de vite build; mantener tsconfig.app.json y paths "@/*" alineados con resolve.alias
+  - Tipos de import.meta.env en env.d.ts o similar si se usan variables de entorno custom
+
+  # Linting y calidad
+  - ESLint se ejecuta aparte (npm run lint); no es necesario vite-plugin-eslint en este proyecto
+  - Si se agregan tests: Vitest se integra con Vite (vitest/config o vite.config.ts); testing-library para React
+
+  # Mantenimiento
+  - Actualizar Vite y plugins con cuidado; revisar changelog de Vite 7 y del plugin React
+  - Documentar en el repo cualquier opción de vite.config.ts no obvia (proxy, env, alias extra)

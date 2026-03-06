@@ -1,0 +1,79 @@
+---
+description: Estándares de TypeScript para código tipado y seguro (React + Vite + Shadcn)
+globs: "**/*.ts, **/*.tsx"
+alwaysApply: false
+---
+
+# Uso correcto de TypeScript
+
+## 1. Tipado explícito cuando aporte valor
+
+- Tipar parámetros y retorno de funciones cuando no sea obvio.
+- Preferir `interface` o `type` para objetos y props; evitar `any`.
+- Tipar respuestas de API y datos de dominio en `types/` o junto al módulo.
+
+## 2. Evitar `any`
+
+- Si el tipo es desconocido, usar `unknown` y hacer type guards o narrowing.
+- Usar `as` solo en casos puntuales y comentar el motivo.
+
+```typescript
+// ❌ MAL
+function parse(data: any) {
+  return data.value;
+}
+
+// ✅ BIEN
+function parse(data: unknown): number {
+  if (typeof data === "object" && data !== null && "value" in data && typeof (data as { value: unknown }).value === "number") {
+    return (data as { value: number }).value;
+  }
+  throw new Error("Invalid data");
+}
+```
+
+## 3. Props de componentes React
+
+- Definir una interface (o type) para las props de cada componente.
+- Props opcionales con `?`; usar valores por defecto cuando corresponda.
+
+```typescript
+// ❌ MAL
+const MetricCard = (props) => <div>{props.title}</div>;
+
+// ✅ BIEN
+interface MetricCardProps {
+  title: string;
+  value: number;
+  variant?: "default" | "success" | "error";
+}
+const MetricCard = ({ title, value, variant = "default" }: MetricCardProps) => (
+  <div data-variant={variant}>{title}: {value}</div>
+);
+```
+
+## 4. Funciones: parámetros y retorno
+
+- Tipar entradas y salida en funciones públicas y en lógica de negocio.
+
+```typescript
+// ❌ MAL
+function formatAmount(amount, currency) {
+  return `${currency} ${amount}`;
+}
+
+// ✅ BIEN
+function formatAmount(amount: number, currency: string): string {
+  return `${currency} ${amount}`;
+}
+```
+
+## 5. Genéricos
+
+- Usar genéricos en hooks (`useState`, datos de API) y componentes reutilizables en lugar de tipos demasiado amplios.
+
+```typescript
+// ✅ BIEN
+const [users, setUsers] = useState<User[]>([]);
+const { data } = useFetch<Transaction[]>("/api/transactions");
+```

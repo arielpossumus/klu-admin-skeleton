@@ -1,0 +1,16 @@
+---
+description: Uso de TanStack React Query para caché, loading y sincronización de datos con la API
+globs:
+alwaysApply: true
+---
+- type: library
+  value: react-query
+  rules: >
+  # React Query (TanStack Query)
+  - Usar @tanstack/react-query para datos que vienen de la API; envolver la app con QueryClientProvider (en main.tsx o App.tsx).
+  - Las peticiones HTTP se hacen con la instancia de Axios desde src/services/; en React Query usar esas funciones como queryFn o mutationFn, no axios directo en useQuery/useMutation.
+  - useQuery para GET: clave en array (ej. ['users'], ['transaction', id]); tipar con useQuery<ResponseType>({ queryKey, queryFn }).
+  - useMutation para POST/PUT/DELETE; tras éxito invalidar las queries afectadas con queryClient.invalidateQueries({ queryKey: ['recurso'] }) para que se refetcheen los listados.
+  - Preferir queryKey como array de primitivos/objetos estables; mismo queryKey = misma query y caché.
+  - Estados de loading y error usar isPending/isLoading, isError, error de la query/mutation; mostrar en UI con componentes Shadcn (skeleton, alert).
+  - Para listas paginadas o infinite scroll usar useInfiniteQuery; para filtros que cambian la lista, incluir el filtro en queryKey para que cada combinación tenga su caché.

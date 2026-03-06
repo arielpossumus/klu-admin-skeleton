@@ -1,0 +1,40 @@
+---
+description: Estructura del proyecto admin (React + Vite + Shadcn + TypeScript)
+globs:
+alwaysApply: true
+---
+- type: file-structure
+  value: >
+  La estructura del proyecto sigue este esquema:
+
+  📁 admin_momentum/
+  ├── 📁 src/
+  │   ├── 📁 assets/            # Recursos estáticos (imágenes, íconos, fuentes)
+  │   ├── 📁 components/        # Componentes React reutilizables
+  │   │   ├── 📁 ui/            # Componentes de Shadcn (Button, Card, DropdownMenu, etc.)
+  │   │   ├── 📁 layout/        # Componentes de estructura compartidos (Sidebar, Header, MetricCard, CurrencyToggle)
+  │   │   └── 📁 charts/        # Componentes de gráficos (MovementChart, etc.)
+  │   ├── 📁 layouts/           # Layouts de página (AdminLayout con Sidebar + Header + contenido)
+  │   ├── 📁 pages/             # Páginas/vistas principales
+  │   │   ├── 📁 dashboard/     # Inicio y KPIs
+  │   │   ├── 📁 users/         # Usuarios
+  │   │   ├── 📁 transactions/ # Transacciones
+  │   │   ├── 📁 monitoring/   # Monitoreo Momentum
+  │   │   ├── 📁 catalogs/     # Catálogos
+  │   │   ├── 📁 modules/      # Módulos
+  │   │   └── 📁 finances/     # Finanzas
+  │   ├── 📁 types/             # Tipos e interfaces TypeScript (globales, dashboard, navegación)
+  │   ├── 📁 config/            # Configuraciones globales, constantes y env
+  │   ├── 📁 lib/               # Utilidades y lógica (utils.ts, api.ts, auth.ts)
+  │   ├── 📁 services/         # Servicios y llamadas a API (por dominio o recurso)
+  │   ├── 📁 hooks/             # Custom hooks (useFetchData, useCurrency, etc.)
+  │   ├── 📁 context/           # Contextos de React (AuthContext, CurrencyContext, etc.)
+  │   ├── 📁 router/            # Configuración de rutas (React Router)
+  │   ├── 📄 App.tsx            # Componente raíz
+  │   ├── 📄 main.tsx           # Punto de entrada
+  │   └── 📄 index.css          # Estilos globales (Tailwind)
+  │
+  ├── 📄 vite.config.ts         # Configuración de Vite (alias @ → src)
+  └── 📄 tsconfig.json          # TypeScript (paths @/*)
+
+  Cada componente debe ubicarse en la carpeta que corresponda según su rol: UI base en components/ui, estructura compartida en components/layout o components/charts, y páginas completas en pages/<sección>. Configuraciones y constantes en config/; llamadas a API y lógica por recurso en services/. Si un componente incluye múltiples archivos (TSX + estilos o pruebas), usar una subcarpeta con el nombre del componente.

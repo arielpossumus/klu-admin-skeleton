@@ -1,0 +1,15 @@
+---
+description: Uso de Axios para llamadas HTTP; instancia única, interceptors y servicios
+globs:
+alwaysApply: true
+---
+- type: library
+  value: axios
+  rules: >
+  # Axios
+  - Usar Axios para todas las llamadas HTTP; no fetch directo en features.
+  - Una sola instancia configurada (baseURL, timeout) en src/lib/api.ts o src/services/api.ts; exportar esa instancia y usarla en todo el proyecto.
+  - Interceptors: request para agregar token/auth (Authorization), response para manejo global de errores (401, 500) y opcionalmente refresh de token.
+  - Tipar respuestas con genéricos: axios.get<ResponseType>(...); definir tipos en src/types/ según recurso o dominio.
+  - No llamar axios.get/post desde componentes; encapsular en funciones dentro de src/services/ (por recurso, ej. services/users.ts, services/transactions.ts) y consumir esas funciones desde hooks o componentes.
+  - Errores: usar try/catch y AxiosError (axios.isAxiosError) para distinguir errores de red/respuesta; propagar o mostrar según la capa.
