@@ -2,7 +2,6 @@
 
 import {
     Bell,
-    CreditCard,
     LogOut,
     MoreVertical,
     UserCircle,
@@ -26,7 +25,6 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    useSidebar,
 } from "@/components/ui/sidebar";
 
 export function NavUser({
@@ -34,11 +32,11 @@ export function NavUser({
 }: {
     user: {
         name: string;
-        email: string;
+        roleName: string;
         avatar: string;
     };
 }) {
-    const { isMobile } = useSidebar();
+
 
     return (
         <SidebarMenu>
@@ -56,7 +54,7 @@ export function NavUser({
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-medium">{user.name}</span>
                                 <span className="truncate text-xs text-muted-foreground">
-                                    {user.email}
+                                    {user.roleName}
                                 </span>
                             </div>
                             <MoreVertical className="ml-auto size-4" />
@@ -64,7 +62,7 @@ export function NavUser({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                        side={isMobile ? "bottom" : "right"}
+                        side="bottom"
                         align="end"
                         sideOffset={4}
                     >
@@ -77,7 +75,7 @@ export function NavUser({
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-medium">{user.name}</span>
                                     <span className="truncate text-xs text-muted-foreground">
-                                        {user.email}
+                                        {user.roleName}
                                     </span>
                                 </div>
                             </div>
