@@ -230,7 +230,7 @@ function Sidebar({
         data-slot="sidebar-container"
         className={cn(
           "fixed z-10 hidden w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
-          "top-2 bottom-2 h-[calc(100svh-1rem)] rounded-xl",
+          "top-6 bottom-6 h-[calc(100svh-3rem)] md:top-8 md:bottom-8 md:h-[calc(100svh-4rem)] rounded-xl",
           side === "left"
             ? "left-4 md:left-6 group-data-[collapsible=offcanvas]:left-[calc(-1*var(--sidebar-width)-1rem)] md:group-data-[collapsible=offcanvas]:left-[calc(-1*var(--sidebar-width)-1.5rem)]"
             : "right-4 md:right-6 group-data-[collapsible=offcanvas]:right-[calc(-1*var(--sidebar-width)-1rem)] md:group-data-[collapsible=offcanvas]:right-[calc(-1*var(--sidebar-width)-1.5rem)]",

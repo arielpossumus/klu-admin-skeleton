@@ -1,19 +1,23 @@
 import ParagraphH1 from "@/components/text/ParagraphH1";
-import Paragraph from "@/components/text/Paragraph";
-import ParagraphH2 from "@/components/text/ParagraphH2";
-import ParagraphH3 from "@/components/text/ParagraphH3";
-import ParagraphH4 from "@/components/text/ParagraphH4";
-import TypographyBlockquote from "@/components/text/TypographyBlockquote";
+import { SectionCards } from "@/components/commons/SectionCards";
+import { Separator } from "@/components/ui/separator";
+import { BarCharts } from "@/components/charts/BarCharts";
+import getTrxValues from "../../../public/mockups/getTrxValues.json" with { type: "json" };
+
 const Dashboard = () => {
+    const data = getTrxValues?.data_response?.MXN as { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; };
     return (
-        <>
-            <ParagraphH1 text="Dashboard" />
-            <ParagraphH2 text="The People of the Kingdom" />
-            <ParagraphH3 text="The Joke Tax" />
-            <ParagraphH4 text="People stopped telling jokes" />
-            <Paragraph text="The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax." />
-            <TypographyBlockquote text="After all, he said, everyone enjoys a good joke, so it's only fair that they should pay for the privilege." />
-        </>
+        <div className="flex flex-1 flex-col">
+            <div className="@container/main flex flex-1 flex-col gap-2">
+                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                    <SectionCards accumulatedAmountDay={data.accumulatedAmountDay} salesNumber={data.salesNumber} rejectionNumber={data.rejectionNumber} transactionDailyNumber={data.transactionDailyNumber} />
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                    <BarCharts />
+                </div>
+            </div>
+        </div>
     );
 };
 
