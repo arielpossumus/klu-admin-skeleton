@@ -203,3 +203,102 @@ export default MiPagina;
 
 Para cambiar tamaño, peso o márgenes, se editan las clases Tailwind en el componente correspondiente dentro de `src/components/text/`.
 
+## Uso del DataTable (tabla de datos)
+
+El proyecto incluye un **DataTable** genérico en `src/components/ui/data-table.tsx` que usa **TanStack React Table** y los componentes **Table** de Shadcn. Incluye paginación (Anterior / Siguiente) y mensaje cuando no hay datos.
+
+### Paso 1: Definir el tipo de fila
+
+Crea una interfaz TypeScript con los campos que tendrá cada fila. Puede vivir en el mismo archivo de columnas o en `src/types/`.
+
+```tsx
+// Ejemplo: src/components/tables/miRecursoColumns.tsx
+export interface MiRecurso {
+  id: number;
+  nombre: string;
+  estado?: string;
+}
+```
+
+### Paso 2: Definir las columnas
+
+Usa `ColumnDef<TipoFila>[]` de `@tanstack/react-table`. Cada columna tiene al menos `accessorKey` (campo del objeto) y `header` (texto del encabezado). Opcionalmente usa `cell` para personalizar el contenido (badges, barras de progreso, etc.).
+
+```tsx
+import type { ColumnDef } from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge";
+
+export const miRecursoColumns: ColumnDef<MiRecurso>[] = [
+  { accessorKey: "nombre", header: "Nombre" },
+  {
+    accessorKey: "estado",
+    header: "Estado",
+    cell: ({ row }) => {
+      const value = row.getValue<string>("estado");
+      const isOk = value === "Activo";
+      return (
+        <Badge className={isOk ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}>
+          {value ?? "—"}
+        </Badge>
+      );
+    },
+  },
+];
+```
+
+- **`accessorKey`:** clave del objeto que se muestra en la columna.
+- **`header`:** texto del encabezado de la tabla.
+- **`cell`:** función opcional `({ row }) => ReactNode` para renderizar la celda (por defecto se muestra el valor crudo).
+
+### Paso 3: Obtener los datos
+
+Los datos pueden venir de un JSON estático (mock), de React Query, o de estado. Deben ser un array de objetos que cumplan la interfaz de la fila.
+
+```tsx
+// Desde JSON estático (import con type: "json")
+import datosJson from "../../../public/mockups/miRecurso.json" with { type: "json" };
+const datos = (datosJson as { rows: MiRecurso[] }).rows ?? [];
+
+// O desde React Query
+const { data } = useQuery({ queryKey: ["miRecurso"], queryFn: fetchMiRecurso });
+const datos = data?.rows ?? [];
+```
+
+### Paso 4: Usar el DataTable en la página
+
+Importa `DataTable`, las columnas y el tipo; pasa `columns` y `data`.
+
+```tsx
+import { DataTable } from "@/components/ui/data-table";
+import { miRecursoColumns, type MiRecurso } from "@/components/tables/miRecursoColumns";
+
+const MiPagina = () => {
+  const datos: MiRecurso[] = []; // o desde JSON/API
+
+  return (
+    <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+      <h2 className="text-2xl font-semibold tracking-tight">Mi recurso</h2>
+      <DataTable columns={miRecursoColumns} data={datos} />
+    </div>
+  );
+};
+
+export default MiPagina;
+```
+
+### Resumen de archivos
+
+| Paso | Dónde | Qué hacer |
+|------|--------|-----------|
+| 1 | Archivo de columnas o `src/types/` | Definir interfaz del tipo de fila (ej. `MiRecurso`) |
+| 2 | `src/components/tables/<recurso>Columns.tsx` | Exportar `ColumnDef<MiRecurso>[]` con `accessorKey`, `header` y opcionalmente `cell` |
+| 3 | Página o hook | Obtener datos (mock, useQuery, etc.) como array del tipo de fila |
+| 4 | Página | Renderizar `<DataTable columns={columnas} data={datos} />` |
+
+### Ejemplos en el proyecto
+
+- **Dispositivos:** `src/components/tables/deviceColumns.tsx` + `src/pages/poshealt/PosHealth.tsx`
+- **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
+- **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
+- **Conexión:** `src/components/tables/deviceconectionsColumns.tsx` (señal WiFi, estado SIM, etc.)
+

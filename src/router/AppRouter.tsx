@@ -20,7 +20,7 @@ const routes = [
     children: [{ index: true, Component: Dashboard }],
   },
   {
-    path: "/poshealth",
+    path: "/pos-health",
     Component: AdminLayout,
     children: [{ index: true, Component: PosHealth }],
   },

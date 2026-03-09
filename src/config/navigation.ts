@@ -25,7 +25,7 @@ export type NavMainItem = {
   items?: NavSubItem[];
 };
 
-export type NavEntry = NavMainItem | { type: "separator" };
+export type NavEntry = NavMainItem | { type: "separator"; };
 
 const isNavItem = (entry: NavEntry): entry is NavMainItem =>
   "title" in entry && "url" in entry;
@@ -42,8 +42,9 @@ export const navMain: NavEntry[] = [
   },
   {
     title: "POS Health",
-    url: "/poshealth",
+    url: "/pos-health",
     icon: Activity,
+
   },
   { type: "separator" },
   {
@@ -164,7 +165,7 @@ const pathToLabel = buildPathToLabel();
 const fallbackLabel = (segment: string): string =>
   segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
 
-export type BreadcrumbItem = { path: string; label: string };
+export type BreadcrumbItem = { path: string; label: string; };
 
 /**
  * Devuelve los ítems del breadcrumb para la pathname actual.
