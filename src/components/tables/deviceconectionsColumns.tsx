@@ -1,4 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
+import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
 
 export interface DeviceConnection {
@@ -34,6 +35,18 @@ export const deviceConnectionColumns: ColumnDef<DeviceConnection>[] = [
     {
         accessorKey: "posSerial",
         header: "Serial",
+        cell: ({ row }) => {
+            const serial = row.getValue<string>("posSerial");
+            if (!serial) return "—";
+            return (
+                <Link
+                    to={`/pos-health/${encodeURIComponent(serial)}`}
+                    className="text-primary underline underline-offset-4 hover:no-underline"
+                >
+                    {serial}
+                </Link>
+            );
+        },
     },
     {
         accessorKey: "posBrand",

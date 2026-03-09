@@ -28,8 +28,6 @@ const PosHealth = () => {
 
     const [device, setDevice] = useState<DeviceOption>(DEVICE_OPTIONS[0]);
 
-    console.log("device", device);
-
     return (
         <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
             <div className="flex flex-wrap items-center justify-end gap-3">
