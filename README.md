@@ -116,7 +116,7 @@ Para rutas **sin** layout (ej. login), se usa solo `path` y `Component`:
 
 ### 3. Agregar ítems en el menú lateral (opcional)
 
-El menú usa la estructura **`navMain`** en **`src/components/layout/AppSidebar.tsx`**, que admite ítems simples, ítems con subítems colapsables y separadores.
+El menú usa la estructura **`navMain`** en **`src/config/navigation.ts`**, que admite ítems simples, ítems con subítems colapsables y separadores. Esta misma configuración alimenta el **breadcrumb** del header de forma automática.
 
 **Tipos:**
 
@@ -156,7 +156,7 @@ import { Settings } from "lucide-react";
 { type: "separator" },
 ```
 
-Se agrega en el array `navMain` en el orden deseado. Los ítems con `items` se abren/cierran al hacer clic; si la ruta actual coincide con un subítem, su padre se abre automáticamente.
+Se agrega en el array `navMain` en el orden deseado. Los ítems con `items` se abren/cierran al hacer clic; si la ruta actual coincide con un subítem, su padre se abre automáticamente. El breadcrumb del header se genera automáticamente a partir de `navMain`: los títulos y URLs definidos ahí se usan como etiquetas del breadcrumb según la ruta activa.
 
 ### Resumen de archivos a tocar
 
@@ -164,7 +164,7 @@ Se agrega en el array `navMain` en el orden deseado. Los ítems con `items` se a
 |------|---------|--------|
 | 1 | `src/pages/<seccion>/<NombrePagina>.tsx` | Crear el componente de la página |
 | 2 | `src/router/AppRouter.tsx` | Importar el componente y agregar la ruta en `routes` |
-| 3 | `src/components/layout/AppSidebar.tsx` | (Opcional) Agregar entrada en `navMain`: ítem, ítem con `items`, o `{ type: "separator" }` |
+| 3 | `src/config/navigation.ts` | (Opcional) Agregar entrada en `navMain`: ítem, ítem con `items`, o `{ type: "separator" }` |
 
 ## Componentes de tipografía (`src/components/text`)
 
