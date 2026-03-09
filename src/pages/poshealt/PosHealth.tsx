@@ -2,21 +2,32 @@ import { useState } from "react";
 import { DataTable } from "@/components/ui/data-table"; import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { DEVICE_OPTIONS, type DeviceOption } from "@/config/options";
-import { deviceColumns, type Device } from "../../components/tables/deviceColumns";
-import { deviceBatteryColumns, type DeviceBattery } from "../../components/tables/deviceBatteryColumns";
+import { deviceColumns, type Device } from "@/components/tables/deviceColumns";
+import { deviceBatteryColumns, type DeviceBattery } from "@/components/tables/deviceBatteryColumns";
+import { devicePrinterColumns, type DevicePrinter } from "@/components/tables/devicePrinterColumns";
+import { deviceConnectionColumns, type DeviceConnection } from "@/components/tables/deviceconectionsColumns";
 import devicesJson from "../../../public/mockups/getAlldevices.json" with { type: "json" };
 import devicesBatteryJson from "../../../public/mockups/getAllDevicesBatery.json" with { type: "json" };
+import devicesPrinterJson from "../../../public/mockups/getAllPrinterDevices.json" with { type: "json" };
+import devicesConnectionJson from "../../../public/mockups/getAllconectionsDevices.json" with { type: "json" };
 
 
 const PosHealth = () => {
 
-    const devicesData = devicesJson as { total: number; rows: Device[] };
+    const devicesData = devicesJson as { total: number; rows: Device[]; };
     const devices: Device[] = devicesData.rows ?? [];
 
-    const devicesBatteryData = devicesBatteryJson as { total: number; rows: DeviceBattery[] };
+    const devicesBatteryData = devicesBatteryJson as { total: number; rows: DeviceBattery[]; };
     const batteries: DeviceBattery[] = devicesBatteryData.rows ?? [];
+
+    const devicesPrinterData = devicesPrinterJson as { total: number; rows: DevicePrinter[]; };
+    const printers: DevicePrinter[] = devicesPrinterData.rows ?? [];
+
+    const devicesConnectionData = devicesConnectionJson as { total: number; rows: DeviceConnection[]; };
+    const connections: DeviceConnection[] = devicesConnectionData.rows ?? [];
+
     const [device, setDevice] = useState<DeviceOption>(DEVICE_OPTIONS[0]);
-    // const [tableSelected, setTableSelected] = useState<string>("devices");
+
     console.log("device", device);
 
     return (
@@ -37,8 +48,8 @@ const PosHealth = () => {
             </div>
             {device === "Dispositivo" && <DataTable columns={deviceColumns} data={devices} />}
             {device === "Bateria" && <DataTable columns={deviceBatteryColumns} data={batteries} />}
-            {/* {device === "Impresora" && <DataTable columns={printerColumns} data={printers} />}
-            {device === "Conexion" && <DataTable columns={connectionColumns} data={connections} />} */}
+            {device === "Impresora" && <DataTable columns={devicePrinterColumns} data={printers} />}
+            {device === "Conexion" && <DataTable columns={deviceConnectionColumns} data={connections} />}
         </div>
     );
 };

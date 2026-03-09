@@ -9,6 +9,10 @@ export interface Device {
   posSerial: string;
   posBrand: string;
   posModel: string;
+  usedFlash: number;
+  usedRam: number;
+  certificateType: string;
+  tamperStatus: string;
 
 }
 

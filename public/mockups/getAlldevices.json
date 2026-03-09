@@ -13,7 +13,8 @@
             "usedFlash": 58.42,
             "usedRam": 47.20,
             "certificateType": "Producción",
-            "tamperStatus": "Sin daño"
+            "tamperStatus": "Sin daño",
+            "magneticBandError": 0
         },
         {
             "posModel": "A910S",
