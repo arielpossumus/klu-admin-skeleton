@@ -10,22 +10,18 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { BAR_CHART_CONFIG, TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/lib/utils";
+import { BAR_CHART_CONFIG } from "@/config/chart.config";
+import { TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/config/options";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import ParagraphH4 from "../text/ParagraphH4";
-import graphDataJson from "../../../public/mockups/getAllTransactionsForGraph.json" with { type: "json" };
 
-type GraphChartItem = { columnName: string; totalApproved: number; totalRejected: number };
-type GraphDataResponse = { chartData?: GraphChartItem[] };
+export type BarChartDataItem = { hour: string; aprobadas: number; rechazadas: number; };
 
-const graphData = graphDataJson as GraphDataResponse;
-const chartDataFromApi = (graphData.chartData ?? []).map((item) => ({
-  hour: item.columnName,
-  aprobadas: item.totalApproved,
-  rechazadas: item.totalRejected,
-}));
+type BarChartsProps = {
+  data: BarChartDataItem[];
+};
 
-export function BarCharts() {
+export function MovementsBarCharts({ data }: BarChartsProps) {
   const [timePeriod, setTimePeriod] = useState<TimePeriodOption>("Anual");
   return (
     <>
@@ -45,7 +41,7 @@ export function BarCharts() {
         </ButtonGroup>
       </div>
       <ChartContainer config={BAR_CHART_CONFIG} className="h-[400px] w-full">
-        <BarChart accessibilityLayer data={chartDataFromApi} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+        <BarChart accessibilityLayer data={data} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
           <YAxis domain={[0, 16]} tickLine={false} axisLine={false} tickMargin={8} />
@@ -56,6 +52,5 @@ export function BarCharts() {
         </BarChart>
       </ChartContainer>
     </>
-
   );
 }

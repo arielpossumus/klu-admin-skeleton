@@ -46,7 +46,24 @@
     --color-sidebar-ring: var(--sidebar-ring);
     --color-background-login: var(--background-login);
     --color-foreground-login: var(--foreground-login);
-}
+    --color-orange-dark: var(--orange-dark);
+    --color-orange-light: var(--orange-light);
+    --color-orange-medium: var(--orange-medium);
+    --color-green-dark: var(--green-dark);
+    --color-green-light: var(--green-light);
+    --color-green-medium: var(--green-medium);
+    --color-blue-dark: var(--blue-dark);
+    --color-blue-light: var(--blue-light);
+    --color-blue-medium: var(--blue-medium);
+    --color-dark-gray: var(--dark-gray);
+    --color-light-gray: var(--light-gray);
+    --color-medium-gray: var(--medium-gray);
+    /* 
+    Ejemplo para agregar colores personalizados:
+    Uso: bg-warnincito text-warnincito-foreground
+    --color-warnincito: var(--warnincito);
+    --color-warnincito-foreground: var(--warnincito-foreground) */
+  }
 
 :root {
     --primary: #0B3C36;
@@ -83,6 +100,23 @@
     --sidebar-accent-foreground: #0B3C36;
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --orange-dark:#e96f16;
+    --orange-light:#fee1b4;
+    --orange-medium:#f99b1c;
+    --green-dark:#0b3c36;
+    --green-light:#afd8d8;
+    --green-medium:#087771;
+    --blue-dark:#31496a;
+    --blue-light:#c6daf8;
+    --blue-medium:#527098;
+    --dark-gray:#1e1e20;
+    --light-gray:#f2f0ef;
+    --medium-gray:#3a3c3d;
+    /*
+    Ejemplo para agregar colores personalizados:
+   Aca se define el color y el color del texto
+    --warnincito: #ad0000;
+    --warnincito-foreground: #5e0000; */
 }
 
 .dark {
@@ -117,6 +151,24 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --orange-dark:#e96f16;
+    --orange-light:#fee1b4;
+    --orange-medium:#f99b1c;
+    --green-dark:#0b3c36;
+    --green-light:#afd8d8;
+    --green-medium:#087771;
+    --blue-dark:#31496a;
+    --blue-light:#c6daf8;
+    --blue-medium:#527098;
+    --dark-gray:#1e1e20;
+    --light-gray:#f2f0ef;
+    --medium-gray:#3a3c3d;
+     /*
+    Ejemplo para agregar colores personalizados:
+    En dark mode
+   Aca se define el color y el color del texto
+    --warnincito: #ad0000;
+    --warnincito-foreground: #5e0000; */
 }
 
 @layer base {

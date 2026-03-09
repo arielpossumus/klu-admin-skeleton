@@ -20,7 +20,7 @@ import {
     CURRENCY_OPTIONS,
     type AggregationValue,
     type CurrencyOption,
-} from "@/lib/utils";
+} from "@/config/options";
 
 export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumber, transactionDailyNumber }: { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; }) {
     const [aggregation, setAggregation] = useState<AggregationValue>("total");
@@ -63,33 +63,33 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                 </ButtonGroup>
             </div>
             <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-                <Card className="@container/card bg-[#fbb755] border border-[#f99b1c] text-white">
+                <Card className="@container/card bg-orange-medium border border-orange-dark text-orange-light">
                     <CardHeader>
-                        <CardDescription className="text-xl text-white">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-orange-light">Transacciones aprobadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {salesNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[#0b3c36] border border-[#087771] text-white">
+                <Card className="@container/card bg-green-medium border border-green-dark text-green-light">
                     <CardHeader>
-                        <CardDescription className="text-xl text-white">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-green-light">Transacciones aprobadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {rejectionNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[#527098] border border-[#31496a] text-white">
+                <Card className="@container/card bg-blue-medium border border-blue-dark text-blue-light">
                     <CardHeader>
-                        <CardDescription className="text-xl text-white">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-blue-light">Transacciones aprobadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {transactionDailyNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[#3a3c3d] border border-[#1e1e20] text-white">
+                <Card className="@container/card bg-medium-gray border border-dark-gray text-light-gray">
                     <CardHeader>
-                        <CardDescription className="text-xl text-white">Monto acumulado del dia </CardDescription>
+                        <CardDescription className="text-xl text-light-gray">Monto acumulado del dia </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {accumulatedAmountDay}
                         </CardTitle>
