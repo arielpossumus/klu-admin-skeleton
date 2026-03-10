@@ -6,8 +6,8 @@ const formatValue = (value: unknown): string => {
 
 const DetailRow = ({ label, value }: { label: string; value: unknown; }) => (
     <div className="flex flex-col gap-0.5 py-1">
-        <span className="text-sm font-medium text-foreground">{label}:</span>
-        <span className="text-sm text-muted-foreground">{formatValue(value)}</span>
+        <span className="text-sm  text-muted-foreground text-foreground">{label}:</span>
+        <span className="text-sm  font-medium">{formatValue(value)}</span>
     </div>
 );
 

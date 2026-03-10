@@ -63,33 +63,33 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                 </ButtonGroup>
             </div>
             <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-                <Card className="@container/card bg-orange-medium border border-orange-dark text-orange-light">
+                <Card className="@container/card bg-[var(--color-success-dark)] text-[var(--color-success-light)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-orange-light">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-success-light)]">Transacciones aprobadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {salesNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-green-medium border border-green-dark text-green-light">
+                <Card className="@container/card bg-[var(--color-error-dark)] border-2 border-[var(--color-error-light)] text-[var(--color-error-light)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-green-light">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-error-light)]">Transacciones rechazadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {rejectionNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-blue-medium border border-blue-dark text-blue-light">
+                <Card className="@container/card bg-[var(--color-warning-dark)] border-2 border-[var(--color-warning-light)] text-[var(--color-warning-light)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-blue-light">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-warning-light)]">Transacciones diarias </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {transactionDailyNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-medium-gray border border-dark-gray text-light-gray">
+                <Card className="@container/card bg-[var(--color-info-dark)] border-2 border-[var(--color-info-light)] text-[var(--color-info-light)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-light-gray">Monto acumulado del dia </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-info-light)]">Monto acumulado del dia </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {accumulatedAmountDay}
                         </CardTitle>
