@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { DataTable } from "@/components/ui/data-table"; import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from "@/components/ui/data-table";
+import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { DEVICE_OPTIONS, type DeviceOption } from "@/config/options";
 import { deviceColumns, type Device } from "@/components/tables/deviceColumns";
@@ -10,9 +12,17 @@ import devicesJson from "../../../public/mockups/getAlldevices.json" with { type
 import devicesBatteryJson from "../../../public/mockups/getAllDevicesBatery.json" with { type: "json" };
 import devicesPrinterJson from "../../../public/mockups/getAllPrinterDevices.json" with { type: "json" };
 import devicesConnectionJson from "../../../public/mockups/getAllconectionsDevices.json" with { type: "json" };
-
+import { TablesLoader } from "@/components/loaders/TablesLoader";
 
 const PosHealth = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
 
     const devicesData = devicesJson as { total: number; rows: Device[]; };
     const devices: Device[] = devicesData.rows ?? [];
@@ -27,6 +37,23 @@ const PosHealth = () => {
     const connections: DeviceConnection[] = devicesConnectionData.rows ?? [];
 
     const [device, setDevice] = useState<DeviceOption>(DEVICE_OPTIONS[0]);
+
+    let tableConfig: { columns: ColumnDef<unknown, unknown>[]; data: unknown[]; };
+    switch (device) {
+        case "Dispositivo":
+            tableConfig = { columns: deviceColumns as ColumnDef<unknown, unknown>[], data: devices };
+            break;
+        case "Bateria":
+            tableConfig = { columns: deviceBatteryColumns as ColumnDef<unknown, unknown>[], data: batteries };
+            break;
+        case "Impresora":
+            tableConfig = { columns: devicePrinterColumns as ColumnDef<unknown, unknown>[], data: printers };
+            break;
+        case "Conexion":
+        default:
+            tableConfig = { columns: deviceConnectionColumns as ColumnDef<unknown, unknown>[], data: connections };
+            break;
+    }
 
     return (
         <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
@@ -44,10 +71,7 @@ const PosHealth = () => {
                     ))}
                 </ButtonGroup>
             </div>
-            {device === "Dispositivo" && <DataTable columns={deviceColumns} data={devices} />}
-            {device === "Bateria" && <DataTable columns={deviceBatteryColumns} data={batteries} />}
-            {device === "Impresora" && <DataTable columns={devicePrinterColumns} data={printers} />}
-            {device === "Conexion" && <DataTable columns={deviceConnectionColumns} data={connections} />}
+            {isLoading ? <TablesLoader columnCount={10} rowCount={10} loadingText="Cargando datos de dispositivos POS" /> : <DataTable columns={tableConfig.columns} data={tableConfig.data} />}
         </div>
     );
 };

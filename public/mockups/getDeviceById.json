@@ -44,7 +44,7 @@
         "gsmQuality": 1,
         "errorRate": 0,
         "gsmSIMPresent": false,
-        "gsmMobileSignal": 0,
+        "gsmMobileSignal": 25,
         "gsmSIMState": "No Presente",
         "wifiName": "Pago_Facil",
         "wifiSignal": 80,
