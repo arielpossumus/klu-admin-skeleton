@@ -1,0 +1,32 @@
+{
+    "status": true,
+    "message": "OK",
+    "filterType": "DIARIO",
+    "chartData": [
+        { "index": 0, "columnName": "00:00", "totalApproved": 3, "totalRejected": 2 },
+        { "index": 1, "columnName": "01:00", "totalApproved": 2, "totalRejected": 1 },
+        { "index": 2, "columnName": "02:00", "totalApproved": 1, "totalRejected": 0 },
+        { "index": 3, "columnName": "03:00", "totalApproved": 4, "totalRejected": 3 },
+        { "index": 4, "columnName": "04:00", "totalApproved": 5, "totalRejected": 4 },
+        { "index": 5, "columnName": "05:00", "totalApproved": 12, "totalRejected": 8 },
+        { "index": 6, "columnName": "06:00", "totalApproved": 28, "totalRejected": 11 },
+        { "index": 7, "columnName": "07:00", "totalApproved": 45, "totalRejected": 18 },
+        { "index": 8, "columnName": "08:00", "totalApproved": 72, "totalRejected": 22 },
+        { "index": 9, "columnName": "09:00", "totalApproved": 98, "totalRejected": 31 },
+        { "index": 10, "columnName": "10:00", "totalApproved": 115, "totalRejected": 28 },
+        { "index": 11, "columnName": "11:00", "totalApproved": 134, "totalRejected": 35 },
+        { "index": 12, "columnName": "12:00", "totalApproved": 142, "totalRejected": 42 },
+        { "index": 13, "columnName": "13:00", "totalApproved": 128, "totalRejected": 38 },
+        { "index": 14, "columnName": "14:00", "totalApproved": 156, "totalRejected": 45 },
+        { "index": 15, "columnName": "15:00", "totalApproved": 168, "totalRejected": 39 },
+        { "index": 16, "columnName": "16:00", "totalApproved": 152, "totalRejected": 44 },
+        { "index": 17, "columnName": "17:00", "totalApproved": 138, "totalRejected": 36 },
+        { "index": 18, "columnName": "18:00", "totalApproved": 118, "totalRejected": 29 },
+        { "index": 19, "columnName": "19:00", "totalApproved": 89, "totalRejected": 24 },
+        { "index": 20, "columnName": "20:00", "totalApproved": 64, "totalRejected": 19 },
+        { "index": 21, "columnName": "21:00", "totalApproved": 42, "totalRejected": 14 },
+        { "index": 22, "columnName": "22:00", "totalApproved": 21, "totalRejected": 7 },
+        { "index": 23, "columnName": "23:00", "totalApproved": 8, "totalRejected": 5 }
+    ],
+    "charts": null
+}

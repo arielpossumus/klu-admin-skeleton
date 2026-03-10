@@ -14,6 +14,20 @@ export const BAR_CHART_CONFIG = {
   },
 } satisfies ChartConfig;
 
+export const LINE_CHART_CONFIG = {
+  hour: {
+    label: "Hora",
+  },
+  aprobadas: {
+    label: "Aprobadas",
+    color: "#22c55e",
+  },
+  rechazadas: {
+    label: "Rechazadas",
+    color: "#ef4444",
+  },
+} satisfies ChartConfig;
+
 export const RING_CHART_CONFIG = {
   aprobadas: {
     label: "Aprobadas",
