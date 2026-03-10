@@ -36,9 +36,8 @@ const Header = () => {
             </BreadcrumbItem>
           ) : (
             items.map(({ path, label }, index) => {
-              const isFirst = index === 0;
               const isLast = index === items.length - 1;
-              const isLink = !isFirst && !isLast;
+              const isLink = !isLast;
               return (
                 <React.Fragment key={path}>
                   {index > 0 && <BreadcrumbSeparator />}

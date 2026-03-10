@@ -4,6 +4,7 @@ import Components from "@/pages/components/Components";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import AdminLayout from "@/layouts/AdminLayout";
 import PosHealth from "@/pages/poshealt/PosHealth";
+import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
 import CorporativoTop from "@/pages/corporativo/CorporativoTop";
 import CorporativoListado from "@/pages/corporativo/CorporativoListado";
 
@@ -20,9 +21,12 @@ const routes = [
     children: [{ index: true, Component: Dashboard }],
   },
   {
-    path: "/poshealth",
+    path: "/pos-health",
     Component: AdminLayout,
-    children: [{ index: true, Component: PosHealth }],
+    children: [
+      { index: true, Component: PosHealth },
+      { path: ":serialId", Component: PosHealthDetail },
+    ],
   },
   {
     path: "/corporativo",
