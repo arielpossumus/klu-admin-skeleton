@@ -32,7 +32,7 @@ export function TablesLoader({ columnCount = DEFAULT_COLUMN_COUNT, rowCount = DE
                             <TableRow>
                                 {Array.from({ length: columnCount }).map((_, index) => (
                                     <TableHead key={index}>
-                                        <Skeleton className="h-4 w-full min-w-[4rem]" />
+                                        <Skeleton className="h-4 w-full min-w-[4rem] bg-muted" />
                                     </TableHead>
                                 ))}
                             </TableRow>
@@ -42,7 +42,7 @@ export function TablesLoader({ columnCount = DEFAULT_COLUMN_COUNT, rowCount = DE
                                 <TableRow key={rowIndex}>
                                     {Array.from({ length: columnCount }).map((_, colIndex) => (
                                         <TableCell key={colIndex}>
-                                            <Skeleton className="h-4 w-full min-w-[3rem]" />
+                                            <Skeleton className="h-4 w-full min-w-[3rem] bg-muted" />
                                         </TableCell>
                                     ))}
                                 </TableRow>
@@ -52,10 +52,10 @@ export function TablesLoader({ columnCount = DEFAULT_COLUMN_COUNT, rowCount = DE
                 </div>
             </div>
             <div className="flex items-center justify-between px-2">
-                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-24 bg-muted" />
                 <div className="flex gap-2">
-                    <Skeleton className="h-8 w-20" />
-                    <Skeleton className="h-8 w-20" />
+                    <Skeleton className="h-8 w-20 bg-muted" />
+                    <Skeleton className="h-8 w-20 bg-muted" />
                 </div>
             </div>
         </div>

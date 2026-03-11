@@ -12,9 +12,12 @@ const getUsageLevel = (total: number, used: number): number => {
     return Math.min(100, Math.max(0, (used / total) * 100));
 };
 
-/** 0-19 green, 20-79 orange, 80-100 red (usage: low = good) */
-const getUsageColor = (level: number): string =>
-    level <= 19 ? "#22c55e" : level <= 79 ? "#fb923c" : "#ef4444";
+/** 0-59% success, 60-79% warning, 80-100% error */
+const getUsageColor = (level: number): string => {
+    if (level < 60) return "var(--color-success-dark)";
+    if (level < 80) return "var(--color-warning-dark)";
+    return "var(--color-error-dark)";
+};
 
 export const UsageRadial = ({ total, used, label, displayTotal, displayUsed }: UsageRadialProps) => {
     const level = getUsageLevel(total, used);
