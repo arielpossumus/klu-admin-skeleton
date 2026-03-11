@@ -1,4 +1,5 @@
 import ParagraphH4 from "@/components/text/ParagraphH4";
+import SectionTitle from "@/components/text/SectionTitle";
 import { SectionCards } from "@/components/commons/SectionCards";
 import { MovementsChart } from "@/components/charts/MovementsCharts";
 import getTrxValues from "../../../public/mockups/getTrxValues.json" with { type: "json" };
@@ -31,7 +32,8 @@ const incidentsData = [
 const Dashboard = () => {
     const data = getTrxValues?.data_response?.MXN as { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; };
     return (
-        <div className="flex flex-1 flex-col">
+        <>
+            <SectionTitle title="Dashboard" subtitle="Centro de control y estadísticas" />
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <Card>
@@ -66,7 +68,7 @@ const Dashboard = () => {
 
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

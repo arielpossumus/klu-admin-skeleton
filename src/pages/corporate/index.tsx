@@ -4,9 +4,9 @@ import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.
 import { corporateColumns } from "@/components/tables/corporateColumns";
 import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
-import ParagraphH1 from "@/components/text/ParagraphH1";
-const CorporateIndex = () => {
+import SectionTitle from "@/components/text/SectionTitle";
 
+const CorporateIndex = () => {
   const data = corporatesJson?.rows as CorporateGrid[];
 
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ const CorporateIndex = () => {
 
   return (
     <>
-      <ParagraphH1 text="Grilla de corporativos" />
+      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" />
       {isLoading ? <TablesLoader columnCount={5} rowCount={5} loadingText="Cargando datos de corporativos" /> : (
         <DataTable columns={corporateColumns} data={data} />
       )}
