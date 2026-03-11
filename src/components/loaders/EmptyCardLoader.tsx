@@ -2,7 +2,7 @@ import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from "@/
 import { Spinner } from "@/components/ui/spinner";
 import { CheckIcon } from "lucide-react";
 
-const EmptyCardLoader = ({ title, description, okIcon = false }: { title: string; description: string; okIcon: boolean; }) => {
+const EmptyCardLoader = ({ title, description, okIcon = false }: { title: string; description: string; okIcon?: boolean; }) => {
     return (
         <Empty className="w-full">
             <EmptyHeader>
