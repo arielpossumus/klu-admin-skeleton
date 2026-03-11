@@ -65,6 +65,7 @@ export function MovementsChart() {
               variant={timePeriod === opt ? "default" : "outline"}
               size="sm"
               onClick={() => OnChangeTimePeriod(opt)}
+              className={timePeriod === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
             >
               {opt}
             </Button>

@@ -88,6 +88,7 @@ export function TopCorporativosChart() {
               variant={month === opt ? "default" : "outline"}
               size="sm"
               onClick={() => setMonth(opt)}
+              className={month === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
             >
               {opt}
             </Button>

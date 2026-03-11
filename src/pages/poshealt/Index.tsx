@@ -70,6 +70,7 @@ const PosHealth = () => {
                                     variant={device === opt ? "default" : "outline"}
                                     size="sm"
                                     onClick={() => setDevice(opt)}
+                                    className={device === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
                                 >
                                     {opt}
                                 </Button>

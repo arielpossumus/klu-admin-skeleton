@@ -1,8 +1,8 @@
-import Login from "@/pages/login/Login";
+import Login from "@/pages/login/Index";
 import AdminLayout from "@/layouts/AdminLayout";
 import Components from "@/pages/components/Components";
-import Dashboard from "@/pages/dashboard/Dashboard";
-import PosHealth from "@/pages/poshealt/PosHealth";
+import Dashboard from "@/pages/dashboard/Index";
+import PosHealth from "@/pages/poshealt/Index";
 import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
 import CorporateIndex from "@/pages/corporate/index";
 

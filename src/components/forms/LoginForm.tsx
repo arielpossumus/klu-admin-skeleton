@@ -99,7 +99,7 @@ export function LoginForm({
                                         <FieldError errors={errors.password ? [errors.password] : undefined} />
                                     </Field>
                                     <Field>
-                                        <Button type="submit">Ingresar</Button>
+                                        <Button type="submit" className="w-full bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]">Ingresar</Button>
                                     </Field>
                                 </FieldGroup>
                             </form>
