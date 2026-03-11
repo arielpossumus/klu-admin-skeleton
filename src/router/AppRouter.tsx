@@ -5,8 +5,7 @@ import Dashboard from "@/pages/dashboard/Dashboard";
 import AdminLayout from "@/layouts/AdminLayout";
 import PosHealth from "@/pages/poshealt/PosHealth";
 import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
-import CorporativoTop from "@/pages/corporativo/CorporativoTop";
-import CorporativoListado from "@/pages/corporativo/CorporativoListado";
+import CorporateIndex from "@/pages/corporate/index";
 
 const routes = [
   { path: "/", Component: Login },
@@ -29,11 +28,11 @@ const routes = [
     ],
   },
   {
-    path: "/corporativo",
+    path: "/corporate",
     Component: AdminLayout,
     children: [
-      { path: "top", Component: CorporativoTop },
-      { path: "listado", Component: CorporativoListado },
+      { index: true, Component: CorporateIndex },
+
     ],
   },
 ];

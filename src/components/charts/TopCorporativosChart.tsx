@@ -13,16 +13,12 @@ import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts";
 import ParagraphH4 from "@/components/text/ParagraphH4";
 import dataFebrero from "../../../public/mockups/dashboard/top/getlAllTopCorporativosFebrero.json" with { type: "json" };
 import dataMarzo from "../../../public/mockups/dashboard/top/getlAllTopCorporativosMarzo.json" with { type: "json" };
-
-type TopRow = { ranking: number; corporativo: string; transacciones: number; monto: number; };
-type TopResponse = { period: string; data: TopRow[]; };
+import type { TopResponse, TopCorporativosMonthOption } from "@/types/dashboard/topCorporativosChart";
 
 const DATA_SOURCE = {
   Febrero: dataFebrero as TopResponse,
   Marzo: dataMarzo as TopResponse,
 } as const;
-
-type MonthOption = keyof typeof DATA_SOURCE;
 
 const LEFT_ALIGN_X = 4;
 const LABEL_MAX_CHARS_ONE_LINE = 18;
@@ -70,7 +66,7 @@ function YAxisTickLeft(props: { x?: number; y?: number; payload?: { value?: stri
 }
 
 export function TopCorporativosChart() {
-  const [month, setMonth] = useState<MonthOption>("Febrero");
+  const [month, setMonth] = useState<TopCorporativosMonthOption>("Febrero");
 
   const { chartData } = useMemo(() => {
     const source = DATA_SOURCE[month];

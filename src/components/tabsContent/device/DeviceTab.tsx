@@ -3,30 +3,8 @@ import { UsageRadial } from "@/components/charts/UsageRadial";
 import { formatKBtoMB } from "@/lib/format";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";
 import DetailRow from "../../text/detailRow";
-
-/** Objeto con los datos del dispositivo (detalle / getDeviceById.dispositivo) */
-interface DeviceDetail {
-    totalRAM?: number;
-    totalFlash?: number;
-    usedRam?: number;
-    usedFlash?: number;
-    owner?: string;
-    certificateType?: string;
-    tamperStatus?: string;
-    operativeSystem?: string;
-    sdkVersion?: string;
-    msrReadCount?: number;
-    chipReadCount?: number;
-    msrTrack1ErrorCounter?: number;
-    msrTrack2ErrorCounter?: number;
-    msrTrack3ErrorCounter?: number;
-    chipReadError?: number;
-}
-
-interface DeviceTabProps {
-    device: DeviceDetail;
-    isLoading: boolean;
-}
+import type { DeviceDetail } from "@/types/device/DeviceDetail";
+import type { DeviceTabProps } from "@/types/device/DeviceTabProps";
 
 export const DeviceTab = ({ device, isLoading }: DeviceTabProps) => {
     return (

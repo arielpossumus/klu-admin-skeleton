@@ -8,14 +8,9 @@ import {
 } from "@/components/ui/chart";
 import { INCIDENTS_BAR_CHART_CONFIG, INCIDENT_COLORS } from "@/config/chart.config";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import type { IncidentsBarChartProps } from "@/types/dashboard/incidentsBarChart";
 
-
-
-export type IncidentDataItem = { categoria: string; porcentaje: number; };
-
-type IncidentsBarChartProps = {
-  data: IncidentDataItem[];
-};
+export type { IncidentDataItem } from "@/types/dashboard/incidentsBarChart";
 
 export function IncidentsBarChart({ data }: IncidentsBarChartProps) {
   return (

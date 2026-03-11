@@ -9,14 +9,8 @@ import { PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { IncidentsBarChart } from "@/components/charts/IncidentsBarChart";
 import { TopCorporativosChart } from "@/components/charts/TopCorporativosChart";
 import { Card } from "@/components/ui/card";
-
-type PanelInfoResponse = {
-    visaAcceptance?: number;
-    mastercardAcceptance?: number;
-    carnetAcceptance?: number;
-    amexAcceptance?: number;
-    otherBrandsAcceptance?: number;
-};
+import type { PanelInfoResponse } from "@/types/dashboard/PanelInfoResponse";
+import type { IncidentsResponse } from "@/types/dashboard/IncidentsResponse";
 
 const panelInfo = panelInfoJson as PanelInfoResponse;
 const panelPieData = [
@@ -26,12 +20,6 @@ const panelPieData = [
     { name: "amex", value: panelInfo.amexAcceptance ?? 0 },
     { name: "otros", value: panelInfo.otherBrandsAcceptance ?? 0 },
 ];
-
-type IncidentsResponse = {
-    batteryIncidentsPercentage?: number;
-    printerIncidentsPercentage?: number;
-    connectionIncidentsPercentage?: number;
-};
 
 const incidents = incidentsJson as IncidentsResponse;
 const incidentsData = [

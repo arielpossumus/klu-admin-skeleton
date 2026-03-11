@@ -2,16 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
 
-export interface DevicePrinter {
-    posCorporation: string;
-    posBusiness: string;
-    posBranch?: string;
-    posSerial: string;
-    posBrand: string;
-    posModel: string;
-    printerAvailable?: string;
-    printerState?: string;
-}
+import type { DevicePrinter } from "@/types/device/DevicePrinter";
 
 export const devicePrinterColumns: ColumnDef<DevicePrinter>[] = [
     {

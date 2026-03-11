@@ -20,9 +20,7 @@ import dataByMonth from "../../../public/mockups/dashboard/movements/getAllTrans
 import dataByWeek from "../../../public/mockups/dashboard/movements/getAllTransactionsByWeek.json" with { type: "json" };
 import dataByDay from "../../../public/mockups/dashboard/movements/getAllTransactionsByDay.json" with { type: "json" };
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
-
-type ChartDataItem = { columnName: string; totalApproved: number; totalRejected: number; };
-type MovementsResponse = { chartData?: ChartDataItem[]; };
+import type { MovementsResponse } from "@/types/dashboard/movementsChart";
 
 const toLineData = (raw: MovementsResponse): { hour: string; aprobadas: number; rechazadas: number; }[] =>
   (raw?.chartData ?? []).map((item) => ({
@@ -38,7 +36,7 @@ const DATA_SOURCE: Record<TimePeriodOption, MovementsResponse> = {
   Diario: dataByDay as MovementsResponse,
 };
 
-export type LineChartDataItem = { hour: string; aprobadas: number; rechazadas: number; };
+export type { LineChartDataItem } from "@/types/dashboard/movementsChart";
 
 export function MovementsChart() {
   const [timePeriod, setTimePeriod] = useState<TimePeriodOption>("Anual");

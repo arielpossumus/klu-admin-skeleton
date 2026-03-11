@@ -18,11 +18,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
-
-interface LoginFormValues {
-    email: string;
-    password: string;
-}
+import type { LoginFormValues } from "@/types/auth/LoginFormValues";
 
 export function LoginForm({
     className,

@@ -1,5 +1,4 @@
 import {
-  type ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -15,11 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-}
+import type { DataTableProps } from "@/types/ui/DataTableProps";
 
 export const DataTable = <TData, TValue>({
   columns,

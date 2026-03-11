@@ -8,12 +8,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Spinner } from "@/components/ui/spinner";
-
-interface TablesLoaderProps {
-    columnCount?: number;
-    rowCount?: number;
-    loadingText?: string;
-}
+import type { TablesLoaderProps } from "@/types/ui/TablesLoaderProps";
 
 const DEFAULT_COLUMN_COUNT = 5;
 const DEFAULT_ROW_COUNT = 5;

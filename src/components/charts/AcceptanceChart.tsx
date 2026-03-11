@@ -12,6 +12,9 @@ import {
 import type { ChartConfig } from "@/components/ui/chart";
 import { BAR_COLORS, PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import type { AcceptanceChartProps } from "@/types/dashboard/acceptanceChart";
+
+export type { PieChartDataItem } from "@/types/dashboard/acceptanceChart";
 
 function getBarFill(config: ChartConfig, name: string, index: number): string {
   const entry = config[name as keyof typeof config];
@@ -21,13 +24,6 @@ function getBarFill(config: ChartConfig, name: string, index: number): string {
       : undefined;
   return color ?? BAR_COLORS[index % BAR_COLORS.length];
 }
-
-export type PieChartDataItem = { name: string; value: number };
-
-type AcceptanceChartProps = {
-  data: PieChartDataItem[];
-  config?: ChartConfig;
-};
 
 export function AcceptanceChart({
   data,

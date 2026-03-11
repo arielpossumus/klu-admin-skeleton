@@ -1,16 +1,7 @@
 import EmptyCardLoader from "../../loaders/EmptyCardLoader";
 import DetailRow from "../../text/detailRow";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-
-interface PrinterDeviceTabProps {
-    printer: {
-        printerAvailable?: string;
-        printerState?: string;
-        temperature?: string;
-        headVoltage?: string;
-    };
-    isLoading: boolean;
-}
+import type { PrinterDeviceTabProps } from "@/types/device/PrinterDeviceTabProps";
 
 export const PrinterDeviceTab = ({ printer, isLoading }: PrinterDeviceTabProps) => {
     return (

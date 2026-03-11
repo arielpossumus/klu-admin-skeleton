@@ -62,6 +62,22 @@ npm run build
 npm run preview   # previsualizar el build
 ```
 
+## Pasos para mostrar una DataGrid con datos
+
+1. **Definir el tipo de fila**  
+   Crear una interfaz TypeScript con los campos de cada fila (en `src/types/` o en el archivo de columnas). Ejemplo: `interface MiRecurso { id: number; nombre: string; }`.
+
+2. **Definir las columnas**  
+   En `src/components/tables/<recurso>Columns.tsx` exportar un array `ColumnDef<TipoFila>[]` con `accessorKey`, `header` y opcionalmente `cell` para personalizar la celda (badges, enlaces, etc.).
+
+3. **Obtener los datos**  
+   Tener un array de objetos que cumplan el tipo de fila: desde un JSON estático (mock), desde `useQuery` (React Query) o desde estado local.
+
+4. **Renderizar el DataTable**  
+   En la página importar `DataTable` de `@/components/ui/data-table`, las columnas y el tipo; renderizar `<DataTable columns={columnas} data={datos} />`.
+
+Para ejemplos de código, estructura de columnas y archivos a tocar, ver **[Uso del DataTable (tabla de datos)](#uso-del-datatable-tabla-de-datos)** más abajo.
+
 ## Crear una nueva página y configurar el ruteo
 
 ### 1. Crear el componente de página

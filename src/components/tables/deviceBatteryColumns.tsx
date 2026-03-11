@@ -1,19 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
 
-export interface DeviceBattery {
-    posId: number;
-    posCorporation: string;
-    posBusiness: string;
-    posBranch?: string;
-    posSerial: string;
-    posBrand: string;
-    posModel: string;
-    batteryAvailable: string;
-    chargeLevel: number;
-    charging: string;
-    connected: string;
-}
+import type { DeviceBattery } from "@/types/device/DeviceBattery";
 
 export const deviceBatteryColumns: ColumnDef<DeviceBattery>[] = [
     {
