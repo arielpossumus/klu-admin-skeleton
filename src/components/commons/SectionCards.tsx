@@ -63,33 +63,33 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                 </ButtonGroup>
             </div>
             <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-                <Card className="@container/card bg-[var(--color-success-dark)] text-[var(--color-success-light)]">
+                <Card className="@container/card bg-[var(--color-success-light)] border-2 border-[var(--color-success-light)] text-[var(--color-success-dark)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-success-light)]">Transacciones aprobadas </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-success-dark)]">Transacciones aprobadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {salesNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[var(--color-error-dark)] border-2 border-[var(--color-error-light)] text-[var(--color-error-light)]">
+                <Card className="@container/card bg-[var(--color-error-light)] border-2 border-[var(--color-error-light)] text-[var(--color-error-dark)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-error-light)]">Transacciones rechazadas </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-error-dark)]">Transacciones rechazadas </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {rejectionNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[var(--color-warning-dark)] border-2 border-[var(--color-warning-light)] text-[var(--color-warning-light)]">
+                <Card className="@container/card bg-[var(--color-warning-light)] border-2 border-[var(--color-warning-light)] text-[var(--color-warning-dark)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-warning-light)]">Transacciones diarias </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-warning-dark)]">Transacciones diarias </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {transactionDailyNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
-                <Card className="@container/card bg-[var(--color-info-dark)] border-2 border-[var(--color-info-light)] text-[var(--color-info-light)]">
+                <Card className="@container/card bg-[var(--color-info-light)] border-2 border-[var(--color-info-light)] text-[var(--color-info-dark)]">
                     <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-info-light)]">Monto acumulado del dia </CardDescription>
+                        <CardDescription className="text-xl text-[var(--color-info-dark)]">Monto acumulado del dia </CardDescription>
                         <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
                             {accumulatedAmountDay}
                         </CardTitle>

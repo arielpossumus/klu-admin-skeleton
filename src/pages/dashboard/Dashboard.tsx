@@ -1,17 +1,14 @@
 import ParagraphH4 from "@/components/text/ParagraphH4";
 import { SectionCards } from "@/components/commons/SectionCards";
-import { Separator } from "@/components/ui/separator";
-import { MovementsBarCharts } from "@/components/charts/MovementsBarCharts";
+import { MovementsChart } from "@/components/charts/MovementsCharts";
 import getTrxValues from "../../../public/mockups/getTrxValues.json" with { type: "json" };
-import graphDataJson from "../../../public/mockups/getAllTransactionsForGraph.json" with { type: "json" };
-import panelInfoJson from "../../../public/mockups/getPanelInformation.json" with { type: "json" };
+import panelInfoJson from "../../../public/mockups/dashboard/acceptance/getPanelInformation.json" with { type: "json" };
 import incidentsJson from "../../../public/mockups/getAllPosIncidents.json" with { type: "json" };
-import { AcceptancePieChart } from "@/components/charts/AcceptancePieChart";
+import { AcceptanceChart } from "@/components/charts/AcceptanceChart";
 import { PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { IncidentsBarChart } from "@/components/charts/IncidentsBarChart";
-
-type GraphChartItem = { columnName: string; totalApproved: number; totalRejected: number; };
-type GraphDataResponse = { chartData?: GraphChartItem[]; };
+import { TopCorporativosChart } from "@/components/charts/TopCorporativosChart";
+import { Card } from "@/components/ui/card";
 
 type PanelInfoResponse = {
     visaAcceptance?: number;
@@ -20,13 +17,6 @@ type PanelInfoResponse = {
     amexAcceptance?: number;
     otherBrandsAcceptance?: number;
 };
-
-const graphData = graphDataJson as GraphDataResponse;
-const chartDataForBar = (graphData.chartData ?? []).map((item) => ({
-    hour: item.columnName,
-    aprobadas: item.totalApproved,
-    rechazadas: item.totalRejected,
-}));
 
 const panelInfo = panelInfoJson as PanelInfoResponse;
 const panelPieData = [
@@ -56,22 +46,36 @@ const Dashboard = () => {
         <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                    <SectionCards accumulatedAmountDay={data.accumulatedAmountDay} salesNumber={data.salesNumber} rejectionNumber={data.rejectionNumber} transactionDailyNumber={data.transactionDailyNumber} />
+                    <Card>
+                        <SectionCards accumulatedAmountDay={data.accumulatedAmountDay} salesNumber={data.salesNumber} rejectionNumber={data.rejectionNumber} transactionDailyNumber={data.transactionDailyNumber} />
+                    </Card>
                 </div>
-                <Separator />
+
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                    <MovementsBarCharts data={chartDataForBar} />
+                    <Card className="p-4">
+                        <MovementsChart />
+                    </Card>
                 </div>
-                <Separator />
-                <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-2 md:gap-6 md:py-6">
-                    <div className="flex flex-col gap-4">
-                        <ParagraphH4 text="Porcentaje de aceptacion" />
-                        <AcceptancePieChart data={panelPieData} config={PANEL_PIE_CHART_CONFIG} />
+
+                <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-3 md:gap-6 md:py-6">
+                    <div className="flex h-full flex-col gap-4">
+                        <Card className="flex h-full flex-col p-4">
+                            <TopCorporativosChart />
+                        </Card>
                     </div>
-                    <div className="flex flex-col gap-4">
-                        <ParagraphH4 text="Incidentes POS Health" />
-                        <IncidentsBarChart data={incidentsData} />
+                    <div className="flex h-full flex-col gap-4">
+                        <Card className="flex h-full flex-col p-4">
+                            <ParagraphH4 text="Porcentaje de aceptacion" />
+                            <AcceptanceChart data={panelPieData} config={PANEL_PIE_CHART_CONFIG} />
+                        </Card>
                     </div>
+                    <div className="flex h-full flex-col gap-4">
+                        <Card className="flex h-full flex-col p-4">
+                            <ParagraphH4 text="Incidentes POS Health" />
+                            <IncidentsBarChart data={incidentsData} />
+                        </Card>
+                    </div>
+
                 </div>
             </div>
         </div>
