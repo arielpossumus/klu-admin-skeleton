@@ -4,8 +4,8 @@
     "transactionNumber": null,
     "visaAcceptance": 32.91,
     "mastercardAcceptance": 26.31,
-    "carnetAcceptance": 2.7,
-    "amexAcceptance": 0.08,
+    "carnetAcceptance": 10,
+    "amexAcceptance": 10,
     "otherBrandsAcceptance": 38.02,
     "trxBriefings": null
 }

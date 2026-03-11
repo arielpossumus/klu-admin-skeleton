@@ -1,0 +1,35 @@
+{
+    "period": "Marzo 2026",
+    "data": [
+        {
+            "ranking": 1,
+            "corporativo": "AFFIPAY",
+            "transacciones": 672,
+            "monto": 312450.80
+        },
+        {
+            "ranking": 2,
+            "corporativo": "BLUMON PAY ",
+            "transacciones": 0,
+            "monto": 185200.00
+        },
+        {
+            "ranking": 3,
+            "corporativo": "AFFIPAY GUATEMALA",
+            "transacciones": 0,
+            "monto": 94200.50
+        },
+        {
+            "ranking": 4,
+            "corporativo": "ADMINISTRACION DE PLAZAS ESPECIALIZADAS ",
+            "transacciones": 0,
+            "monto": 67800.25
+        },
+        {
+            "ranking": 5,
+            "corporativo": "BANCA MIFEL",
+            "transacciones": 0,
+            "monto": 41950.00
+        }
+    ]
+}
