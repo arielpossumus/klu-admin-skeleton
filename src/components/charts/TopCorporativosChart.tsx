@@ -101,7 +101,7 @@ export function TopCorporativosChart() {
           layout="vertical"
           accessibilityLayer
           data={chartData}
-          margin={{ top: 8, right: 8, bottom: 8, left: 0 }}
+          margin={{ top: 8, right: 100, bottom: 8, left: 0 }}
         >
           <XAxis type="number" hide />
           <YAxis
@@ -141,7 +141,33 @@ export function TopCorporativosChart() {
               );
             }}
           />
-          <Bar dataKey="monto" name="Monto" radius={[0, 4, 4, 0]} barSize={28} maxBarSize={36}>
+          <Bar
+            dataKey="monto"
+            name="Monto"
+            radius={[0, 4, 4, 0]}
+            barSize={28}
+            maxBarSize={36}
+            label={({ x, y, width, height, value, index }) => {
+              const formatted = formatMonto(value ?? 0);
+              const isInsideBar = index < 2;
+              const padding = 8;
+              const textX = isInsideBar ? (x ?? 0) + padding : (x ?? 0) + (width ?? 0) + padding;
+              const textY = (y ?? 0) + (height ?? 0) / 2;
+
+              return (
+                <text
+                  x={textX}
+                  y={textY}
+                  textAnchor="start"
+                  dominantBaseline="middle"
+                  className="text-xs font-medium"
+                  fill={isInsideBar ? "white" : "var(--muted-foreground)"}
+                >
+                  {formatted}
+                </text>
+              );
+            }}
+          >
             {chartData.map((_, index) => (
               <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
             ))}

@@ -29,7 +29,7 @@ const PosHealthDetail = () => {
 
     return (
         <div className="flex flex-1 flex-col">
-            <SectionTitle title={`${device.posBrand} ${device.posModel}`} subtitle={`Serial: ${serialDevice}`} />
+            <SectionTitle title={`${device.posBrand} ${device.posModel}`} subtitle={`Serial: ${serialDevice}`} actionName="Editar Dispositivo" showButton={false} showBadge={false} />
             <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
                 <Tabs defaultValue="dispositivo" className="w-full">
                     <TabsList className="inline-flex w-full justify-start rounded-xl bg-[var(--primary-foreground)] p-1.5">

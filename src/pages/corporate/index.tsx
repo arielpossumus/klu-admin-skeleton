@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.json" with { type: "json" };
 import { corporateColumns } from "@/components/tables/corporateColumns";
-import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
+import type { CorporateGrid } from "@/types/Corporate/CorporateGrid";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import SectionTitle from "@/components/text/SectionTitle";
 import { Card } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, FileDown, FileBraces, FileCode, FileText, FileType, Database, Sheet } from "lucide-react";
+import { ChevronDown, FileDown, FileBraces, FileCode, FileText, FileType, Database, Sheet, Plus } from "lucide-react";
 
 const CorporateIndex = () => {
   const data = corporatesJson?.rows as CorporateGrid[];
@@ -23,7 +23,7 @@ const CorporateIndex = () => {
 
   return (
     <>
-      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" />
+      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" actionName="Agregar Corporativo " actionIcon={Plus} showButton={true} />
       <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
         <Card className="p-4">
           <div className="flex flex-wrap items-center justify-end gap-3">

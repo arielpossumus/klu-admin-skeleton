@@ -1,8 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
-import { Badge } from "@/components/ui/badge";
 
-import { type CorporateGrid } from "@/types/corporate/CorporateGrid";
+import { type CorporateGrid } from "@/types/Corporate/CorporateGrid";
 
 export const corporateColumns: ColumnDef<CorporateGrid>[] = [
     {
@@ -12,6 +11,19 @@ export const corporateColumns: ColumnDef<CorporateGrid>[] = [
     {
         accessorKey: "corporateName",
         header: "Nombre",
+        cell: ({ row }) => {
+            const name = row.getValue<string>("corporateName");
+            const corporateId = row.getValue<number>("corporateId");
+            if (!name) return "—";
+            return (
+                <Link
+                    to={`/corporate/${corporateId}`}
+                    className="text-primary underline underline-offset-4 hover:no-underline"
+                >
+                    {name}
+                </Link>
+            );
+        },
     },
     {
         accessorKey: "corporateFiid",

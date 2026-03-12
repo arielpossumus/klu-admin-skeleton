@@ -5,7 +5,7 @@ import Dashboard from "@/pages/dashboard/Index";
 import PosHealth from "@/pages/poshealt/Index";
 import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
 import CorporateIndex from "@/pages/corporate/index";
-
+import CorporateDetail from "@/pages/corporate/CorporateDetail";
 export const routes = [
     { path: "/", Component: Login },
     {
@@ -31,6 +31,7 @@ export const routes = [
         Component: AdminLayout,
         children: [
             { index: true, Component: CorporateIndex },
+            { path: ":corporateId", Component: CorporateDetail },
         ],
     },
 ];

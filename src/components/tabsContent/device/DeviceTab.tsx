@@ -3,7 +3,6 @@ import { UsageRadial } from "@/components/charts/UsageRadial";
 import { formatKBtoMB } from "@/lib/format";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";
 import DetailRow from "../../text/detailRow";
-import type { DeviceDetail } from "@/types/device/DeviceDetail";
 import type { DeviceTabProps } from "@/types/device/DeviceTabProps";
 
 export const DeviceTab = ({ device, isLoading }: DeviceTabProps) => {

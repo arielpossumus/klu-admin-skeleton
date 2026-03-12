@@ -45,7 +45,7 @@ export function AcceptanceChart({
       <BarChart
         accessibilityLayer
         data={chartData}
-        margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+        margin={{ top: 20, right: 8, bottom: 8, left: 8 }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
@@ -60,7 +60,21 @@ export function AcceptanceChart({
           content={<ChartTooltipContent />}
           formatter={(value: number) => `${value}%`}
         />
-        <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={56}>
+        <Bar
+          dataKey="value"
+          radius={[4, 4, 0, 0]}
+          barSize={56}
+          label={({ x, y, width, value }) => (
+            <text
+              x={(x ?? 0) + (width ?? 0) / 2}
+              y={(y ?? 0) - 6}
+              textAnchor="middle"
+              className="fill-muted-foreground text-xs font-medium"
+            >
+              {value}%
+            </text>
+          )}
+        >
           {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={getBarFill(config, entry.name, index)} />
           ))}
