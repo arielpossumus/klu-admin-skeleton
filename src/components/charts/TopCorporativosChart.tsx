@@ -13,16 +13,12 @@ import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts";
 import ParagraphH4 from "@/components/text/ParagraphH4";
 import dataFebrero from "../../../public/mockups/dashboard/top/getlAllTopCorporativosFebrero.json" with { type: "json" };
 import dataMarzo from "../../../public/mockups/dashboard/top/getlAllTopCorporativosMarzo.json" with { type: "json" };
-
-type TopRow = { ranking: number; corporativo: string; transacciones: number; monto: number; };
-type TopResponse = { period: string; data: TopRow[]; };
+import type { TopResponse, TopCorporativosMonthOption } from "@/types/dashboard/topCorporativosChart";
 
 const DATA_SOURCE = {
   Febrero: dataFebrero as TopResponse,
   Marzo: dataMarzo as TopResponse,
 } as const;
-
-type MonthOption = keyof typeof DATA_SOURCE;
 
 const LEFT_ALIGN_X = 4;
 const LABEL_MAX_CHARS_ONE_LINE = 18;
@@ -70,7 +66,7 @@ function YAxisTickLeft(props: { x?: number; y?: number; payload?: { value?: stri
 }
 
 export function TopCorporativosChart() {
-  const [month, setMonth] = useState<MonthOption>("Febrero");
+  const [month, setMonth] = useState<TopCorporativosMonthOption>("Febrero");
 
   const { chartData } = useMemo(() => {
     const source = DATA_SOURCE[month];
@@ -92,6 +88,7 @@ export function TopCorporativosChart() {
               variant={month === opt ? "default" : "outline"}
               size="sm"
               onClick={() => setMonth(opt)}
+              className={month === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
             >
               {opt}
             </Button>
@@ -104,7 +101,7 @@ export function TopCorporativosChart() {
           layout="vertical"
           accessibilityLayer
           data={chartData}
-          margin={{ top: 8, right: 8, bottom: 8, left: 0 }}
+          margin={{ top: 8, right: 100, bottom: 8, left: 0 }}
         >
           <XAxis type="number" hide />
           <YAxis
@@ -144,7 +141,33 @@ export function TopCorporativosChart() {
               );
             }}
           />
-          <Bar dataKey="monto" name="Monto" radius={[0, 4, 4, 0]} barSize={28} maxBarSize={36}>
+          <Bar
+            dataKey="monto"
+            name="Monto"
+            radius={[0, 4, 4, 0]}
+            barSize={28}
+            maxBarSize={36}
+            label={({ x, y, width, height, value, index }) => {
+              const formatted = formatMonto(value ?? 0);
+              const isInsideBar = index < 2;
+              const padding = 8;
+              const textX = isInsideBar ? (x ?? 0) + padding : (x ?? 0) + (width ?? 0) + padding;
+              const textY = (y ?? 0) + (height ?? 0) / 2;
+
+              return (
+                <text
+                  x={textX}
+                  y={textY}
+                  textAnchor="start"
+                  dominantBaseline="middle"
+                  className="text-xs font-medium"
+                  fill={isInsideBar ? "white" : "var(--muted-foreground)"}
+                >
+                  {formatted}
+                </text>
+              );
+            }}
+          >
             {chartData.map((_, index) => (
               <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
             ))}

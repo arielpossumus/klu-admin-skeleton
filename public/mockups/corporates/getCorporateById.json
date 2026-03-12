@@ -1,0 +1,16 @@
+{
+    "status": true,
+    "date": "06/03/2026",
+    "time": "12:25:52",
+    "data_response": {
+        "name": "AFFIPAY",
+        "fiid": "AUTOFIN MEXICO",
+        "status": "ACTIVO",
+        "corporateData": {
+            "rsaKey": "A000BMPY70",
+            "logoIndex": "splash1.png",
+            "logoTicket": "1.png",
+            "ModeloCorporativo": "Agregador"
+        }
+    }
+}

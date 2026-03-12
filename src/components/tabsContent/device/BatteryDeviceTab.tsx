@@ -3,26 +3,8 @@ import DetailRowYesNo from "../../text/detailRowYesNo";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import EmptyCardLoader from "../../loaders/EmptyCardLoader";
 import DetailRow from "../../text/detailRow";
-
-/** Objeto con los datos de la batería (detalle / getDeviceById.bateria) */
-interface BatteryDetail {
-    chargeLevel?: number;
-    charging?: boolean;
-    connected?: boolean;
-    batteryAvailable?: string;
-    batteryStatus?: string;
-    hasBattery?: boolean;
-    voltage?: string;
-    capacity?: string;
-    internalBatteryStatus?: string;
-    internalBatteryVoltage?: string;
-    temperature?: string;
-}
-
-interface BatteryDeviceTabProps {
-    battery: BatteryDetail;
-    isLoading: boolean;
-}
+import type { BatteryDetail } from "@/types/device/BatteryDetail";
+import type { BatteryDeviceTabProps } from "@/types/device/BatteryDeviceTabProps";
 
 export const BatteryDeviceTab = ({ battery, isLoading }: BatteryDeviceTabProps) => {
     return (

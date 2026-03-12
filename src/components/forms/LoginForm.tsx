@@ -18,11 +18,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
-
-interface LoginFormValues {
-    email: string;
-    password: string;
-}
+import type { LoginFormValues } from "@/types/auth/LoginFormValues";
 
 export function LoginForm({
     className,
@@ -103,7 +99,7 @@ export function LoginForm({
                                         <FieldError errors={errors.password ? [errors.password] : undefined} />
                                     </Field>
                                     <Field>
-                                        <Button type="submit">Ingresar</Button>
+                                        <Button type="submit" className="w-full bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]">Ingresar</Button>
                                     </Field>
                                 </FieldGroup>
                             </form>

@@ -1,4 +1,5 @@
 import ParagraphH4 from "@/components/text/ParagraphH4";
+import SectionTitle from "@/components/text/SectionTitle";
 import { SectionCards } from "@/components/commons/SectionCards";
 import { MovementsChart } from "@/components/charts/MovementsCharts";
 import getTrxValues from "../../../public/mockups/getTrxValues.json" with { type: "json" };
@@ -9,14 +10,8 @@ import { PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { IncidentsBarChart } from "@/components/charts/IncidentsBarChart";
 import { TopCorporativosChart } from "@/components/charts/TopCorporativosChart";
 import { Card } from "@/components/ui/card";
-
-type PanelInfoResponse = {
-    visaAcceptance?: number;
-    mastercardAcceptance?: number;
-    carnetAcceptance?: number;
-    amexAcceptance?: number;
-    otherBrandsAcceptance?: number;
-};
+import type { PanelInfoResponse } from "@/types/dashboard/PanelInfoResponse";
+import type { IncidentsResponse } from "@/types/dashboard/IncidentsResponse";
 
 const panelInfo = panelInfoJson as PanelInfoResponse;
 const panelPieData = [
@@ -26,12 +21,6 @@ const panelPieData = [
     { name: "amex", value: panelInfo.amexAcceptance ?? 0 },
     { name: "otros", value: panelInfo.otherBrandsAcceptance ?? 0 },
 ];
-
-type IncidentsResponse = {
-    batteryIncidentsPercentage?: number;
-    printerIncidentsPercentage?: number;
-    connectionIncidentsPercentage?: number;
-};
 
 const incidents = incidentsJson as IncidentsResponse;
 const incidentsData = [
@@ -43,7 +32,8 @@ const incidentsData = [
 const Dashboard = () => {
     const data = getTrxValues?.data_response?.MXN as { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; };
     return (
-        <div className="flex flex-1 flex-col">
+        <>
+            <SectionTitle title="Dashboard" subtitle="Centro de control y estadísticas" />
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <Card>
@@ -78,7 +68,7 @@ const Dashboard = () => {
 
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

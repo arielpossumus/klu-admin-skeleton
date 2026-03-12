@@ -49,12 +49,9 @@ export const navMain: NavEntry[] = [
   { type: "separator" },
   {
     title: "Corporativo",
-    url: "#",
+    url: "/corporate",
     icon: Building,
-    items: [
-      { title: "Top", url: "/corporativo/top" },
-      { title: "Grilla de corporativos", url: "/corporativo/listado" },
-    ],
+
   },
   {
     title: "Comercios",

@@ -3,19 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WifiSignalIndicator from "@/components/charts/WifiSignalIndicator";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";
 import { Monitor, ScreenShareOff, Globe, GlobeLock, CardSim } from "lucide-react";
-interface ConnectionDeviceTabProps {
-    connection: {
-        wifiSignal?: number;
-        wifiName?: string;
-        gsmMobileSignal?: number;
-        mobileOperatorName?: string;
-        gsmSIMPresent?: string;
-        gsmSIMState?: string;
-        ethernet?: string;
-        networkInitialized?: string;
-    };
-    isLoading: boolean;
-}
+import type { ConnectionDeviceTabProps } from "@/types/device/ConnectionDeviceTabProps";
 
 const formatValue = (value: unknown): string => {
     if (value === undefined || value === null) return "";

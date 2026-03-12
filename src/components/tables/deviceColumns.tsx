@@ -2,20 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
 
-export interface Device {
-  posId: number;
-  posCorporation: string;
-  posBusiness: string;
-  posBranch?: string;
-  posSerial: string;
-  posBrand: string;
-  posModel: string;
-  usedFlash: number;
-  usedRam: number;
-  certificateType: string;
-  tamperStatus: string;
-
-}
+import type { Device } from "@/types/device/Device";
 
 export const deviceColumns: ColumnDef<Device>[] = [
   {

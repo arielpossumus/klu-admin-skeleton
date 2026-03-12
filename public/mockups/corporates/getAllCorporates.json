@@ -1,0 +1,78 @@
+{
+    "status": true,
+    "message": "",
+    "total": 13,
+    "rows": [
+        {
+            "corporateName": "AFFIPAY",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 1,
+            "corporateFiid": "AUTOFIN MEXICO"
+        },
+        {
+            "corporateName": "BLUMON PAY",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 2,
+            "corporateFiid": "BANKAOOL"
+        },
+        {
+            "corporateName": "AFFIPAY GUATEMALA",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 3,
+            "corporateFiid": "AUTOFIN MEXICO"
+        },
+        {
+            "corporateName": "BANCA MIFEL",
+            "corporateTypeBank": "ISO",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 4,
+            "corporateFiid": "AUTOFIN MEXICO"
+        },
+        {
+            "corporateName": "ADMINISTRACION DE PLAZAS ESPECIALIZADAS",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 5,
+            "corporateFiid": "MIFEL"
+        },
+        {
+            "corporateName": "ONSIGNA",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 6,
+            "corporateFiid": "AUTOFIN MEXICO"
+        },
+        {
+            "corporateName": "CRUZ ROJA",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 7,
+            "corporateFiid": "AUTOFIN MEXICO"
+        },
+        {
+            "corporateName": "SR PAGO",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 8,
+            "corporateFiid": "CIBANCO"
+        },
+        {
+            "corporateName": "CI BANCO",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 9,
+            "corporateFiid": "CIBANCO"
+        },
+        {
+            "corporateName": "PAGA FACIL",
+            "corporateTypeBank": "INTEGRADOR",
+            "corporateStatus": "ACTIVO",
+            "corporateId": 10,
+            "corporateFiid": "AUTOFIN MEXICO"
+        }
+    ],
+    "objectList": null
+}

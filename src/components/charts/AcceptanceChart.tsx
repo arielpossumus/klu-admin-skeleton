@@ -12,6 +12,9 @@ import {
 import type { ChartConfig } from "@/components/ui/chart";
 import { BAR_COLORS, PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import type { AcceptanceChartProps } from "@/types/dashboard/acceptanceChart";
+
+export type { PieChartDataItem } from "@/types/dashboard/acceptanceChart";
 
 function getBarFill(config: ChartConfig, name: string, index: number): string {
   const entry = config[name as keyof typeof config];
@@ -21,13 +24,6 @@ function getBarFill(config: ChartConfig, name: string, index: number): string {
       : undefined;
   return color ?? BAR_COLORS[index % BAR_COLORS.length];
 }
-
-export type PieChartDataItem = { name: string; value: number };
-
-type AcceptanceChartProps = {
-  data: PieChartDataItem[];
-  config?: ChartConfig;
-};
 
 export function AcceptanceChart({
   data,
@@ -49,7 +45,7 @@ export function AcceptanceChart({
       <BarChart
         accessibilityLayer
         data={chartData}
-        margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+        margin={{ top: 20, right: 8, bottom: 8, left: 8 }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
@@ -64,7 +60,21 @@ export function AcceptanceChart({
           content={<ChartTooltipContent />}
           formatter={(value: number) => `${value}%`}
         />
-        <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={56}>
+        <Bar
+          dataKey="value"
+          radius={[4, 4, 0, 0]}
+          barSize={56}
+          label={({ x, y, width, value }) => (
+            <text
+              x={(x ?? 0) + (width ?? 0) / 2}
+              y={(y ?? 0) - 6}
+              textAnchor="middle"
+              className="fill-muted-foreground text-xs font-medium"
+            >
+              {value}%
+            </text>
+          )}
+        >
           {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={getBarFill(config, entry.name, index)} />
           ))}

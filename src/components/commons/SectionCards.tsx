@@ -54,6 +54,7 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                         <Button
                             key={opt}
                             variant={currency === opt ? "default" : "outline"}
+                            className={currency === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
                             size="sm"
                             onClick={() => setCurrency(opt)}
                         >

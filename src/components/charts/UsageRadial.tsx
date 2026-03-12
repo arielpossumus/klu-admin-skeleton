@@ -1,11 +1,4 @@
-interface UsageRadialProps {
-    total: number;
-    used: number;
-    label: string;
-    /** Valores en bruto para mostrar debajo del porcentaje (ej. total RAM, RAM usada) */
-    displayTotal?: unknown;
-    displayUsed?: unknown;
-}
+import type { UsageRadialProps } from "@/types/ui/UsageRadialProps";
 
 const getUsageLevel = (total: number, used: number): number => {
     if (!Number.isFinite(total) || total <= 0 || !Number.isFinite(used) || used < 0) return 0;
