@@ -1,5 +1,5 @@
 import EmptyCardLoader from "../../loaders/EmptyCardLoader";
-import DetailRow from "../../text/detailRow";
+import DetailRow from "../../text/DetailRow";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import type { PrinterDeviceTabProps } from "@/types/device/PrinterDeviceTabProps";
 

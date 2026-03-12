@@ -2,7 +2,7 @@ import { ChargeLevelRadial } from "../../charts/ChargeLevelRadial";
 import DetailRowYesNo from "../../text/detailRowYesNo";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import EmptyCardLoader from "../../loaders/EmptyCardLoader";
-import DetailRow from "../../text/detailRow";
+import DetailRow from "../../text/DetailRow";
 import type { BatteryDetail } from "@/types/device/BatteryDetail";
 import type { BatteryDeviceTabProps } from "@/types/device/BatteryDeviceTabProps";
 

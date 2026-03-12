@@ -1,4 +1,4 @@
-import DetailRow from "@/components/text/detailRow";
+import { DetailRow } from "@/components/text/DetailRow";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WifiSignalIndicator from "@/components/charts/WifiSignalIndicator";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";

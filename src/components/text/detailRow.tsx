@@ -4,11 +4,9 @@ const formatValue = (value: unknown): string => {
     return String(value);
 };
 
-const DetailRow = ({ label, value }: { label: string; value: unknown; }) => (
-    <div className="flex flex-col gap-0.5 py-1">
+export const DetailRow = ({ label, value }: { label: string; value: unknown; }) => (
+    <div className="flex flex-col gap-0.5 py-1 mb-4">
         <span className="text-sm  text-muted-foreground text-foreground">{label}:</span>
         <span className="text-sm  font-medium">{formatValue(value)}</span>
     </div>
 );
-
-export default DetailRow;
