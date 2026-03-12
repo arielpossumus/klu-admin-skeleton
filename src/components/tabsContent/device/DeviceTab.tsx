@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UsageRadial } from "@/components/charts/UsageRadial";
 import { formatKBtoMB } from "@/lib/format";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";
-import DetailRow from "../../text/detailRow";
+import DetailRow from "../../text/DetailRow";
 import type { DeviceTabProps } from "@/types/device/DeviceTabProps";
 
 export const DeviceTab = ({ device, isLoading }: DeviceTabProps) => {

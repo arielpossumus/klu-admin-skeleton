@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -19,13 +20,19 @@ import type { DataTableProps } from "@/types/ui/DataTableProps";
 export const DataTable = <TData, TValue>({
   columns,
   data,
+  getRowId,
+  expandedRowId = null,
+  renderExpandedContent,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
+    getRowId: getRowId ? (row, _index) => getRowId(row as TData) : undefined,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  const columnCount = columns.length;
 
   return (
     <div className="space-y-4">
@@ -50,20 +57,31 @@ export const DataTable = <TData, TValue>({
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="transition-shadow duration-200 hover:relative hover:z-10 hover:bg-[var(--secondary-foreground)] hover:shadow-[0_-6px_20px_rgba(0,0,0,0.1),0_6px_20px_rgba(0,0,0,0.16)]"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="px-5 py-3">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Fragment key={row.id}>
+                  <TableRow
+                    data-state={row.getIsSelected() && "selected"}
+                    className="transition-shadow duration-200 hover:relative hover:z-10 hover:bg-[var(--secondary-foreground)] hover:shadow-[0_-6px_20px_rgba(0,0,0,0.1),0_6px_20px_rgba(0,0,0,0.16)]"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="px-5 py-3">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                  {expandedRowId === row.id && renderExpandedContent && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columnCount}
+                        className="bg-muted/40 px-5 py-4"
+                      >
+                        {renderExpandedContent(row.original as TData)}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </Fragment>
               ))
             ) : (
               <TableRow>
