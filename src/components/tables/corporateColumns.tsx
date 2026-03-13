@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
 
-import { type CorporateGrid } from "@/types/Corporate/CorporateGrid";
+import { type CorporateGrid } from "@/types/corporate/CorporateGrid";
 
 export const corporateColumns: ColumnDef<CorporateGrid>[] = [
     {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.json" with { type: "json" };
 import { corporateColumns } from "@/components/tables/corporateColumns";
-import type { CorporateGrid } from "@/types/Corporate/CorporateGrid";
+import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import SectionTitle from "@/components/text/SectionTitle";
 import { Card } from "@/components/ui/card";

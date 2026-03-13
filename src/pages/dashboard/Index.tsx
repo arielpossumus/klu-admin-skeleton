@@ -30,6 +30,7 @@ const incidentsData = [
 ];
 
 const Dashboard = () => {
+
     const data = getTrxValues?.data_response?.MXN as { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; };
     return (
         <>
