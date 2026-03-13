@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { ChevronDown, Eraser, ListFilter } from "lucide-react";
 import SectionTitle from "@/components/text/SectionTitle";
 import { DataTable } from "@/components/ui/data-table";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
     getPosHealthColumns,
     PosHealthExpandedContent,
@@ -16,27 +21,42 @@ import devicesBatteryJson from "../../../public/mockups/getAllDevicesBatery.json
 import devicesPrinterJson from "../../../public/mockups/getAllPrinterDevices.json" with { type: "json" };
 import devicesConnectionJson from "../../../public/mockups/getAllconectionsDevices.json" with { type: "json" };
 import { TablesLoader } from "@/components/loaders/TablesLoader";
+import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.json" with { type: "json" };
+import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
+import ParagraphH3 from "@/components/text/ParagraphH4";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { type PosHealthFiltersFormValues, EMPTY_FILTERS } from "@/types/filters/CorporateFilters";
+import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+
+
 
 const PosHealth = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
     const [expandedType, setExpandedType] = useState<PosHealthExpandedType>(null);
+    const [filters, setFilters] = useState<PosHealthFiltersFormValues | undefined>(undefined);
+    const [filtersOpen, setFiltersOpen] = useState(true);
+    const dataCorporates = (corporatesJson?.rows ?? []) as CorporateGrid[];
 
     useEffect(() => {
         const t = setTimeout(() => setIsLoading(false), 3000);
         return () => clearTimeout(t);
     }, []);
 
-    const devicesData = devicesJson as { total: number; rows: Device[] };
+    const devicesData = devicesJson as { total: number; rows: Device[]; };
     const devices: Device[] = devicesData.rows ?? [];
 
-    const devicesBatteryData = devicesBatteryJson as { total: number; rows: DeviceBattery[] };
+    const devicesBatteryData = devicesBatteryJson as { total: number; rows: DeviceBattery[]; };
     const batteries: DeviceBattery[] = devicesBatteryData.rows ?? [];
 
-    const devicesPrinterData = devicesPrinterJson as { total: number; rows: DevicePrinter[] };
+    const devicesPrinterData = devicesPrinterJson as { total: number; rows: DevicePrinter[]; };
     const printers: DevicePrinter[] = devicesPrinterData.rows ?? [];
 
-    const devicesConnectionData = devicesConnectionJson as { total: number; rows: DeviceConnection[] };
+    const devicesConnectionData = devicesConnectionJson as { total: number; rows: DeviceConnection[]; };
     const connections: DeviceConnection[] = devicesConnectionData.rows ?? [];
 
     const handleActionClick = (serial: string, type: PosHealthExpandedType) => {
@@ -54,11 +74,138 @@ const PosHealth = () => {
         connections,
         onActionClick: handleActionClick,
     });
+    const { register, handleSubmit, reset, watch, control } = useForm<PosHealthFiltersFormValues>({
+        mode: "onTouched",
+        defaultValues: EMPTY_FILTERS,
+    });
+
+    const watched = watch();
+    const hasAnyFilter = [
+        watched.corporate,
+        watched.commerce,
+        watched.serial,
+        watched.brand,
+        watched.model,
+    ].some((v) => String(v).trim() !== "");
+
+    const onFilter = (values: PosHealthFiltersFormValues) => {
+        setFilters(values);
+    };
+
+    useEffect(() => {
+        if (filters !== undefined) console.log("filters", filters);
+    }, [filters]);
+
+    const onClearFilters = () => {
+        reset(EMPTY_FILTERS);
+        setFilters(undefined);
+    };
 
     return (
         <>
             <SectionTitle title="POS Health" subtitle="Dispositivos y estado de los mismos" />
             <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+                <Card className="p-4">
+                    <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen}>
+                        <CollapsibleTrigger asChild>
+                            <button
+                                type="button"
+                                className="flex w-full items-center justify-between gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                aria-expanded={filtersOpen}
+                            >
+                                <ParagraphH3 text="Filtrar" />
+                                <ChevronDown
+                                    className={`size-5 shrink-0 transition-transform ${filtersOpen ? "" : "-rotate-90"}`}
+                                    aria-hidden
+                                />
+                            </button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <form
+                                onSubmit={handleSubmit(onFilter)}
+                                className="flex flex-col gap-4 pt-4"
+                            >
+                                <FieldGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                                    <Field className="grid gap-2">
+                                        <FieldLabel htmlFor="poshealth-filter-corporate">Corporativo</FieldLabel>
+                                        <Controller
+                                            name="corporate"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <DropdownWithSearch
+                                                    id="poshealth-filter-corporate"
+                                                    options={dataCorporates.map((c) => ({
+                                                        value: String(c.corporateId),
+                                                        label: c.corporateName,
+                                                    }))}
+                                                    value={field.value}
+                                                    onValueChange={field.onChange}
+                                                    placeholder="Seleccione"
+                                                />
+                                            )}
+                                        />
+                                    </Field>
+                                    <Field className="grid gap-2">
+                                        <FieldLabel htmlFor="poshealth-filter-commerce">Comercio</FieldLabel>
+                                        <Input
+                                            id="poshealth-filter-commerce"
+                                            type="text"
+                                            placeholder="Comercio"
+                                            {...register("commerce")}
+                                        />
+                                    </Field>
+                                    <Field className="grid gap-2">
+                                        <FieldLabel htmlFor="poshealth-filter-serial">Serial</FieldLabel>
+                                        <Input
+                                            id="poshealth-filter-serial"
+                                            type="text"
+                                            placeholder="Serial"
+                                            {...register("serial")}
+                                        />
+                                    </Field>
+                                    <Field className="grid gap-2">
+                                        <FieldLabel htmlFor="poshealth-filter-brand">Marca</FieldLabel>
+                                        <Input
+                                            id="poshealth-filter-brand"
+                                            type="text"
+                                            placeholder="Marca"
+                                            {...register("brand")}
+                                        />
+                                    </Field>
+                                    <Field className="grid gap-2">
+                                        <FieldLabel htmlFor="poshealth-filter-model">Modelo</FieldLabel>
+                                        <Input
+                                            id="poshealth-filter-model"
+                                            type="text"
+                                            placeholder="Modelo"
+                                            {...register("model")}
+                                        />
+                                    </Field>
+                                </FieldGroup>
+                                <div className="flex flex-wrap justify-end gap-2">
+                                    <Button
+                                        type="submit"
+                                        disabled={!hasAnyFilter}
+                                        className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
+                                    >
+                                        <ListFilter className="size-4" />
+                                        Filtrar
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        disabled={!hasAnyFilter}
+                                        onClick={onClearFilters}
+                                        className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                                    >
+                                        <Eraser className="size-4" />
+                                        Borrar
+                                    </Button>
+                                </div>
+                            </form>
+                        </CollapsibleContent>
+                    </Collapsible>
+                </Card>
                 <Card className="p-4">
                     {isLoading ? (
                         <TablesLoader columnCount={7} rowCount={10} loadingText="Cargando datos de dispositivos POS" />
