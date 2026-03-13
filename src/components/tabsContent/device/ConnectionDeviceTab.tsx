@@ -1,5 +1,5 @@
-import { DetailRow } from "@/components/text/DetailRow";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Card, CardContent } from "@/components/ui/card";
 import WifiSignalIndicator from "@/components/charts/WifiSignalIndicator";
 import EmptyCardLoader from "@/components/loaders/EmptyCardLoader";
 import { Monitor, ScreenShareOff, Globe, GlobeLock, CardSim } from "lucide-react";

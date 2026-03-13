@@ -21,6 +21,7 @@ import {
     type AggregationValue,
     type CurrencyOption,
 } from "@/config/options";
+import ParagraphH4 from "../text/ParagraphH4";
 
 export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumber, transactionDailyNumber }: { accumulatedAmountDay: number; salesNumber: number; rejectionNumber: number; transactionDailyNumber: number; }) {
     const [aggregation, setAggregation] = useState<AggregationValue>("total");
@@ -29,16 +30,17 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
     const aggregationLabel = AGGREGATION_OPTIONS.find((o) => o.value === aggregation)?.label ?? "Total";
 
     return (
-        <div className="flex flex-col gap-4 px-4 lg:px-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-auto px-4 py-2 lg:px-6">
+            <div className="flex flex-nowrap items-center justify-between gap-2">
+                <ParagraphH4 text="Transacciones" />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="min-w-[12rem] justify-between">
+                        <Button variant="outline" size="sm" className="min-w-0 shrink justify-between gap-1 text-sm">
                             {aggregationLabel}
-                            <ChevronDown className="size-4 opacity-50" />
+                            <ChevronDown className="size-3.5 opacity-50" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start">
+                    <DropdownMenuContent align="start" className="text-sm">
                         {AGGREGATION_OPTIONS.map((opt) => (
                             <DropdownMenuItem
                                 key={opt.value}
@@ -49,7 +51,7 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                         ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <ButtonGroup>
+                <ButtonGroup className="shrink-0">
                     {CURRENCY_OPTIONS.map((opt) => (
                         <Button
                             key={opt}
@@ -63,35 +65,35 @@ export function SectionCards({ accumulatedAmountDay, salesNumber, rejectionNumbe
                     ))}
                 </ButtonGroup>
             </div>
-            <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 *:data-[slot=card]:shadow-xs">
                 <Card className="@container/card bg-[var(--color-success-light)] border-2 border-[var(--color-success-light)] text-[var(--color-success-dark)]">
-                    <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-success-dark)]">Transacciones aprobadas </CardDescription>
-                        <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
+                    <CardHeader className="p-3">
+                        <CardDescription className="text-md text-[var(--color-success-dark)]">Aprobadas</CardDescription>
+                        <CardTitle className="text-6xl font-semibold tabular-nums">
                             {salesNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
                 <Card className="@container/card bg-[var(--color-error-light)] border-2 border-[var(--color-error-light)] text-[var(--color-error-dark)]">
-                    <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-error-dark)]">Transacciones rechazadas </CardDescription>
-                        <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
+                    <CardHeader className="p-3">
+                        <CardDescription className="text-md text-[var(--color-error-dark)]">Rechazadas</CardDescription>
+                        <CardTitle className="text-6xl font-semibold tabular-nums">
                             {rejectionNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
                 <Card className="@container/card bg-[var(--color-warning-light)] border-2 border-[var(--color-warning-light)] text-[var(--color-warning-dark)]">
-                    <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-warning-dark)]">Transacciones diarias </CardDescription>
-                        <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
+                    <CardHeader className="p-3">
+                        <CardDescription className="text-md text-[var(--color-warning-dark)]">Diarias</CardDescription>
+                        <CardTitle className="text-6xl font-semibold tabular-nums">
                             {transactionDailyNumber}
                         </CardTitle>
                     </CardHeader>
                 </Card>
                 <Card className="@container/card bg-[var(--color-info-light)] border-2 border-[var(--color-info-light)] text-[var(--color-info-dark)]">
-                    <CardHeader>
-                        <CardDescription className="text-xl text-[var(--color-info-dark)]">Monto acumulado del dia </CardDescription>
-                        <CardTitle className="text-6xl font-semibold tabular-nums @[250px]/card:text-6xl">
+                    <CardHeader className="p-3">
+                        <CardDescription className="text-md text-[var(--color-info-dark)]">Acumulado</CardDescription>
+                        <CardTitle className="text-6xl font-semibold tabular-nums">
                             {accumulatedAmountDay}
                         </CardTitle>
                     </CardHeader>

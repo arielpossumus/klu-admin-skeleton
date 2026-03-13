@@ -55,8 +55,8 @@ export function MovementsChart() {
   };
 
   return (
-    <>
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-10">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-3">
         <ParagraphH4 text="Movimientos" />
         <ButtonGroup>
           {TIME_PERIOD_OPTIONS.map((opt) => (
@@ -75,7 +75,7 @@ export function MovementsChart() {
       {isLoading ? (
         <EmptyCardLoader title={timePeriod} description="Cargando datos..." okIcon={false} />
       ) : (
-        <ChartContainer config={LINE_CHART_CONFIG} className="h-[400px] w-full">
+        <ChartContainer config={LINE_CHART_CONFIG} className="h-[360px] min-h-0 w-full">
           <LineChart accessibilityLayer data={chartData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
@@ -101,6 +101,6 @@ export function MovementsChart() {
           </LineChart>
         </ChartContainer>
       )}
-    </>
+    </div>
   );
 }
