@@ -1,5 +1,16 @@
 import type { ChartConfig } from "@/components/ui/chart";
 
+export const DONUT_TRANSACTIONS_CONFIG = {
+  Aprobadas: {
+    label: "Aprobados",
+    color: "var(--color-success-dark)",
+  },
+  Rechazadas: {
+    label: "Rechazados",
+    color: "var(--color-error-dark)",
+  },
+} satisfies ChartConfig;
+
 export const BAR_CHART_CONFIG = {
   hour: {
     label: "Hora",
