@@ -1,4 +1,4 @@
-import ParagraphH4 from "@/components/text/ParagraphH4";
+
 import SectionTitle from "@/components/text/SectionTitle";
 import { MovementsChart } from "@/components/charts/MovementsCharts";
 import getTrxValues from "../../../public/mockups/getTrxValues.json" with { type: "json" };
@@ -8,7 +8,6 @@ import { AcceptanceChart } from "@/components/charts/AcceptanceChart";
 import { PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { IncidentsBarChart } from "@/components/charts/IncidentsBarChart";
 import { TopCorporativosChart } from "@/components/charts/TopCorporativosChart";
-import { Card } from "@/components/ui/card";
 import type { PanelInfoResponse } from "@/types/dashboard/PanelInfoResponse";
 import type { IncidentsResponse } from "@/types/dashboard/IncidentsResponse";
 import { CustomCard } from "@/components/commons/CustomCard";
@@ -53,24 +52,22 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-3 md:gap-6 md:py-6">
                 <div className="flex h-full flex-col gap-4">
-                    <Card className="flex h-full flex-col p-4">
+                    <CustomCard title="Top corporativos">
                         <TopCorporativosChart />
-                    </Card>
+                    </CustomCard>
                 </div>
                 <div className="flex h-full flex-col gap-4">
-                    <Card className="flex h-full flex-col p-4">
-                        <ParagraphH4 text="Porcentaje de aceptacion" />
+                    <CustomCard title="Porcentaje de aceptacion">
                         <AcceptanceChart data={panelPieData} config={PANEL_PIE_CHART_CONFIG} />
-                    </Card>
+                    </CustomCard>
                 </div>
                 <div className="flex h-full flex-col gap-4">
-                    <Card className="flex h-full flex-col p-4">
-                        <ParagraphH4 text="Incidentes POS Health" />
+                    <CustomCard title="Incidentes POS Health">
                         <IncidentsBarChart data={incidentsData} />
-                    </Card>
+                    </CustomCard>
                 </div>
 
-            </div>
+            </div >
 
         </>
     );

@@ -14,6 +14,7 @@ import ParagraphH4 from "@/components/text/ParagraphH4";
 import dataFebrero from "../../../public/mockups/dashboard/top/getlAllTopCorporativosFebrero.json" with { type: "json" };
 import dataMarzo from "../../../public/mockups/dashboard/top/getlAllTopCorporativosMarzo.json" with { type: "json" };
 import type { TopResponse, TopCorporativosMonthOption } from "@/types/dashboard/topCorporativosChart";
+import { Card } from "../ui/card";
 
 const DATA_SOURCE = {
   Febrero: dataFebrero as TopResponse,
@@ -78,106 +79,108 @@ export function TopCorporativosChart() {
     new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", minimumFractionDigits: 2 }).format(value);
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <ParagraphH4 text="Top Corporativos" />
-        <ButtonGroup>
-          {(["Febrero", "Marzo"] as const).map((opt) => (
-            <Button
-              key={opt}
-              variant={month === opt ? "default" : "outline"}
-              size="sm"
-              onClick={() => setMonth(opt)}
-              className={month === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
-            >
-              {opt}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </div>
-
-      <ChartContainer config={TOP_CORPORATIVOS_CHART_CONFIG} className="h-[280px] w-full">
-        <BarChart
-          layout="vertical"
-          accessibilityLayer
-          data={chartData}
-          margin={{ top: 8, right: 100, bottom: 8, left: 0 }}
-        >
-          <XAxis type="number" hide />
-          <YAxis
-            type="category"
-            dataKey="corporativo"
-            width={170}
-            tickLine={false}
-            axisLine={false}
-            tickMargin={0}
-            tick={<YAxisTickLeft />}
-          />
-          <ChartTooltip
-            formatter={(value: number) => formatMonto(value)}
-            labelFormatter={(_, payload) => payload?.[0]?.payload?.corporativo}
-            content={(props) => {
-              const { coordinate, active, payload, label } = props;
-              if (!active || !payload?.length) return null;
-              return (
-                <div
-                  className="recharts-tooltip-wrapper"
-                  style={{
-                    position: "absolute",
-                    left: 8,
-                    top: coordinate?.y != null ? coordinate.y - 24 : 0,
-                    transform: "translateY(-50%)",
-                  }}
-                >
-                  <ChartTooltipContent
-                    active={active}
-                    payload={payload as React.ComponentProps<typeof ChartTooltipContent>["payload"]}
-                    label={label}
-                    className="text-left"
-                    formatter={(val: unknown) => formatMonto(Number(val))}
-                    labelFormatter={(_, pl) => pl?.[0]?.payload?.corporativo}
-                  />
-                </div>
-              );
-            }}
-          />
-          <Bar
-            dataKey="monto"
-            name="Monto"
-            radius={[0, 4, 4, 0]}
-            barSize={28}
-            maxBarSize={36}
-            label={({ x, y, width, height, value, index }) => {
-              const formatted = formatMonto(value ?? 0);
-              const isInsideBar = index < 2;
-              const padding = 8;
-              const textX = isInsideBar ? (x ?? 0) + padding : (x ?? 0) + (width ?? 0) + padding;
-              const textY = (y ?? 0) + (height ?? 0) / 2;
-
-              return (
-                <text
-                  x={textX}
-                  y={textY}
-                  textAnchor="start"
-                  dominantBaseline="middle"
-                  className="text-xs font-medium"
-                  fill={isInsideBar ? "white" : "var(--muted-foreground)"}
-                >
-                  {formatted}
-                </text>
-              );
-            }}
-          >
-            {chartData.map((_, index) => (
-              <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+    <Card className="flex h-full flex-col p-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <ParagraphH4 text="Top Corporativos" />
+          <ButtonGroup>
+            {(["Febrero", "Marzo"] as const).map((opt) => (
+              <Button
+                key={opt}
+                variant={month === opt ? "default" : "outline"}
+                size="sm"
+                onClick={() => setMonth(opt)}
+                className={month === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
+              >
+                {opt}
+              </Button>
             ))}
-          </Bar>
-        </BarChart>
-      </ChartContainer>
+          </ButtonGroup>
+        </div>
 
-      <p className="text-xs text-muted-foreground">
-        Mostrando top 5 corporativos por monto en el período seleccionado.
-      </p>
-    </div>
+        <ChartContainer config={TOP_CORPORATIVOS_CHART_CONFIG} className="h-[280px] w-full">
+          <BarChart
+            layout="vertical"
+            accessibilityLayer
+            data={chartData}
+            margin={{ top: 8, right: 100, bottom: 8, left: 0 }}
+          >
+            <XAxis type="number" hide />
+            <YAxis
+              type="category"
+              dataKey="corporativo"
+              width={170}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={0}
+              tick={<YAxisTickLeft />}
+            />
+            <ChartTooltip
+              formatter={(value: number) => formatMonto(value)}
+              labelFormatter={(_, payload) => payload?.[0]?.payload?.corporativo}
+              content={(props) => {
+                const { coordinate, active, payload, label } = props;
+                if (!active || !payload?.length) return null;
+                return (
+                  <div
+                    className="recharts-tooltip-wrapper"
+                    style={{
+                      position: "absolute",
+                      left: 8,
+                      top: coordinate?.y != null ? coordinate.y - 24 : 0,
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    <ChartTooltipContent
+                      active={active}
+                      payload={payload as React.ComponentProps<typeof ChartTooltipContent>["payload"]}
+                      label={label}
+                      className="text-left"
+                      formatter={(val: unknown) => formatMonto(Number(val))}
+                      labelFormatter={(_, pl) => pl?.[0]?.payload?.corporativo}
+                    />
+                  </div>
+                );
+              }}
+            />
+            <Bar
+              dataKey="monto"
+              name="Monto"
+              radius={[0, 4, 4, 0]}
+              barSize={28}
+              maxBarSize={36}
+              label={({ x, y, width, height, value, index }) => {
+                const formatted = formatMonto(value ?? 0);
+                const isInsideBar = index < 2;
+                const padding = 8;
+                const textX = isInsideBar ? (x ?? 0) + padding : (x ?? 0) + (width ?? 0) + padding;
+                const textY = (y ?? 0) + (height ?? 0) / 2;
+
+                return (
+                  <text
+                    x={textX}
+                    y={textY}
+                    textAnchor="start"
+                    dominantBaseline="middle"
+                    className="text-xs font-medium"
+                    fill={isInsideBar ? "white" : "var(--muted-foreground)"}
+                  >
+                    {formatted}
+                  </text>
+                );
+              }}
+            >
+              {chartData.map((_, index) => (
+                <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+
+        <p className="text-xs text-muted-foreground">
+          Mostrando top 5 corporativos por monto en el período seleccionado.
+        </p>
+      </div>
+    </Card>
   );
 }
