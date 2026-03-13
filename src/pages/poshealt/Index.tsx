@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { ChevronDown, Eraser, ListFilter } from "lucide-react";
+import { Eraser, ListFilter } from "lucide-react";
 import SectionTitle from "@/components/text/SectionTitle";
 import { DataTable } from "@/components/ui/data-table";
 import { Card } from "@/components/ui/card";
@@ -23,14 +23,10 @@ import devicesConnectionJson from "../../../public/mockups/getAllconectionsDevic
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.json" with { type: "json" };
 import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
-import ParagraphH3 from "@/components/text/ParagraphH4";
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type PosHealthFiltersFormValues, EMPTY_FILTERS } from "@/types/filters/CorporateFilters";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+
 
 
 
@@ -105,107 +101,97 @@ const PosHealth = () => {
         <>
             <SectionTitle title="POS Health" subtitle="Dispositivos y estado de los mismos" />
             <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
-                <Card className="p-4">
-                    <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen}>
-                        <CollapsibleTrigger asChild>
-                            <button
-                                type="button"
-                                className="flex w-full items-center justify-between gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                                aria-expanded={filtersOpen}
-                            >
-                                <ParagraphH3 text="Filtrar" />
-                                <ChevronDown
-                                    className={`size-5 shrink-0 transition-transform ${filtersOpen ? "" : "-rotate-90"}`}
-                                    aria-hidden
-                                />
-                            </button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                            <form
-                                onSubmit={handleSubmit(onFilter)}
-                                className="flex flex-col gap-4 pt-4"
-                            >
-                                <FieldGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                                    <Field className="grid gap-2">
-                                        <FieldLabel htmlFor="poshealth-filter-corporate">Corporativo</FieldLabel>
-                                        <Controller
-                                            name="corporate"
-                                            control={control}
-                                            render={({ field }) => (
-                                                <DropdownWithSearch
-                                                    id="poshealth-filter-corporate"
-                                                    options={dataCorporates.map((c) => ({
-                                                        value: String(c.corporateId),
-                                                        label: c.corporateName,
-                                                    }))}
-                                                    value={field.value}
-                                                    onValueChange={field.onChange}
-                                                    placeholder="Seleccione"
-                                                />
-                                            )}
-                                        />
-                                    </Field>
-                                    <Field className="grid gap-2">
-                                        <FieldLabel htmlFor="poshealth-filter-commerce">Comercio</FieldLabel>
-                                        <Input
-                                            id="poshealth-filter-commerce"
-                                            type="text"
-                                            placeholder="Comercio"
-                                            {...register("commerce")}
-                                        />
-                                    </Field>
-                                    <Field className="grid gap-2">
-                                        <FieldLabel htmlFor="poshealth-filter-serial">Serial</FieldLabel>
-                                        <Input
-                                            id="poshealth-filter-serial"
-                                            type="text"
-                                            placeholder="Serial"
-                                            {...register("serial")}
-                                        />
-                                    </Field>
-                                    <Field className="grid gap-2">
-                                        <FieldLabel htmlFor="poshealth-filter-brand">Marca</FieldLabel>
-                                        <Input
-                                            id="poshealth-filter-brand"
-                                            type="text"
-                                            placeholder="Marca"
-                                            {...register("brand")}
-                                        />
-                                    </Field>
-                                    <Field className="grid gap-2">
-                                        <FieldLabel htmlFor="poshealth-filter-model">Modelo</FieldLabel>
-                                        <Input
-                                            id="poshealth-filter-model"
-                                            type="text"
-                                            placeholder="Modelo"
-                                            {...register("model")}
-                                        />
-                                    </Field>
-                                </FieldGroup>
-                                <div className="flex flex-wrap justify-end gap-2">
-                                    <Button
-                                        type="submit"
-                                        disabled={!hasAnyFilter}
-                                        className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
-                                    >
-                                        <ListFilter className="size-4" />
-                                        Filtrar
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        disabled={!hasAnyFilter}
-                                        onClick={onClearFilters}
-                                        className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                                    >
-                                        <Eraser className="size-4" />
-                                        Borrar
-                                    </Button>
-                                </div>
-                            </form>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </Card>
+
+                <CustomCollapsibleCard
+                    title="Filtrar"
+                    open={filtersOpen}
+                    onOpenChange={setFiltersOpen}
+                >
+                    <Card className="p-4 mt-4">
+                        <form
+                            onSubmit={handleSubmit(onFilter)}
+                            className="flex flex-col gap-4"
+                        >
+                            <FieldGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                                <Field className="grid gap-2">
+                                    <FieldLabel htmlFor="poshealth-filter-corporate">Corporativo</FieldLabel>
+                                    <Controller
+                                        name="corporate"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DropdownWithSearch
+                                                id="poshealth-filter-corporate"
+                                                options={dataCorporates.map((c) => ({
+                                                    value: String(c.corporateId),
+                                                    label: c.corporateName,
+                                                }))}
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                                placeholder="Seleccione"
+                                            />
+                                        )}
+                                    />
+                                </Field>
+                                <Field className="grid gap-2">
+                                    <FieldLabel htmlFor="poshealth-filter-commerce">Comercio</FieldLabel>
+                                    <Input
+                                        id="poshealth-filter-commerce"
+                                        type="text"
+                                        placeholder="Comercio"
+                                        {...register("commerce")}
+                                    />
+                                </Field>
+                                <Field className="grid gap-2">
+                                    <FieldLabel htmlFor="poshealth-filter-serial">Serial</FieldLabel>
+                                    <Input
+                                        id="poshealth-filter-serial"
+                                        type="text"
+                                        placeholder="Serial"
+                                        {...register("serial")}
+                                    />
+                                </Field>
+                                <Field className="grid gap-2">
+                                    <FieldLabel htmlFor="poshealth-filter-brand">Marca</FieldLabel>
+                                    <Input
+                                        id="poshealth-filter-brand"
+                                        type="text"
+                                        placeholder="Marca"
+                                        {...register("brand")}
+                                    />
+                                </Field>
+                                <Field className="grid gap-2">
+                                    <FieldLabel htmlFor="poshealth-filter-model">Modelo</FieldLabel>
+                                    <Input
+                                        id="poshealth-filter-model"
+                                        type="text"
+                                        placeholder="Modelo"
+                                        {...register("model")}
+                                    />
+                                </Field>
+                            </FieldGroup>
+                            <div className="flex flex-wrap justify-end gap-2">
+                                <Button
+                                    type="submit"
+                                    disabled={!hasAnyFilter}
+                                    className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
+                                >
+                                    <ListFilter className="size-4" />
+                                    Filtrar
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    disabled={!hasAnyFilter}
+                                    onClick={onClearFilters}
+                                    className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                                >
+                                    <Eraser className="size-4" />
+                                    Borrar
+                                </Button>
+                            </div>
+                        </form>
+                    </Card>
+                </CustomCollapsibleCard>
                 <Card className="p-4">
                     {isLoading ? (
                         <TablesLoader columnCount={7} rowCount={10} loadingText="Cargando datos de dispositivos POS" />
@@ -228,7 +214,7 @@ const PosHealth = () => {
                         />
                     )}
                 </Card>
-            </div>
+            </div >
         </>
     );
 };

@@ -13,7 +13,7 @@ import {
 import { LINE_CHART_CONFIG } from "@/config/chart.config";
 import { TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/config/options";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import ParagraphH4 from "../text/ParagraphH4";
+
 
 import dataByYear from "../../../public/mockups/dashboard/movements/getAllTransactionsByYear.json" with { type: "json" };
 import dataByMonth from "../../../public/mockups/dashboard/movements/getAllTransactionByMonth.json" with { type: "json" };
@@ -21,6 +21,7 @@ import dataByWeek from "../../../public/mockups/dashboard/movements/getAllTransa
 import dataByDay from "../../../public/mockups/dashboard/movements/getAllTransactionsByDay.json" with { type: "json" };
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
 import type { MovementsResponse } from "@/types/dashboard/movementsChart";
+import { Card } from "../ui/card";
 
 const toLineData = (raw: MovementsResponse): { hour: string; aprobadas: number; rechazadas: number; }[] =>
   (raw?.chartData ?? []).map((item) => ({
@@ -55,52 +56,53 @@ export function MovementsChart() {
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-3">
-        <ParagraphH4 text="Movimientos" />
-        <ButtonGroup>
-          {TIME_PERIOD_OPTIONS.map((opt) => (
-            <Button
-              key={opt}
-              variant={timePeriod === opt ? "default" : "outline"}
-              size="sm"
-              onClick={() => OnChangeTimePeriod(opt)}
-              className={timePeriod === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
-            >
-              {opt}
-            </Button>
-          ))}
-        </ButtonGroup>
+    <Card className="p-4">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="mb-4 flex shrink-0 flex-wrap items-center justify-end gap-3">
+          <ButtonGroup>
+            {TIME_PERIOD_OPTIONS.map((opt) => (
+              <Button
+                key={opt}
+                variant={timePeriod === opt ? "default" : "outline"}
+                size="sm"
+                onClick={() => OnChangeTimePeriod(opt)}
+                className={timePeriod === opt ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]" : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"}
+              >
+                {opt}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </div>
+        {isLoading ? (
+          <EmptyCardLoader title={timePeriod} description="Cargando datos..." okIcon={false} />
+        ) : (
+          <ChartContainer config={LINE_CHART_CONFIG} className="h-[360px] min-h-0 w-full">
+            <LineChart accessibilityLayer data={chartData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
+              <YAxis domain={[0, "auto"]} tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Line
+                type="monotone"
+                dataKey="aprobadas"
+                stroke="var(--color-aprobadas)"
+                strokeWidth={2}
+                dot={{ fill: "var(--color-aprobadas)", r: 3 }}
+                name="aprobadas"
+              />
+              <Line
+                type="monotone"
+                dataKey="rechazadas"
+                stroke="var(--color-rechazadas)"
+                strokeWidth={2}
+                dot={{ fill: "var(--color-rechazadas)", r: 3 }}
+                name="rechazadas"
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </LineChart>
+          </ChartContainer>
+        )}
       </div>
-      {isLoading ? (
-        <EmptyCardLoader title={timePeriod} description="Cargando datos..." okIcon={false} />
-      ) : (
-        <ChartContainer config={LINE_CHART_CONFIG} className="h-[360px] min-h-0 w-full">
-          <LineChart accessibilityLayer data={chartData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
-            <YAxis domain={[0, "auto"]} tickLine={false} axisLine={false} tickMargin={8} />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Line
-              type="monotone"
-              dataKey="aprobadas"
-              stroke="var(--color-aprobadas)"
-              strokeWidth={2}
-              dot={{ fill: "var(--color-aprobadas)", r: 3 }}
-              name="aprobadas"
-            />
-            <Line
-              type="monotone"
-              dataKey="rechazadas"
-              stroke="var(--color-rechazadas)"
-              strokeWidth={2}
-              dot={{ fill: "var(--color-rechazadas)", r: 3 }}
-              name="rechazadas"
-            />
-            <ChartLegend content={<ChartLegendContent />} />
-          </LineChart>
-        </ChartContainer>
-      )}
-    </div>
+    </Card>
   );
 }

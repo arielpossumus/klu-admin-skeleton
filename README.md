@@ -2,6 +2,20 @@
 
 Panel de administración construido con React, TypeScript, Vite, Shadcn UI y Tailwind CSS.
 
+## Tabla de contenidos
+
+- [Stack](#stack)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Desarrollo](#desarrollo)
+- [Build](#build)
+- [Crear una nueva página y configurar el ruteo](#crear-una-nueva-página-y-configurar-el-ruteo)
+- [Pasos para mostrar una DataGrid con datos](#pasos-para-mostrar-una-datagrid-con-datos)
+- [Componentes de tipografía](#componentes-de-tipografía-srccomponentstext)
+- [Dashboard](#dashboard)
+- [Componentes comunes (commons)](#componentes-comunes-commons)
+
+---
+
 ## Stack
 
 - **React** + **TypeScript**
@@ -18,26 +32,26 @@ admin_momentum/
 ├── src/
 │   ├── assets/              # Recursos estáticos (imágenes, íconos, fuentes)
 │   ├── components/          # Componentes React reutilizables
-│   │   ├── ui/              # Componentes Shadcn (Button, Card, DropdownMenu, etc.)
-│   │   ├── layout/          # Sidebar, Header, MetricCard, CurrencyToggle, etc.
-│   │   ├── text/            # Tipografía (ParagraphH1, ParagraphH2, Paragraph, etc.)
-│   │   └── charts/          # Gráficos (MovementChart, etc.)
+│   │   ├── ui/              # Componentes Shadcn (Button, Card, DropdownMenu, DataTable, etc.)
+│   │   ├── layout/          # Sidebar, Header, etc.
+│   │   ├── commons/         # Componentes comunes (CustomCard, CustomCollapsibleCard, DistributionListCard, CustomAlertDialog)
+│   │   ├── text/            # Tipografía (ParagraphH1, ParagraphH4, SectionTitle, etc.)
+│   │   ├── charts/          # Gráficos (MovementsChart, AcceptanceChart, IncidentsBarChart, TopCorporativosChart, etc.)
+│   │   └── tables/          # Definición de columnas para DataTable (corporateColumns, posHealth, etc.)
 │   ├── layouts/             # Layouts de página (AdminLayout: Sidebar + Header + contenido)
 │   ├── pages/               # Páginas/vistas principales
-│   │   ├── dashboard/       # Inicio y KPIs
-│   │   ├── users/           # Usuarios
-│   │   ├── transactions/    # Transacciones
-│   │   ├── monitoring/      # Monitoreo Momentum
-│   │   ├── catalogs/        # Catálogos
-│   │   ├── modules/         # Módulos
-│   │   └── finances/        # Finanzas
+│   │   ├── dashboard/       # Inicio, KPIs y gráficos de transacciones
+│   │   ├── login/           # Login
+│   │   ├── corporate/       # Listado de corporativos y detalle
+│   │   ├── poshealt/        # POS Health (dispositivos) y detalle por serial
+│   │   └── components/     # Página de ejemplos de componentes
 │   ├── types/               # Tipos e interfaces TypeScript
-│   ├── config/              # Configuraciones globales y constantes
+│   ├── config/              # Configuraciones (navegación, charts, opciones)
 │   ├── lib/                 # Utilidades (utils, api, auth)
 │   ├── services/            # Servicios y llamadas a API por recurso
 │   ├── hooks/               # Custom hooks
 │   ├── context/             # Contextos React (Auth, Currency, etc.)
-│   ├── router/              # Configuración de rutas (React Router)
+│   ├── router/              # Rutas (Routes.ts, AppRouter.tsx)
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css            # Estilos globales (Tailwind)
@@ -61,22 +75,6 @@ npm run dev:develop # levanta app apuntando a ambiente develop
 npm run build
 npm run preview   # previsualizar el build
 ```
-
-## Pasos para mostrar una DataGrid con datos
-
-1. **Definir el tipo de fila**  
-   Crear una interfaz TypeScript con los campos de cada fila (en `src/types/` o en el archivo de columnas). Ejemplo: `interface MiRecurso { id: number; nombre: string; }`.
-
-2. **Definir las columnas**  
-   En `src/components/tables/<recurso>Columns.tsx` exportar un array `ColumnDef<TipoFila>[]` con `accessorKey`, `header` y opcionalmente `cell` para personalizar la celda (badges, enlaces, etc.).
-
-3. **Obtener los datos**  
-   Tener un array de objetos que cumplan el tipo de fila: desde un JSON estático (mock), desde `useQuery` (React Query) o desde estado local.
-
-4. **Renderizar el DataTable**  
-   En la página importar `DataTable` de `@/components/ui/data-table`, las columnas y el tipo; renderizar `<DataTable columns={columnas} data={datos} />`.
-
-Para ejemplos de código, estructura de columnas y archivos a tocar, ver **[Uso del DataTable (tabla de datos)](#uso-del-datatable-tabla-de-datos)** más abajo.
 
 ## Crear una nueva página y configurar el ruteo
 
@@ -102,7 +100,7 @@ export default Settings;
 
 ### 2. Registrar la ruta en el router
 
-En **`src/router/AppRouter.tsx`**:
+En **`src/router/Routes.ts`**:
 
 1. Importar el componente de la nueva página.
 2. Agregar un objeto en el array `routes` con `path`, `Component: AdminLayout` y `children` para que la página use el layout con sidebar y header.
@@ -179,8 +177,108 @@ Se agrega en el array `navMain` en el orden deseado. Los ítems con `items` se a
 | Paso | Archivo | Acción |
 |------|---------|--------|
 | 1 | `src/pages/<seccion>/<NombrePagina>.tsx` | Crear el componente de la página |
-| 2 | `src/router/AppRouter.tsx` | Importar el componente y agregar la ruta en `routes` |
+| 2 | `src/router/Routes.ts` | Importar el componente y agregar la ruta en `routes` |
 | 3 | `src/config/navigation.ts` | (Opcional) Agregar entrada en `navMain`: ítem, ítem con `items`, o `{ type: "separator" }` |
+
+## Pasos para mostrar una DataGrid con datos
+
+El proyecto incluye un **DataTable** genérico en `src/components/ui/data-table.tsx` que usa **TanStack React Table** y los componentes **Table** de Shadcn. Incluye paginación (Anterior / Siguiente) y mensaje cuando no hay datos.
+
+### Paso 1: Definir el tipo de fila
+
+Crear una interfaz TypeScript con los campos de cada fila (en `src/types/` o en el archivo de columnas). Puede vivir en el mismo archivo de columnas o en `src/types/`.
+
+```tsx
+// Ejemplo: src/components/tables/miRecursoColumns.tsx
+export interface MiRecurso {
+  id: number;
+  nombre: string;
+  estado?: string;
+}
+```
+
+### Paso 2: Definir las columnas
+
+En `src/components/tables/<recurso>Columns.tsx` exportar un array `ColumnDef<TipoFila>[]` de `@tanstack/react-table` con `accessorKey`, `header` y opcionalmente `cell` para personalizar la celda (badges, enlaces, barras de progreso, etc.).
+
+```tsx
+import type { ColumnDef } from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge";
+
+export const miRecursoColumns: ColumnDef<MiRecurso>[] = [
+  { accessorKey: "nombre", header: "Nombre" },
+  {
+    accessorKey: "estado",
+    header: "Estado",
+    cell: ({ row }) => {
+      const value = row.getValue<string>("estado");
+      const isOk = value === "Activo";
+      return (
+        <Badge className={isOk ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}>
+          {value ?? "—"}
+        </Badge>
+      );
+    },
+  },
+];
+```
+
+- **`accessorKey`:** clave del objeto que se muestra en la columna.
+- **`header`:** texto del encabezado de la tabla.
+- **`cell`:** función opcional `({ row }) => ReactNode` para renderizar la celda (por defecto se muestra el valor crudo).
+
+### Paso 3: Obtener los datos
+
+Tener un array de objetos que cumplan el tipo de fila: desde un JSON estático (mock), desde `useQuery` (React Query) o desde estado local.
+
+```tsx
+// Desde JSON estático (import con type: "json")
+import datosJson from "../../../public/mockups/miRecurso.json" with { type: "json" };
+const datos = (datosJson as { rows: MiRecurso[] }).rows ?? [];
+
+// O desde React Query
+const { data } = useQuery({ queryKey: ["miRecurso"], queryFn: fetchMiRecurso });
+const datos = data?.rows ?? [];
+```
+
+### Paso 4: Renderizar el DataTable en la página
+
+En la página importar `DataTable` de `@/components/ui/data-table`, las columnas y el tipo; pasar `columns` y `data`.
+
+```tsx
+import { DataTable } from "@/components/ui/data-table";
+import { miRecursoColumns, type MiRecurso } from "@/components/tables/miRecursoColumns";
+
+const MiPagina = () => {
+  const datos: MiRecurso[] = []; // o desde JSON/API
+
+  return (
+    <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+      <h2 className="text-2xl font-semibold tracking-tight">Mi recurso</h2>
+      <DataTable columns={miRecursoColumns} data={datos} />
+    </div>
+  );
+};
+
+export default MiPagina;
+```
+
+### Resumen de archivos
+
+| Paso | Dónde | Qué hacer |
+|------|--------|-----------|
+| 1 | Archivo de columnas o `src/types/` | Definir interfaz del tipo de fila (ej. `MiRecurso`) |
+| 2 | `src/components/tables/<recurso>Columns.tsx` | Exportar `ColumnDef<MiRecurso>[]` con `accessorKey`, `header` y opcionalmente `cell` |
+| 3 | Página o hook | Obtener datos (mock, useQuery, etc.) como array del tipo de fila |
+| 4 | Página | Renderizar `<DataTable columns={columnas} data={datos} />` |
+
+### Ejemplos en el proyecto
+
+- **Corporativos:** `src/components/tables/corporateColumns.tsx` + `src/pages/corporate/index.tsx`
+- **POS Health (dispositivos):** `src/components/tables/posHealth/` (columnas y contenido expandido) + `src/pages/poshealt/Index.tsx`. Incluye columnas de batería, impresora y conexión con barras de progreso, badges y expandibles.
+- **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
+- **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
+- **Conexión:** `src/components/tables/deviceconectionsColumns.tsx` (señal WiFi, estado SIM, etc.)
 
 ## Componentes de tipografía (`src/components/text`)
 
@@ -219,102 +317,41 @@ export default MiPagina;
 
 Para cambiar tamaño, peso o márgenes, se editan las clases Tailwind en el componente correspondiente dentro de `src/components/text/`.
 
-## Uso del DataTable (tabla de datos)
+## Dashboard
 
-El proyecto incluye un **DataTable** genérico en `src/components/ui/data-table.tsx` que usa **TanStack React Table** y los componentes **Table** de Shadcn. Incluye paginación (Anterior / Siguiente) y mensaje cuando no hay datos.
+La página **Dashboard** (`src/pages/dashboard/Index.tsx`) muestra:
 
-### Paso 1: Definir el tipo de fila
+- **Transacciones:** bloque con `CustomCard` que contiene:
+  - **DistributionListCard:** donut (Aprobadas/Rechazadas), centro con valor Diarias, total acumulado en $, controles de agregación y moneda.
+  - **MovementsChart:** gráfico de líneas (Aprobados/Rechazados) por período (Anual, Mensual, Semanal, Diario).
+- **Tres columnas** con:
+  - Top corporativos (`TopCorporativosChart`).
+  - Porcentaje de aceptación por marca (`AcceptanceChart`, barras).
+  - Incidentes POS Health (`IncidentsBarChart`).
 
-Crea una interfaz TypeScript con los campos que tendrá cada fila. Puede vivir en el mismo archivo de columnas o en `src/types/`.
+Los datos provienen de mocks en `public/mockups/` (getTrxValues, panelInformation, getAllPosIncidents, etc.).
 
-```tsx
-// Ejemplo: src/components/tables/miRecursoColumns.tsx
-export interface MiRecurso {
-  id: number;
-  nombre: string;
-  estado?: string;
-}
-```
+## Componentes comunes (commons)
 
-### Paso 2: Definir las columnas
+En **`src/components/commons/`** hay componentes reutilizables para cards, filtros y visualización de datos:
 
-Usa `ColumnDef<TipoFila>[]` de `@tanstack/react-table`. Cada columna tiene al menos `accessorKey` (campo del objeto) y `header` (texto del encabezado). Opcionalmente usa `cell` para personalizar el contenido (badges, barras de progreso, etc.).
+| Componente | Descripción | Uso |
+|------------|-------------|-----|
+| **CustomCard** | Card con estilo unificado (fondo gris, borde) y título. | Envolver bloques con título (ej. sección "Transacciones" en Dashboard). |
+| **CustomCollapsibleCard** | Igual que CustomCard pero el contenido se muestra/oculta al hacer clic en el título. Incluye chevron que rota. | Sección de **filtros** en listados (Corporativo, POS Health). Acepta `title`, `children`, y opcionalmente `open` / `onOpenChange` para estado controlado, o `defaultOpen` para no controlado. |
+| **DistributionListCard** | Card con donut chart (Aprobadas/Rechazadas), valor central (Diarias), total en $ (Acumulado), desplegable de agregación y toggle Pesos/Dólares. Tooltips en el donut y leyenda. | Resumen de transacciones en el Dashboard. Recibe `items: { label, count }[]` (ej. Aprobadas, Rechazadas, Diarias, Acumulado). |
+| **CustomAlertDialog** | Diálogo de confirmación reutilizable. | Acciones destructivas o que requieren confirmación. |
 
-```tsx
-import type { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-
-export const miRecursoColumns: ColumnDef<MiRecurso>[] = [
-  { accessorKey: "nombre", header: "Nombre" },
-  {
-    accessorKey: "estado",
-    header: "Estado",
-    cell: ({ row }) => {
-      const value = row.getValue<string>("estado");
-      const isOk = value === "Activo";
-      return (
-        <Badge className={isOk ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}>
-          {value ?? "—"}
-        </Badge>
-      );
-    },
-  },
-];
-```
-
-- **`accessorKey`:** clave del objeto que se muestra en la columna.
-- **`header`:** texto del encabezado de la tabla.
-- **`cell`:** función opcional `({ row }) => ReactNode` para renderizar la celda (por defecto se muestra el valor crudo).
-
-### Paso 3: Obtener los datos
-
-Los datos pueden venir de un JSON estático (mock), de React Query, o de estado. Deben ser un array de objetos que cumplan la interfaz de la fila.
+**Ejemplo CustomCollapsibleCard (filtros):**
 
 ```tsx
-// Desde JSON estático (import con type: "json")
-import datosJson from "../../../public/mockups/miRecurso.json" with { type: "json" };
-const datos = (datosJson as { rows: MiRecurso[] }).rows ?? [];
-
-// O desde React Query
-const { data } = useQuery({ queryKey: ["miRecurso"], queryFn: fetchMiRecurso });
-const datos = data?.rows ?? [];
+<CustomCollapsibleCard title="Filtrar" open={filtersOpen} onOpenChange={setFiltersOpen}>
+  <div className="pt-4">
+    <form onSubmit={handleSubmit(onFilter)} className="flex flex-col gap-4">
+      {/* campos del filtro */}
+    </form>
+  </div>
+</CustomCollapsibleCard>
 ```
 
-### Paso 4: Usar el DataTable en la página
-
-Importa `DataTable`, las columnas y el tipo; pasa `columns` y `data`.
-
-```tsx
-import { DataTable } from "@/components/ui/data-table";
-import { miRecursoColumns, type MiRecurso } from "@/components/tables/miRecursoColumns";
-
-const MiPagina = () => {
-  const datos: MiRecurso[] = []; // o desde JSON/API
-
-  return (
-    <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
-      <h2 className="text-2xl font-semibold tracking-tight">Mi recurso</h2>
-      <DataTable columns={miRecursoColumns} data={datos} />
-    </div>
-  );
-};
-
-export default MiPagina;
-```
-
-### Resumen de archivos
-
-| Paso | Dónde | Qué hacer |
-|------|--------|-----------|
-| 1 | Archivo de columnas o `src/types/` | Definir interfaz del tipo de fila (ej. `MiRecurso`) |
-| 2 | `src/components/tables/<recurso>Columns.tsx` | Exportar `ColumnDef<MiRecurso>[]` con `accessorKey`, `header` y opcionalmente `cell` |
-| 3 | Página o hook | Obtener datos (mock, useQuery, etc.) como array del tipo de fila |
-| 4 | Página | Renderizar `<DataTable columns={columnas} data={datos} />` |
-
-### Ejemplos en el proyecto
-
-- **Dispositivos:** `src/components/tables/deviceColumns.tsx` + `src/pages/poshealt/PosHealth.tsx`
-- **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
-- **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
-- **Conexión:** `src/components/tables/deviceconectionsColumns.tsx` (señal WiFi, estado SIM, etc.)
-
+Usado en **`src/pages/corporate/index.tsx`** y **`src/pages/poshealt/Index.tsx`** para la sección de filtros colapsable.

@@ -5,10 +5,10 @@
     "data_response": {
         "MXN": {
             "currency": "MXN",
-            "salesNumber": 6,
-            "rejectionNumber": 16,
+            "salesNumber": 20,
+            "rejectionNumber": 2,
             "transactionDailyNumber": 22,
-            "accumulatedAmountDay": 460.00
+            "accumulatedAmountDay": 11234768.24
         }
     }
 }
