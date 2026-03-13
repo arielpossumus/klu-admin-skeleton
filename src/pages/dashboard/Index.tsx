@@ -35,18 +35,15 @@ const Dashboard = () => {
         <>
             <SectionTitle title="Dashboard" subtitle="Centro de control y estadísticas" />
             <div className="@container/main flex flex-1 flex-col gap-2">
-                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                    <Card>
+                <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-3 md:gap-6 md:py-6">
+
+                    <Card className="p-4">
                         <SectionCards accumulatedAmountDay={data.accumulatedAmountDay} salesNumber={data.salesNumber} rejectionNumber={data.rejectionNumber} transactionDailyNumber={data.transactionDailyNumber} />
                     </Card>
-                </div>
-
-                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                    <Card className="p-4">
+                    <Card className="p-4 md:col-span-2">
                         <MovementsChart />
                     </Card>
                 </div>
-
                 <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-3 md:gap-6 md:py-6">
                     <div className="flex h-full flex-col gap-4">
                         <Card className="flex h-full flex-col p-4">
