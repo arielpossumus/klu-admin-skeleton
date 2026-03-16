@@ -11,7 +11,7 @@ interface CustomCardProps {
 export const CustomCard = ({ children, title, icon }: CustomCardProps) => {
     return (
         <Card className="px-2 pt-4 pb-2 bg-[var(--color-gray)] border-2 border-[var(--color-gray)] text-[var(--color-gray-foreground)]" >
-            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground uppercase tracking-wide"> {icon} <ParagraphH4 text={title} /></CardTitle>
+            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground tracking-wide"> {icon} <ParagraphH4 text={title} /></CardTitle>
             {children}
         </Card>
 

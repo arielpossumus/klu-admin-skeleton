@@ -5,14 +5,20 @@ import { Pencil, PenOff, Save } from "lucide-react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
+import { Switch } from "@/components/ui/switch";
+import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+import corporatesModelJson from "../../../../public/mockups/annex/getAllCorporatesModel.json" with { type: "json" };
 
+const CORPORATE_MODEL_OPTIONS = (corporatesModelJson as { typeId: number; typeModel: string; }[]).map(
+    (item) => ({ value: item.typeModel.trim(), label: item.typeModel.trim() })
+);
 
 export type CorporateGeneralDetailsFormValues = {
     rsa: string;
     logoIndex: string;
     logoTicket: string;
     status: "Activo" | "Inactivo";
+    modeloCorporativo: string;
 };
 
 type CorporateGeneralDetailsFormProps = {
@@ -30,9 +36,11 @@ export function CorporateGeneralDetailsForm({
             logoIndex: defaultValues?.logoIndex ?? "",
             logoTicket: defaultValues?.logoTicket ?? "",
             status: normalizedStatus,
+            modeloCorporativo: defaultValues?.modeloCorporativo ?? "",
         },
     });
     const status = watch("status") ?? normalizedStatus;
+    const modeloCorporativo = watch("modeloCorporativo") ?? defaultValues?.modeloCorporativo ?? "";
 
     const handleDisabledField = () => {
         setDisabledField(!disabledField);
@@ -40,36 +48,8 @@ export function CorporateGeneralDetailsForm({
 
     return (
         <>
-            <FieldGroup className="contents">
-                {!disabledField && (
-                    <Field className="grid gap-2">
-                        <FieldLabel>Estado</FieldLabel>
-                        <ButtonGroup>
-                            {(["Activo", "Inactivo"] as const).map((opt) => (
-                                <Button
-                                    key={opt}
-                                    type="button"
-                                    variant={status === opt ? "default" : "outline"}
-                                    size="sm"
-                                    disabled={disabledField}
-                                    onClick={() => setValue("status", opt)}
-                                    className={
-                                        status === opt
-                                            ? opt === "Activo"
-                                                ? "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                                                : "bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                                            : "bg-[var(--background)] text-foreground"
-                                    }
-                                >
-                                    {opt}
-                                </Button>
-                            ))}
-                        </ButtonGroup>
-                    </Field>
-                )}
-            </FieldGroup>
-            <FieldGroup className="contents">
 
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Field className="grid gap-2">
                     <FieldLabel htmlFor="rsa">RSA</FieldLabel>
                     <Input
@@ -104,8 +84,44 @@ export function CorporateGeneralDetailsForm({
                         {...register("logoTicket")}
                         disabled={disabledField}
                     />
-                    <FieldError errors={errors.logoIndex ? [errors.logoIndex] : undefined} />
+                    <FieldError errors={errors.logoTicket ? [errors.logoTicket] : undefined} />
                 </Field>
+            </FieldGroup >
+
+            <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                {!disabledField && (
+                    <>
+                        <Field className="grid gap-2">
+                            <FieldLabel>Estado</FieldLabel>
+                            <div className="flex items-center gap-2">
+                                <Switch
+                                    checked={status === "Activo"}
+                                    onCheckedChange={(checked) => setValue("status", checked ? "Activo" : "Inactivo")}
+                                    disabled={disabledField}
+                                    className="data-[state=checked]:bg-[var(--success-dark)] data-[state=unchecked]:bg-[var(--error-dark)]"
+                                />
+                                <span className="text-sm text-muted-foreground">
+                                    {status === "Activo" ? "Activo" : "Inactivo"}
+                                </span>
+                            </div>
+                        </Field>
+                        <Field className="grid gap-2">
+                            <FieldLabel htmlFor="modelo-corporativo">Modelo corporativo</FieldLabel>
+                            <DropdownWithSearch
+                                id="modelo-corporativo"
+                                options={CORPORATE_MODEL_OPTIONS}
+                                value={modeloCorporativo}
+                                onValueChange={(value) => setValue("modeloCorporativo", value)}
+                                placeholder="Seleccione modelo"
+                                disabled={disabledField}
+                            />
+                        </Field>
+                    </>
+                )}
+
+            </FieldGroup>
+
+            <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div className="col-span-full flex justify-end gap-2">
                     {!disabledField && (
                         <Button onClick={handleDisabledField} className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90">
@@ -127,7 +143,9 @@ export function CorporateGeneralDetailsForm({
                         </span>
                     </Button>
                 </div>
+
             </FieldGroup >
+
         </>
     );
 }
