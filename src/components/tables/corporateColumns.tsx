@@ -1,19 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
-import { Eye, BadgeX } from "lucide-react";
+import { Eye } from "lucide-react";
 
 import { type CorporateGrid } from "@/types/corporate/CorporateGrid";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import { CustomAlertDialog } from "../commons/CustomAlertDialog";
 
 export const corporateColumns: ColumnDef<CorporateGrid>[] = [
