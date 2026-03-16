@@ -106,6 +106,7 @@ const PosHealth = () => {
                     title="Filtrar"
                     open={filtersOpen}
                     onOpenChange={setFiltersOpen}
+                    icon={<ListFilter className="size-3.5" aria-hidden />}
                 >
                     <Card className="p-4 mt-4">
                         <form

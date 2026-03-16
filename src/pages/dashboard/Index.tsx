@@ -12,6 +12,7 @@ import type { PanelInfoResponse } from "@/types/dashboard/PanelInfoResponse";
 import type { IncidentsResponse } from "@/types/dashboard/IncidentsResponse";
 import { CustomCard } from "@/components/commons/CustomCard";
 import { DistributionListCard } from "@/components/commons/DistributionListCard";
+import { ChartBarBig, ChartColumnBig, ChartPie, ChartSpline } from "lucide-react";
 
 const panelInfo = panelInfoJson as PanelInfoResponse;
 const panelPieData = [
@@ -42,7 +43,7 @@ const Dashboard = () => {
         <>
             <SectionTitle title="Dashboard" subtitle="Centro de control y estadísticas" />
             <div className="@container/main flex flex-1 flex-col gap-2">
-                <CustomCard title="Transacciones">
+                <CustomCard title="Transacciones" icon={<ChartPie className="size-3.5" aria-hidden />}>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_2fr] md:gap-6">
                         <DistributionListCard items={distributionItems} />
                         <MovementsChart />
@@ -52,17 +53,17 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 gap-4 py-4 md:grid-cols-3 md:gap-6 md:py-6">
                 <div className="flex h-full flex-col gap-4">
-                    <CustomCard title="Top corporativos">
+                    <CustomCard title="Top corporativos" icon={<ChartBarBig className="size-3.5" aria-hidden />}>
                         <TopCorporativosChart />
                     </CustomCard>
                 </div>
                 <div className="flex h-full flex-col gap-4">
-                    <CustomCard title="Porcentaje de aceptacion">
+                    <CustomCard title="Porcentaje de aceptacion" icon={<ChartColumnBig className="size-3.5" aria-hidden />}>
                         <AcceptanceChart data={panelPieData} config={PANEL_PIE_CHART_CONFIG} />
                     </CustomCard>
                 </div>
                 <div className="flex h-full flex-col gap-4">
-                    <CustomCard title="Incidentes POS Health">
+                    <CustomCard title="Incidentes POS Health" icon={<ChartColumnBig className="size-3.5" aria-hidden />}>
                         <IncidentsBarChart data={incidentsData} />
                     </CustomCard>
                 </div>

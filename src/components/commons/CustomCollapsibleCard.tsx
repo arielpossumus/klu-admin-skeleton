@@ -12,6 +12,7 @@ import ParagraphH4 from "@/components/text/ParagraphH4";
 interface CustomCollapsibleCardProps {
     title: string;
     children: React.ReactNode;
+    icon?: React.ReactNode;
     defaultOpen?: boolean;
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
@@ -20,6 +21,7 @@ interface CustomCollapsibleCardProps {
 export const CustomCollapsibleCard = ({
     title,
     children,
+    icon,
     defaultOpen = true,
     open: controlledOpen,
     onOpenChange,
@@ -39,11 +41,12 @@ export const CustomCollapsibleCard = ({
                 <CollapsibleTrigger asChild>
                     <button
                         type="button"
-                        className="flex w-full items-center justify-between gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="cursor-pointer flex w-full items-center justify-between gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         aria-expanded={open}
                         aria-label={open ? "Ocultar contenido" : "Mostrar contenido"}
                     >
-                        <CardTitle>
+                        <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                            {icon}
                             <ParagraphH4 text={title} />
                         </CardTitle>
                         <ChevronDown
