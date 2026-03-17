@@ -7,10 +7,10 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import ParagraphH4 from "@/components/text/ParagraphH4";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import taxRegimeJson from "../../../../public/mockups/annex/getAllTaxRegime.json" with { type: "json" };
 import countriesJson from "../../../../public/mockups/annex/getAllcountries.json" with { type: "json" };
+import ParagraphH2 from "@/components/text/ParagraphH2";
 
 type CountryItem = { countryId: number; countryCode: string; countryName: string; regions: { regionId: number; regionName: string; }[]; };
 const COUNTRIES = countriesJson as CountryItem[];
@@ -197,11 +197,39 @@ export function CorporateLegalrepresentativeForm(
 
     return (
         <>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-0">
-                <ParagraphH4 text="Representante Legal" />
+            <FieldGroup className="grid grid-cols-1 gap-4 mb-12">
+                <div className="col-span-full flex justify-end gap-2">
+                    {!disabledField && (
+                        <Button
+                            type="button"
+                            onClick={handleDisabledField}
+                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                        >
+                            <PenOff className="size-4" />
+                            Cancelar
+                        </Button>
+                    )}
+                    <Button
+                        type="button"
+                        onClick={handleDisabledField}
+                        className={
+                            disabledField
+                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
+                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
+                        }
+                    >
+                        <span className="flex items-center gap-2">
+                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
+                            {disabledField ? "Editar" : "Guardar"}
+                        </span>
+                    </Button>
+                </div>
+            </FieldGroup>
+            <FieldGroup className="grid grid-cols-1  gap-4 mb-4 px-0">
+                <ParagraphH2 text="Representante Legal" />
             </FieldGroup>
 
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
                 <Field className="grid gap-2">
                     <FieldLabel htmlFor="legal-name">Nombre</FieldLabel>
                     <Input
@@ -239,12 +267,12 @@ export function CorporateLegalrepresentativeForm(
                     <FieldError errors={errors.maternalLastName ? [errors.maternalLastName] : undefined} />
                 </Field>
             </FieldGroup>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-0">
-                <ParagraphH4 text="Datos Fiscales" />
+            <FieldGroup className="grid grid-cols-1  gap-4 mb-4 px-0">
+                <ParagraphH2 text="Datos Fiscales" />
             </FieldGroup>
 
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Field className="grid gap-2">
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legal-rfc">RFC</FieldLabel>
                     <Input
                         id="legal-rfc"
@@ -256,7 +284,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.rfc ? [errors.rfc] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legal-socialReason">Razón social</FieldLabel>
                     <Input
                         id="legal-socialReason"
@@ -268,7 +296,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.socialReason ? [errors.socialReason] : undefined} />
                 </Field>
-                <Field className="grid gap-2 min-w-0">
+                <Field className="grid gap-2 min-w-0 mb-4">
                     <FieldLabel htmlFor="legal-taxRegime">Régimen fiscal</FieldLabel>
                     <DropdownWithSearch
                         id="legal-taxRegime"
@@ -281,11 +309,11 @@ export function CorporateLegalrepresentativeForm(
                     />
                 </Field>
             </FieldGroup>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-0">
-                <ParagraphH4 text="Dirección fiscal" />
+            <FieldGroup className="grid grid-cols-1 gap-4 mb-4 px-0">
+                <ParagraphH2 text="Dirección fiscal" />
             </FieldGroup>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Field className="grid gap-2 min-w-0">
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+                <Field className="grid gap-2 min-w-0 mb-4">
                     <FieldLabel htmlFor="fiscal-country">País</FieldLabel>
                     <DropdownWithSearch
                         id="fiscal-country"
@@ -297,7 +325,7 @@ export function CorporateLegalrepresentativeForm(
                         className="min-w-0 w-full"
                     />
                 </Field>
-                <Field className="grid gap-2 min-w-0">
+                <Field className="grid gap-2 min-w-0 mb-4">
                     <FieldLabel htmlFor="fiscal-region">Estado / Región</FieldLabel>
                     <DropdownWithSearch
                         id="fiscal-region"
@@ -310,7 +338,7 @@ export function CorporateLegalrepresentativeForm(
                         emptyLabel="Sin regiones para este país"
                     />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-city">Ciudad</FieldLabel>
                     <Input
                         id="fiscal-city"
@@ -322,7 +350,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.city ? [errors.fiscalAddress.city] : undefined} />
                 </Field>
-                <Field className="grid gap-2 md:col-span-3">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-street">Calle</FieldLabel>
                     <Input
                         id="fiscal-street"
@@ -334,7 +362,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.street ? [errors.fiscalAddress.street] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-zipCode">Código postal</FieldLabel>
                     <Input
                         id="fiscal-zipCode"
@@ -346,7 +374,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.zipCode ? [errors.fiscalAddress.zipCode] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-externalNumber">Número exterior</FieldLabel>
                     <Input
                         id="fiscal-externalNumber"
@@ -358,7 +386,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.externalNumber ? [errors.fiscalAddress.externalNumber] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-internalNumber">Número interior</FieldLabel>
                     <Input
                         id="fiscal-internalNumber"
@@ -370,7 +398,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.internalNumber ? [errors.fiscalAddress.internalNumber] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-colony">Colonia</FieldLabel>
                     <Input
                         id="fiscal-colony"
@@ -382,7 +410,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.colony ? [errors.fiscalAddress.colony] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-municipality">Municipio / Delegación</FieldLabel>
                     <Input
                         id="fiscal-municipality"
@@ -394,7 +422,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.municipality ? [errors.fiscalAddress.municipality] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-state">Estado</FieldLabel>
                     <Input
                         id="fiscal-state"
@@ -406,7 +434,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.state ? [errors.fiscalAddress.state] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4   ">
                     <FieldLabel htmlFor="fiscal-email">Correo electrónico</FieldLabel>
                     <Input
                         id="fiscal-email"
@@ -418,7 +446,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.email ? [errors.fiscalAddress.email] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-phone">Teléfono</FieldLabel>
                     <Input
                         id="fiscal-phone"
@@ -430,7 +458,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.fiscalAddress?.phone ? [errors.fiscalAddress.phone] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="fiscal-ext">Extensión</FieldLabel>
                     <Input
                         id="fiscal-ext"
@@ -443,11 +471,11 @@ export function CorporateLegalrepresentativeForm(
                     <FieldError errors={errors.fiscalAddress?.ext ? [errors.fiscalAddress.ext] : undefined} />
                 </Field>
             </FieldGroup>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-0">
-                <ParagraphH4 text="Contacto legal" />
+            <FieldGroup className="grid grid-cols-1 gap-4 mb-4 px-0">
+                <ParagraphH2 text="Contacto legal" />
             </FieldGroup>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <Field className="grid gap-2">
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-name">Nombre</FieldLabel>
                     <Input
                         id="legalContact-name"
@@ -459,7 +487,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.name ? [errors.legalContact.name] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-lastName">Apellido Paterno</FieldLabel>
                     <Input
                         id="legalContact-lastName"
@@ -471,7 +499,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.lastName ? [errors.legalContact.lastName] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-maternalLastName">Apellido Materno</FieldLabel>
                     <Input
                         id="legalContact-maternalLastName"
@@ -483,7 +511,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.maternalLastName ? [errors.legalContact.maternalLastName] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-email">Correo electrónico</FieldLabel>
                     <Input
                         id="legalContact-email"
@@ -495,7 +523,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.email ? [errors.legalContact.email] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-phone">Teléfono</FieldLabel>
                     <Input
                         id="legalContact-phone"
@@ -507,7 +535,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.phone ? [errors.legalContact.phone] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-ext">Extensión</FieldLabel>
                     <Input
                         id="legalContact-ext"
@@ -519,7 +547,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.ext ? [errors.legalContact.ext] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-phone2">Teléfono 2</FieldLabel>
                     <Input
                         id="legalContact-phone2"
@@ -531,7 +559,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.phone2 ? [errors.legalContact.phone2] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-ext2">Extensión 2</FieldLabel>
                     <Input
                         id="legalContact-ext2"
@@ -543,7 +571,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.ext2 ? [errors.legalContact.ext2] : undefined} />
                 </Field>
-                <Field className="grid gap-2 md:col-span-3">
+                <Field className="grid gap-2 md:col-span-2 mb-4">
                     <FieldLabel>Días de atención</FieldLabel>
                     <ButtonGroup className="flex-wrap">
                         {WEEKDAYS.map((day) => {
@@ -568,7 +596,7 @@ export function CorporateLegalrepresentativeForm(
                         })}
                     </ButtonGroup>
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-startHour">Hora de inicio</FieldLabel>
                     <Input
                         id="legalContact-startHour"
@@ -580,7 +608,7 @@ export function CorporateLegalrepresentativeForm(
                     />
                     <FieldError errors={errors.legalContact?.startHour ? [errors.legalContact.startHour] : undefined} />
                 </Field>
-                <Field className="grid gap-2">
+                <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-endHour">Hora de fin</FieldLabel>
                     <Input
                         id="legalContact-endHour"

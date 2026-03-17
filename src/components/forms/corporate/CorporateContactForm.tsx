@@ -7,7 +7,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import ParagraphH4 from "@/components/text/ParagraphH4";
+import ParagraphH2 from "@/components/text/ParagraphH2";
 
 const WEEKDAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"] as const;
 
@@ -86,15 +86,15 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
     const renderContactSection = (section: ContactSectionKey, title: string) => {
         const base = `contactData.${section}` as const;
         const days = (watch(`${base}.days`) ?? []) as string[];
-        const err = (errors.contactData as Record<ContactSectionKey, Partial<Record<keyof ContactBlock, { message?: string }>>> | undefined)?.[section];
+        const err = (errors.contactData as Record<ContactSectionKey, Partial<Record<keyof ContactBlock, { message?: string; }>>> | undefined)?.[section];
 
         return (
             <>
-                <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-0">
-                    <ParagraphH4 text={title} />
+                <FieldGroup className="grid grid-cols-1  gap-4 mb-4 px-0">
+                    <ParagraphH2 text={title} />
                 </FieldGroup>
                 <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-name`}>Nombre</FieldLabel>
                         <Input
                             id={`${section}-name`}
@@ -106,7 +106,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.name ? [err.name] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-lastName`}>Apellido Paterno</FieldLabel>
                         <Input
                             id={`${section}-lastName`}
@@ -118,7 +118,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.lastName ? [err.lastName] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-maternalLastName`}>Apellido Materno</FieldLabel>
                         <Input
                             id={`${section}-maternalLastName`}
@@ -130,7 +130,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.maternalLastName ? [err.maternalLastName] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-email`}>Correo electrónico</FieldLabel>
                         <Input
                             id={`${section}-email`}
@@ -142,7 +142,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.email ? [err.email] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-phone`}>Teléfono</FieldLabel>
                         <Input
                             id={`${section}-phone`}
@@ -154,7 +154,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.phone ? [err.phone] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-ext`}>Extensión</FieldLabel>
                         <Input
                             id={`${section}-ext`}
@@ -166,7 +166,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.ext ? [err.ext] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-phone2`}>Teléfono opcional</FieldLabel>
                         <Input
                             id={`${section}-phone2`}
@@ -178,7 +178,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.phone2 ? [err.phone2] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-ext2`}>Ext. opcional</FieldLabel>
                         <Input
                             id={`${section}-ext2`}
@@ -215,7 +215,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                             })}
                         </ButtonGroup>
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-startHour`}>Hora de inicio</FieldLabel>
                         <Input
                             id={`${section}-startHour`}
@@ -227,7 +227,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.startHour ? [err.startHour] : undefined} />
                     </Field>
-                    <Field className="grid gap-2">
+                    <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-endHour`}>Hora de fin</FieldLabel>
                         <Input
                             id={`${section}-endHour`}
@@ -246,6 +246,34 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
 
     return (
         <>
+            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="col-span-full flex justify-end gap-2">
+                    {!disabledField && (
+                        <Button
+                            type="button"
+                            onClick={handleDisabledField}
+                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                        >
+                            <PenOff className="size-4" />
+                            Cancelar
+                        </Button>
+                    )}
+                    <Button
+                        type="button"
+                        onClick={handleDisabledField}
+                        className={
+                            disabledField
+                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
+                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
+                        }
+                    >
+                        <span className="flex items-center gap-2">
+                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
+                            {disabledField ? "Editar" : "Guardar"}
+                        </span>
+                    </Button>
+                </div>
+            </FieldGroup>
             {renderContactSection("commercialContact", "Contacto comercial")}
             {renderContactSection("technicalContact", "Contacto técnico")}
             {renderContactSection("financialContact", "Contacto financiero")}
