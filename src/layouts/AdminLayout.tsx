@@ -8,16 +8,18 @@ import Header from "@/components/layout/Header";
 
 const AdminLayout = () => {
   return (
-    <div className="min-h-svh p-6 md:p-8">
+    <div className="min-h-svh">
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
           <Header />
           <main
-            className="flex flex-1 flex-col overflow-auto p-4 bg-muted/30"
+            className="flex flex-1 flex-col overflow-auto bg-[#F9F9FB] p-4"
             role="main"
           >
-            <Outlet />
+            <div className="flex flex-1 flex-col">
+              <Outlet />
+            </div>
           </main>
         </SidebarInset>
       </SidebarProvider>

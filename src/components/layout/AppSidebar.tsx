@@ -16,118 +16,13 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import type { LucideIcon } from "lucide-react";
-import { LayoutDashboard, Activity, Building, ChevronRight, Store, Smartphone, CreditCard, Package, Wallet, Container, Settings } from "lucide-react";
+import avatar from "@/assets/KluAvatarWhite.svg";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-type NavSubItem = {
-  title: string;
-  url: string;
-  isActive?: boolean;
-};
-
-type NavMainItem = {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-  items?: NavSubItem[];
-};
-
-type NavEntry = NavMainItem | { type: "separator"; };
+import { navMain, type NavEntry, type NavMainItem } from "@/config/navigation";
 
 const isNavItem = (entry: NavEntry): entry is NavMainItem =>
   "title" in entry && "url" in entry;
-
-const navMain: NavEntry[] = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "POS Health",
-    url: "/poshealth",
-    icon: Activity,
-  },
-  { type: "separator" },
-  {
-    title: "Corporativo",
-    url: "#",
-    icon: Building,
-    items: [
-      { title: "Top", url: "/corporativo/top" },
-      { title: "Grilla de coprporativos", url: "/corporativo/listado" },
-    ],
-  },
-  {
-    title: "Comercios",
-    url: "#",
-    icon: Store,
-    items: [
-      { title: "Comercios físicos", url: "#", },
-      { title: "Comercios móvil", url: "#", },
-      { title: "E-commerce", url: "#", },
-    ],
-  },
-  { type: "separator" },
-  {
-    title: "Transacciones",
-    url: "#",
-    icon: CreditCard,
-  },
-  {
-    title: "Finanzas",
-    url: "#",
-    icon: Wallet, items: [
-      { title: "Conciliaciones", url: "#", },
-      { title: "Contracargos", url: "#", },
-      { title: "Transacciones a liquidar", url: "#", },
-    ],
-  },
-  { type: "separator" },
-  {
-    title: "Dispositivos",
-    url: "#",
-    icon: Smartphone,
-    items: [
-      { title: "Grilla de dispositivos", url: "#", },
-      { title: "Administracion", url: "#", },
-    ],
-  },
-  {
-    title: "Catálogo",
-    url: "#",
-    icon: Container,
-    items: [
-      { title: "Marcas", url: "#", },
-      { title: "Modelos", url: "#", },
-      { title: "FiDD", url: "#", },
-      { title: "Bines", url: "#", },
-    ],
-  },
-  {
-    title: "Versiones",
-    url: "#",
-    icon: Package,
-    items: [
-      { title: "Grilla de versiones", url: "#", },
-      { title: "Asignar versiones", url: "#", },
-      { title: "Gráficas de versiones", url: "#", },
-    ],
-  },
-  { type: "separator" },
-  {
-    title: "Administracion",
-    url: "#",
-    icon: Settings,
-    items: [
-      { title: "Usuarios", url: "#", },
-      { title: "Monitoreo", url: "#", },
-      { title: "Webhooks", url: "#", },
-    ],
-  },
-
-];
 
 const AppSidebar = () => {
   const location = useLocation();
@@ -154,20 +49,23 @@ const AppSidebar = () => {
   }, []);
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
+    <Sidebar collapsible="icon" >
+      <SidebarHeader className="relative z-10 h-14 shrink-0 flex flex-row items-center border-b border-black/10 bg-[var(--primary-light)] shadow-[var(--shadow-header)]">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" className="font-semibold">
-              <LayoutDashboard className="size-5" />
-              <span>Admin</span>
+            <SidebarMenuButton size="lg" className="font-semibold hover:bg-transparent hover:text-sidebar-foreground active:bg-transparent active:text-sidebar-foreground data-[state=open]:bg-transparent data-[state=open]:text-sidebar-foreground">
+              <img src={avatar} alt="Klu" className="size-10" />
+              <div className="flex flex-col">
+                <span className="text-lg font-bold">Momentum</span>
+                <p className="text-sm text-primary-foreground">Plan</p>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-[var(--primary-light)] pt-8">
         <SidebarGroup>
-          <SidebarGroupLabel>Secciones</SidebarGroupLabel>
+          {/* <SidebarGroupLabel>Secciones</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {navMain.map((entry, index) => {

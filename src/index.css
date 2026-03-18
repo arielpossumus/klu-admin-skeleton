@@ -21,11 +21,15 @@
     --color-popover-foreground: var(--popover-foreground);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-dark: var(--primary-dark);
+    --color-primary-light: var(--primary-light);
+    --color-gray: var(--gray);
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
     --color-accent: var(--accent);
+    --color-accent-dark: var(--accent-dark);
     --color-accent-foreground: var(--accent-foreground);
     --color-destructive: var(--destructive);
     --color-border: var(--border);
@@ -44,24 +48,47 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
-}
+    --color-background-login: var(--background-login);
+    --color-foreground-login: var(--foreground-login);
+    --color-success-dark: var(--success-dark);
+    --color-success-light: var(--success-light);
+    --color-error-dark: var(--error-dark);
+    --color-error-light: var(--error-light);
+    --color-warning-dark: var(--warning-dark);
+    --color-warning-light: var(--warning-light);
+    --color-info-dark: var(--info-dark);
+    --color-info-light: var(--info-light);
+
+    /* 
+    Ejemplo para agregar colores personalizados:
+    Uso: bg-warnincito text-warnincito-foreground
+    --color-warnincito: var(--warnincito);
+    --color-warnincito-foreground: var(--warnincito-foreground) */
+  }
 
 :root {
+    --primary: #0B3C36;
+    --primary-foreground: #dfeff0;
+    --primary-dark: #0A2D28;
+    --primary-light: #087771;
+    --gray: #F2F0EF;
     --radius: 0.625rem;
+    --shadow-header: 0 4px 12px rgba(0, 0, 0, 0.05);
     --background: oklch(1 0 0);
+    --background-login: #0a2d28;
+    --foreground-login: #0b5752;
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
+    --secondary: #1E2F45;
+    --secondary-foreground: #E6EEFE;
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --accent: #E96F16;
+    --accent-dark: #ad4a02;
+    --accent-foreground:#ffffff;
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
@@ -71,14 +98,27 @@
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: #fafafa;
-    --sidebar-foreground: #0b3c36 #dfeff0;
+    --sidebar: #0B5752;
+    --sidebar-foreground:  #dfeff0;
     --sidebar-primary: oklch(0.205 0 0);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: #dfeff0;
     --sidebar-accent-foreground: #0B3C36;
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --success-dark:#17B26A;
+    --success-light:#EDFCF3;
+    --error-dark:#F04438;
+    --error-light:#FEF3F2;
+    --warning-dark:#FDA712;
+    --warning-light:#FFFBED;
+    --info-dark:#234369;
+    --info-light:#F3F6FC;
+    /*
+    Ejemplo para agregar colores personalizados:
+   Aca se define el color y el color del texto
+    --warnincito: #ad0000;
+    --warnincito-foreground: #5e0000; */
 }
 
 .dark {
@@ -90,12 +130,16 @@
     --popover-foreground: oklch(0.985 0 0);
     --primary: oklch(0.922 0 0);
     --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
+    --primary-dark: #0A2D28;
+    --primary-light: #087771;
+    --gray: #1E2F45;
+    --secondary: #1E2F45;
+    --secondary-foreground: #E6EEFE;
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --accent: #F99B1C;
+    --accent-dark: #E96F16;
+    --accent-foreground:#FEE1B4;
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
@@ -113,6 +157,20 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --success-dark:#17B26A;
+    --success-light:#EDFCF3;
+    --error-dark:#F04438;
+    --error-light:#FEF3F2;
+    --warning-dark:#FDA712;
+    --warning-light:#FFFBED;
+    --info-dark:#A855F71A;
+    --info-light:#F3F6FC;
+     /*
+    Ejemplo para agregar colores personalizados:
+    En dark mode
+   Aca se define el color y el color del texto
+    --warnincito: #ad0000;
+    --warnincito-foreground: #5e0000; */
 }
 
 @layer base {
@@ -120,6 +178,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#E6EEFE] text-foreground;
   }
 }

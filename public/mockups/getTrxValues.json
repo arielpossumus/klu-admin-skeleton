@@ -1,0 +1,14 @@
+{
+    "status": true,
+    "date": "06/03/2026",
+    "time": "12:25:52",
+    "data_response": {
+        "MXN": {
+            "currency": "MXN",
+            "salesNumber": 20,
+            "rejectionNumber": 2,
+            "transactionDailyNumber": 22,
+            "accumulatedAmountDay": 11234768.24
+        }
+    }
+}

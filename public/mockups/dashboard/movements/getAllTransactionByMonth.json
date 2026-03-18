@@ -1,0 +1,32 @@
+{
+    "status": true,
+    "message": "OK",
+    "filterType": "MENSUAL",
+    "chartData": [
+        {
+            "index": 1,
+            "columnName": "11 Feb - 17 Feb",
+            "totalApproved": 108,
+            "totalRejected": 41
+        },
+        {
+            "index": 2,
+            "columnName": "18 Feb - 24 Feb",
+            "totalApproved": 181,
+            "totalRejected": 115
+        },
+        {
+            "index": 3,
+            "columnName": "25 Feb - 3 Mar",
+            "totalApproved": 249,
+            "totalRejected": 86
+        },
+        {
+            "index": 4,
+            "columnName": "4 Mar - 10 Mar",
+            "totalApproved": 90,
+            "totalRejected": 72
+        }
+    ],
+    "charts": null
+}

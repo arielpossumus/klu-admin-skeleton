@@ -1,5 +1,6 @@
 "use client";
 
+import { useNavigate } from "react-router";
 import {
     Bell,
     LogOut,
@@ -38,6 +39,8 @@ export function NavUser({
 }) {
 
 
+    const navigate = useNavigate();
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -45,7 +48,7 @@ export function NavUser({
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <Avatar className="h-8 w-8 rounded-lg grayscale">
                                 <AvatarImage src={user.avatar} alt={user.name} />
@@ -82,17 +85,17 @@ export function NavUser({
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
                                 <UserCircle />
                                 Account
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
                                 <Bell />
                                 Notifications
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/")}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>
