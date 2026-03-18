@@ -3,13 +3,13 @@ import type { CorporateByIdResponse } from "@/types/corporate/Corporate";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SectionTitle from "@/components/text/SectionTitle";
-import { CorporateGeneralDetailsForm } from "@/components/forms/corporate/CorporateGeneralDetailsForm";
+import { CorporateGeneralDetailsForm } from "@/components/forms/corporate/edit/CorporateGeneralDetailsForm";
 import {
     CorporateLegalrepresentativeForm,
     type CorporateLegalrepresentativeFormProps,
-} from "@/components/forms/corporate/CorporateLegalrepresentativeForm";
-import { CorporateContactForm } from "@/components/forms/corporate/CorporateContactForm";
-import { CorporateComercialModel } from "@/components/forms/corporate/CorporateComercialModel";
+} from "@/components/forms/corporate/edit/CorporateLegalrepresentativeForm";
+import { CorporateContactForm } from "@/components/forms/corporate/edit/CorporateContactForm";
+import { CorporateComercialModel } from "@/components/forms/corporate/edit/CorporateComercialModel";
 import { CustomCard } from "@/components/commons/CustomCard";
 import { Building2, List } from "lucide-react";
 import { INTERNAL_CORPORATE_NAV } from "@/types/internalMenues/internalCorporate";

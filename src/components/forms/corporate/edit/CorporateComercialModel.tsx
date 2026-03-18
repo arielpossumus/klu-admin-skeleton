@@ -3,15 +3,16 @@
 import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleMinus, CirclePlus, Pencil, PenOff, Save } from "lucide-react";
+import { CircleMinus, CirclePlus } from "lucide-react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import { DataTable } from "@/components/ui/data-table";
-import adquisitionBanksJson from "../../../../public/mockups/annex/getAllAdquisitionBanks.json" with { type: "json" };
-import getAllChannelsJson from "../../../../public/mockups/annex/getAllChannels.json" with { type: "json" };
+import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
+import adquisitionBanksJson from "../../../../../public/mockups/annex/getAllAdquisitionBanks.json" with { type: "json" };
+import getAllChannelsJson from "../../../../../public/mockups/annex/getAllChannels.json" with { type: "json" };
 import type { ModelCommercialTransaction } from "@/types/corporate/Corporate";
 import ParagraphH2 from "@/components/text/ParagraphH2";
 import { transactionLiteColumns } from "@/components/tables/corporate/transactionsLiteColumns";
@@ -62,7 +63,7 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
         [defaultValues?.channels]
     );
 
-    const { register, watch, setValue, formState: { errors } } = useForm<CorporateComercialModelFormValues>({
+    const { register, watch, setValue, handleSubmit, formState: { errors } } = useForm<CorporateComercialModelFormValues>({
         defaultValues: {
             adquisition: defaultValues?.adquisition ?? false,
             adquisitionBank: defaultValues?.adquisitionBank ?? "",
@@ -75,7 +76,7 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
     const adquisition = watch("adquisition");
     const adquisitionBank = watch("adquisitionBank");
     const channels = watch("channels");
-    const transactions = defaultValues?.transactions ?? [];
+    const transactions = useMemo(() => defaultValues?.transactions ?? [], [defaultValues?.transactions]);
 
     const channelsTableData = useMemo(
         () => channels.map((name, id) => ({ id, name })),
@@ -122,9 +123,9 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
 
     const [selectedChannelToAdd, setSelectedChannelToAdd] = useState("");
 
-    const handleDisabledField = () => {
-        setDisabledField(!disabledField);
-    };
+    const handleDisabledField = useCallback(() => {
+        setDisabledField((prev) => !prev);
+    }, []);
 
     const handleAddChannel = useCallback(() => {
         if (!selectedChannelToAdd.trim()) return;
@@ -132,36 +133,21 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
         setSelectedChannelToAdd("");
     }, [channels, selectedChannelToAdd, setValue]);
 
+    const handleFormSubmit = useCallback(
+        (data: CorporateComercialModelFormValues) => {
+            const payload = {
+                ...data,
+                transactions,
+            };
+            console.log("Formulario modelo comercial:", payload);
+            setDisabledField(true);
+        },
+        [transactions]
+    );
+
     return (
-        <>
-            <FieldGroup className="grid grid-cols-1 gap-4 mb-12">
-                <div className="flex justify-end gap-2">
-                    {!disabledField && (
-                        <Button
-                            type="button"
-                            onClick={handleDisabledField}
-                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                        >
-                            <PenOff className="size-4" />
-                            Cancelar
-                        </Button>
-                    )}
-                    <Button
-                        type="button"
-                        onClick={handleDisabledField}
-                        className={
-                            disabledField
-                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                        }
-                    >
-                        <span className="flex items-center gap-2">
-                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
-                            {disabledField ? "Editar" : "Guardar"}
-                        </span>
-                    </Button>
-                </div>
-            </FieldGroup>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="contents">
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
             <FieldGroup className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-12">
                 <Field className="grid gap-2">
                     <FieldLabel>Adquisición</FieldLabel>
@@ -266,34 +252,7 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
 
             </FieldGroup>
 
-            <FieldGroup className="grid grid-cols-1 gap-4">
-                <div className="flex justify-end gap-2">
-                    {!disabledField && (
-                        <Button
-                            type="button"
-                            onClick={handleDisabledField}
-                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                        >
-                            <PenOff className="size-4" />
-                            Cancelar
-                        </Button>
-                    )}
-                    <Button
-                        type="button"
-                        onClick={handleDisabledField}
-                        className={
-                            disabledField
-                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                        }
-                    >
-                        <span className="flex items-center gap-2">
-                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
-                            {disabledField ? "Editar" : "Guardar"}
-                        </span>
-                    </Button>
-                </div>
-            </FieldGroup>
-        </>
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
+        </form>
     );
 }

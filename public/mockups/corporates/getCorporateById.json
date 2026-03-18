@@ -68,12 +68,11 @@
                     "days": [
                         "Lunes",
                         "Martes",
-                        "Miércoles",
                         "Jueves",
                         "Viernes"
                     ],
-                    "startHour": "09:00",
-                    "endHour": "18:00"
+                    "startHour": "11:00",
+                    "endHour": "12:00"
                 },
                 "technicalContact": {
                     "name": "ANGEL",
@@ -85,8 +84,6 @@
                     "phone2": "5582508350",
                     "ext2": "322",
                     "days": [
-                        "Lunes",
-                        "Martes",
                         "Miércoles",
                         "Jueves",
                         "Viernes"
@@ -104,13 +101,9 @@
                     "phone2": "5582508350",
                     "ext2": "322",
                     "days": [
-                        "Lunes",
-                        "Martes",
-                        "Miércoles",
-                        "Jueves",
                         "Viernes"
                     ],
-                    "startHour": "09:00",
+                    "startHour": "15:00",
                     "endHour": "18:00"
                 }
             },

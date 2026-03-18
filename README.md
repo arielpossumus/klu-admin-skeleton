@@ -8,22 +8,27 @@ Panel de administración construido con React, TypeScript, Vite, Shadcn UI y Tai
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Desarrollo](#desarrollo)
 - [Build](#build)
+- [Lint y formato](#lint-y-formato)
 - [Crear una nueva página y configurar el ruteo](#crear-una-nueva-página-y-configurar-el-ruteo)
 - [Pasos para mostrar una DataGrid con datos](#pasos-para-mostrar-una-datagrid-con-datos)
 - [Componentes de tipografía](#componentes-de-tipografía-srccomponentstext)
 - [Dashboard](#dashboard)
 - [Componentes comunes (commons)](#componentes-comunes-commons)
+- [Formularios](#formularios-srccomponentsforms)
 
 ---
 
 ## Stack
 
-- **React** + **TypeScript**
+- **React 19** + **TypeScript**
 - **Vite** (build)
-- **Shadcn UI** (componentes) + **Tailwind CSS** (estilos)
+- **React Router 7** (rutas y layout)
+- **Shadcn UI** (componentes sobre Radix UI) + **Tailwind CSS v4** (estilos)
 - **React Hook Form** (formularios)
+- **TanStack Table** (tablas) + **TanStack Query** (caché y estado de datos)
+- **Recharts** (gráficos)
 - **Axios** (HTTP)
-- **TanStack Query** (caché y estado de datos)
+- **Lucide React** (iconos)
 
 ## Estructura del proyecto
 
@@ -33,25 +38,28 @@ admin_momentum/
 │   ├── assets/              # Recursos estáticos (imágenes, íconos, fuentes)
 │   ├── components/          # Componentes React reutilizables
 │   │   ├── ui/              # Componentes Shadcn (Button, Card, DropdownMenu, DataTable, etc.)
-│   │   ├── layout/          # Sidebar, Header, etc.
+│   │   ├── layout/          # AppSidebar, Header, NavUser
 │   │   ├── commons/         # Componentes comunes (CustomCard, CustomCollapsibleCard, DistributionListCard, CustomAlertDialog)
 │   │   ├── text/            # Tipografía (ParagraphH1, ParagraphH4, SectionTitle, etc.)
-│   │   ├── charts/          # Gráficos (MovementsChart, AcceptanceChart, IncidentsBarChart, TopCorporativosChart, etc.)
-│   │   └── tables/          # Definición de columnas para DataTable (corporateColumns, posHealth, etc.)
-│   ├── layouts/             # Layouts de página (AdminLayout: Sidebar + Header + contenido)
+│   │   ├── charts/          # Gráficos (MovementsChart, AcceptanceChart, IncidentsBarChart, TopCorporativosChart, UsageRadial, ChargeLevelRadial)
+│   │   ├── tables/          # Columnas para DataTable (corporateColumns, posHealth/, deviceColumns, corporate/transactionsLiteColumns, etc.)
+│   │   ├── forms/           # Formularios (LoginForm, CustomFormButtons, corporate/edit/*)
+│   │   ├── tabsContent/     # Contenido de pestañas (device/)
+│   │   └── loaders/         # Loaders (TablesLoader)
+│   ├── layouts/             # AdminLayout (SidebarProvider, AppSidebar, Header, Outlet)
 │   ├── pages/               # Páginas/vistas principales
-│   │   ├── dashboard/       # Inicio, KPIs y gráficos de transacciones
-│   │   ├── login/           # Login
-│   │   ├── corporate/       # Listado de corporativos y detalle
-│   │   ├── poshealt/        # POS Health (dispositivos) y detalle por serial
-│   │   └── components/     # Página de ejemplos de componentes
+│   │   ├── dashboard/       # Dashboard (Index.tsx): KPIs, transacciones y gráficos
+│   │   ├── login/           # Login (Index.tsx)
+│   │   ├── corporate/       # Listado (index.tsx), detalle por ID (CorporateDetail.tsx)
+│   │   ├── poshealt/        # POS Health listado (Index.tsx), detalle por serial (PosHealthDetail.tsx)
+│   │   └── components/      # Página de ejemplos de componentes (Components.tsx)
 │   ├── types/               # Tipos e interfaces TypeScript
 │   ├── config/              # Configuraciones (navegación, charts, opciones)
 │   ├── lib/                 # Utilidades (utils, api, auth)
 │   ├── services/            # Servicios y llamadas a API por recurso
 │   ├── hooks/               # Custom hooks
 │   ├── context/             # Contextos React (Auth, Currency, etc.)
-│   ├── router/              # Rutas (Routes.ts, AppRouter.tsx)
+│   ├── router/              # Rutas: Routes.ts (export routes), AppRouter.tsx (createBrowserRouter + RouterProvider)
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css            # Estilos globales (Tailwind)
@@ -65,8 +73,10 @@ admin_momentum/
 
 ```bash
 npm install
-npm run dev:local # levanta app apuntando a ambiente local
-npm run dev:develop # levanta app apuntando a ambiente develop
+npm run dev          # desarrollo por defecto
+npm run dev:local    # apunta a ambiente local
+npm run dev:develop  # apunta a ambiente develop
+npm run dev:staging  # apunta a ambiente staging
 ```
 
 ## Build
@@ -74,6 +84,14 @@ npm run dev:develop # levanta app apuntando a ambiente develop
 ```bash
 npm run build
 npm run preview   # previsualizar el build
+```
+
+## Lint y formato
+
+```bash
+npm run lint        # comprobar con ESLint
+npm run lint:fix    # corregir automáticamente
+npm run format      # formatear con Prettier (src)
 ```
 
 ## Crear una nueva página y configurar el ruteo
@@ -127,6 +145,21 @@ Para rutas **sin** layout (ej. login), se usa solo `path` y `Component`:
 ```tsx
 { path: "/", Component: Login },
 ```
+
+Para **rutas anidadas** (ej. detalle por ID), se agrega un hijo con `path` con parámetro:
+
+```tsx
+{
+  path: "/corporate",
+  Component: AdminLayout,
+  children: [
+    { index: true, Component: CorporateIndex },
+    { path: ":corporateId", Component: CorporateDetail },
+  ],
+},
+```
+
+El array `routes` se exporta en **`src/router/Routes.ts`** y se usa en **`src/router/AppRouter.tsx`** con `createBrowserRouter(routes)` y `<RouterProvider router={router} />`.
 
 ### 3. Agregar ítems en el menú lateral (opcional)
 
@@ -274,15 +307,17 @@ export default MiPagina;
 
 ### Ejemplos en el proyecto
 
-- **Corporativos:** `src/components/tables/corporateColumns.tsx` + `src/pages/corporate/index.tsx`
-- **POS Health (dispositivos):** `src/components/tables/posHealth/` (columnas y contenido expandido) + `src/pages/poshealt/Index.tsx`. Incluye columnas de batería, impresora y conexión con barras de progreso, badges y expandibles.
+- **Corporativos:** `src/components/tables/corporateColumns.tsx` + `src/pages/corporate/index.tsx`. Detalle: `src/pages/corporate/CorporateDetail.tsx`; columnas de transacciones lite: `src/components/tables/corporate/transactionsLiteColumns.tsx`.
+- **POS Health (dispositivos):** `src/components/tables/posHealth/` (posHealthColumns, PosHealthExpandedContent, secciones de detalle) + `src/pages/poshealt/Index.tsx` (listado) y `src/pages/poshealt/PosHealthDetail.tsx` (detalle por `:serialId`). Columnas de batería, impresora y conexión: `deviceBatteryColumns`, `devicePrinterColumns`, `deviceconectionsColumns`.
 - **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
 - **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
 - **Conexión:** `src/components/tables/deviceconectionsColumns.tsx` (señal WiFi, estado SIM, etc.)
 
 ## Componentes de tipografía (`src/components/text`)
 
-Los componentes en **`src/components/text`** unifican el estilo de títulos y párrafos. Todos reciben la prop **`text: string`** con el contenido a mostrar.
+Los componentes en **`src/components/text`** unifican el estilo de títulos y párrafos.
+
+### Párrafos y títulos (prop `text: string`)
 
 | Componente | Uso | Ejemplo |
 |------------|-----|--------|
@@ -293,7 +328,38 @@ Los componentes en **`src/components/text`** unifican el estilo de títulos y p�
 | **Paragraph** | Párrafo de cuerpo | `<Paragraph text="Texto del párrafo." />` |
 | **TypographyBlockquote** | Cita o bloque destacado (blockquote) | `<TypographyBlockquote text="Cita o nota." />` |
 
-**Ejemplo en una página:**
+### SectionTitle
+
+**SectionTitle** es el bloque de título de sección usado al inicio de cada página. Props:
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `title` | `string` | Título principal (h3) |
+| `subtitle` | `string` (opcional) | Texto secundario debajo del título |
+| `showButton` | `boolean` (opcional) | Muestra un botón a la derecha |
+| `actionName` | `string` (opcional) | Texto del botón |
+| `actionIcon` | `LucideIcon` (opcional) | Icono del botón |
+| `showBadge` | `boolean` (opcional) | Muestra un badge junto al título |
+| `badgeText` | `string` (opcional) | Texto del badge (ej. "Activo" / "Inactivo", con estilos success/error) |
+
+**Ejemplo:**
+
+```tsx
+import SectionTitle from "@/components/text/SectionTitle";
+import { List } from "lucide-react";
+
+<SectionTitle
+  title="Nombre del corporativo"
+  subtitle="FIID: 12345"
+  showBadge
+  badgeText="Activo"
+  showButton
+  actionName="Agregar"
+  actionIcon={List}
+/>
+```
+
+**Ejemplo con párrafos:**
 
 ```tsx
 import ParagraphH1 from "@/components/text/ParagraphH1";
@@ -319,17 +385,17 @@ Para cambiar tamaño, peso o márgenes, se editan las clases Tailwind en el comp
 
 ## Dashboard
 
-La página **Dashboard** (`src/pages/dashboard/Index.tsx`) muestra:
+La página **Dashboard** (`src/pages/dashboard/Index.tsx`) usa **SectionTitle** para el título de la página y muestra:
 
 - **Transacciones:** bloque con `CustomCard` que contiene:
-  - **DistributionListCard:** donut (Aprobadas/Rechazadas), centro con valor Diarias, total acumulado en $, controles de agregación y moneda.
+  - **DistributionListCard:** donut (Aprobadas/Rechazadas), valor central Diarias, total acumulado en $, controles de agregación y moneda.
   - **MovementsChart:** gráfico de líneas (Aprobados/Rechazados) por período (Anual, Mensual, Semanal, Diario).
 - **Tres columnas** con:
   - Top corporativos (`TopCorporativosChart`).
-  - Porcentaje de aceptación por marca (`AcceptanceChart`, barras).
+  - Porcentaje de aceptación por marca (`AcceptanceChart`, gráfico de torta).
   - Incidentes POS Health (`IncidentsBarChart`).
 
-Los datos provienen de mocks en `public/mockups/` (getTrxValues, panelInformation, getAllPosIncidents, etc.).
+Los datos provienen de mocks en `public/mockups/` (getTrxValues, getPanelInformation, getAllPosIncidents, movimientos por año/mes/semana/día, top corporativos, etc.).
 
 ## Componentes comunes (commons)
 
@@ -355,3 +421,17 @@ En **`src/components/commons/`** hay componentes reutilizables para cards, filtr
 ```
 
 Usado en **`src/pages/corporate/index.tsx`** y **`src/pages/poshealt/Index.tsx`** para la sección de filtros colapsable.
+
+---
+
+## Formularios (`src/components/forms`)
+
+- **LoginForm:** formulario de login.
+- **CustomFormButtons:** botones estándar para formularios (Guardar, Cancelar, etc.).
+- **corporate/edit/:** formularios del detalle de corporativo:
+  - **CorporateGeneralDetailsForm**
+  - **CorporateLegalrepresentativeForm**
+  - **CorporateContactForm**
+  - **CorporateComercialModel** (modelo comercial)
+
+Se usan en **CorporateDetail** (`src/pages/corporate/CorporateDetail.tsx`) dentro de cards por sección, con navegación lateral y scroll por secciones.

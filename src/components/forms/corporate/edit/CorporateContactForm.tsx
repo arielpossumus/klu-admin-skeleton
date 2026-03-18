@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Pencil, PenOff, Save } from "lucide-react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
 import ParagraphH2 from "@/components/text/ParagraphH2";
 
 const WEEKDAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"] as const;
@@ -68,7 +68,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
         };
     }, [defaultValues?.contactData]);
 
-    const { register, watch, setValue, formState: { errors } } = useForm<CorporateContactFormValues>({
+    const { register, watch, setValue, handleSubmit, formState: { errors } } = useForm<CorporateContactFormValues>({
         defaultValues: resolvedDefaults,
     });
 
@@ -79,9 +79,14 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
         setValue(path, next);
     };
 
-    const handleDisabledField = () => {
-        setDisabledField(!disabledField);
-    };
+    const handleDisabledField = useCallback(() => {
+        setDisabledField((prev) => !prev);
+    }, []);
+
+    const handleFormSubmit = useCallback((data: CorporateContactFormValues) => {
+        console.log("Formulario contactos:", data);
+        setDisabledField(true);
+    }, []);
 
     const renderContactSection = (section: ContactSectionKey, title: string) => {
         const base = `contactData.${section}` as const;
@@ -93,7 +98,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                 <FieldGroup className="grid grid-cols-1  gap-4 mb-4 px-0">
                     <ParagraphH2 text={title} />
                 </FieldGroup>
-                <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <FieldGroup className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                     <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-name`}>Nombre</FieldLabel>
                         <Input
@@ -190,7 +195,7 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                         />
                         <FieldError errors={err?.ext2 ? [err.ext2] : undefined} />
                     </Field>
-                    <Field className="grid gap-2 md:col-span-3">
+                    <Field className="grid gap-2 md:col-span-2">
                         <FieldLabel>Días de atención</FieldLabel>
                         <ButtonGroup className="flex-wrap">
                             {WEEKDAYS.map((day) => {
@@ -245,67 +250,13 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
     };
 
     return (
-        <>
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="col-span-full flex justify-end gap-2">
-                    {!disabledField && (
-                        <Button
-                            type="button"
-                            onClick={handleDisabledField}
-                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                        >
-                            <PenOff className="size-4" />
-                            Cancelar
-                        </Button>
-                    )}
-                    <Button
-                        type="button"
-                        onClick={handleDisabledField}
-                        className={
-                            disabledField
-                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                        }
-                    >
-                        <span className="flex items-center gap-2">
-                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
-                            {disabledField ? "Editar" : "Guardar"}
-                        </span>
-                    </Button>
-                </div>
-            </FieldGroup>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="contents">
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
             {renderContactSection("commercialContact", "Contacto comercial")}
             {renderContactSection("technicalContact", "Contacto técnico")}
             {renderContactSection("financialContact", "Contacto financiero")}
 
-            <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="col-span-full flex justify-end gap-2">
-                    {!disabledField && (
-                        <Button
-                            type="button"
-                            onClick={handleDisabledField}
-                            className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
-                        >
-                            <PenOff className="size-4" />
-                            Cancelar
-                        </Button>
-                    )}
-                    <Button
-                        type="button"
-                        onClick={handleDisabledField}
-                        className={
-                            disabledField
-                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                        }
-                    >
-                        <span className="flex items-center gap-2">
-                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
-                            {disabledField ? "Editar" : "Guardar"}
-                        </span>
-                    </Button>
-                </div>
-            </FieldGroup>
-        </>
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
+        </form>
     );
 }

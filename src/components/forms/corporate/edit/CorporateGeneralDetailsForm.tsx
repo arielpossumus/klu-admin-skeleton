@@ -1,13 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Pencil, PenOff, Save } from "lucide-react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
 import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
-import corporatesModelJson from "../../../../public/mockups/annex/getAllCorporatesModel.json" with { type: "json" };
+import corporatesModelJson from "../../../../../public/mockups/annex/getAllCorporatesModel.json" with { type: "json" };
 
 const CORPORATE_MODEL_OPTIONS = (corporatesModelJson as { typeId: number; typeModel: string; }[]).map(
     (item) => ({ value: item.typeModel.trim(), label: item.typeModel.trim() })
@@ -30,7 +29,7 @@ export function CorporateGeneralDetailsForm({
 }: CorporateGeneralDetailsFormProps) {
     const [disabledField, setDisabledField] = useState(true);
     const normalizedStatus = (defaultValues?.status?.toUpperCase() === "ACTIVO" ? "Activo" : "Inactivo") as "Activo" | "Inactivo";
-    const { register, watch, setValue, formState: { errors } } = useForm<CorporateGeneralDetailsFormValues>({
+    const { register, watch, setValue, handleSubmit, formState: { errors } } = useForm<CorporateGeneralDetailsFormValues>({
         defaultValues: {
             rsa: defaultValues?.rsa ?? "",
             logoIndex: defaultValues?.logoIndex ?? "",
@@ -42,13 +41,18 @@ export function CorporateGeneralDetailsForm({
     const status = watch("status") ?? normalizedStatus;
     const modeloCorporativo = watch("modeloCorporativo") ?? defaultValues?.modeloCorporativo ?? "";
 
-    const handleDisabledField = () => {
-        setDisabledField(!disabledField);
-    };
+    const handleDisabledField = useCallback(() => {
+        setDisabledField((prev) => !prev);
+    }, []);
+
+    const handleFormSubmit = useCallback((data: CorporateGeneralDetailsFormValues) => {
+        console.log("Formulario datos generales:", data);
+        setDisabledField(true);
+    }, []);
 
     return (
-        <>
-
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="contents">
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
             <FieldGroup className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <Field className="grid gap-2">
                     <FieldLabel htmlFor="rsa">RSA</FieldLabel>
@@ -121,31 +125,7 @@ export function CorporateGeneralDetailsForm({
 
             </FieldGroup>
 
-            <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                <div className="col-span-full flex justify-end gap-2">
-                    {!disabledField && (
-                        <Button onClick={handleDisabledField} className="bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90">
-                            <PenOff className="size-4" />
-                            Cancelar
-                        </Button>
-                    )}
-                    <Button
-                        onClick={handleDisabledField}
-                        className={
-                            disabledField
-                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                        }
-                    >
-                        <span className="flex items-center gap-2">
-                            {disabledField ? <Pencil className="size-4" /> : <Save className="size-4" />}
-                            {disabledField ? "Editar" : "Guardar"}
-                        </span>
-                    </Button>
-                </div>
-
-            </FieldGroup >
-
-        </>
+            <CustomFormButtons isReadOnly={disabledField} onToggle={handleDisabledField} />
+        </form>
     );
 }
