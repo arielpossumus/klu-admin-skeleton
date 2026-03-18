@@ -21,6 +21,7 @@ export const DataTable = <TData, TValue>({
   columns,
   data,
   getRowId,
+  pagination = true,
   expandedRowId = null,
   renderExpandedContent,
 }: DataTableProps<TData, TValue>) => {
@@ -29,10 +30,11 @@ export const DataTable = <TData, TValue>({
     columns,
     getRowId: getRowId ? (row, _index) => getRowId(row as TData) : undefined,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    ...(pagination ? { getPaginationRowModel: getPaginationRowModel() } : {}),
   });
 
   const columnCount = columns.length;
+  const rowModel = pagination ? table.getRowModel() : table.getCoreRowModel();
 
   return (
     <div className="space-y-4">
@@ -55,8 +57,8 @@ export const DataTable = <TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
+            {rowModel.rows.length ? (
+              rowModel.rows.map((row) => (
                 <Fragment key={row.id}>
                   <TableRow
                     data-state={row.getIsSelected() && "selected"}
@@ -97,30 +99,32 @@ export const DataTable = <TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between px-2">
-        <span className="text-sm text-muted-foreground">
-          Página {table.getState().pagination.pageIndex + 1} de{" "}
-          {table.getPageCount()}
-        </span>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Anterior
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Siguiente
-          </Button>
+      {pagination && (
+        <div className="flex items-center justify-between px-2">
+          <span className="text-sm text-muted-foreground">
+            Página {table.getState().pagination.pageIndex + 1} de{" "}
+            {table.getPageCount()}
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Anterior
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Siguiente
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -55,7 +55,7 @@ export const CustomCollapsibleCard = ({
                         />
                     </button>
                 </CollapsibleTrigger>
-                <CollapsibleContent>{children}</CollapsibleContent>
+                <CollapsibleContent className="mt-4">{children}</CollapsibleContent>
             </Collapsible>
         </Card>
     );
