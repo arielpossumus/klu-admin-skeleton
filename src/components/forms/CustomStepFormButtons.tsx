@@ -69,35 +69,34 @@ export function CustomStepFormButtons<T extends string = string>({
                     </Button>
                 )}
             </div>
-            <Button
-                type="button"
-                onClick={isLastTab ? undefined : handleSiguiente}
-                aria-label={isLastTab ? submitAriaLabel : "Siguiente paso"}
-                disabled={!isLastTab && isNextDisabled}
-                className={
-                    isLastTab
-                        ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)] hover:opacity-90"
-                        : "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:opacity-90"
-                }
-            >
-                {isLastTab ? (
-                    <CustomAlertDialog
-                        title={`¿Desea ${lastStepButtonLabel}?`}
-                        description={confirmDialogDescription ?? "¿Desea continuar?"}
-                        onConfirm={onSubmit ?? (() => { })}
+            {isLastTab ? (
+                <CustomAlertDialog
+                    title={`¿Desea ${lastStepButtonLabel}?`}
+                    description={confirmDialogDescription ?? "¿Desea continuar?"}
+                    onConfirm={onSubmit ?? (() => { })}
+                >
+                    <Button
+                        type="button"
+                        aria-label={submitAriaLabel}
+                        disabled={false}
+                        className="bg-[var(--color-accent)] text-[var(--color-accent-foreground)] hover:opacity-90"
                     >
-                        <span className="inline-flex items-center">
-                            <Save className="mr-2 size-4" aria-hidden />
-                            {lastStepButtonLabel}
-                        </span>
-                    </CustomAlertDialog>
-                ) : (
-                    <>
-                        {nextStepButtonLabel}
-                        <ChevronsRight className="ml-2 size-4" aria-hidden />
-                    </>
-                )}
-            </Button>
+                        <Save className="mr-2 size-4" aria-hidden />
+                        {lastStepButtonLabel}
+                    </Button>
+                </CustomAlertDialog>
+            ) : (
+                <Button
+                    type="button"
+                    onClick={handleSiguiente}
+                    aria-label="Siguiente paso"
+                    disabled={isNextDisabled}
+                    className="bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:opacity-90"
+                >
+                    {nextStepButtonLabel}
+                    <ChevronsRight className="ml-2 size-4" aria-hidden />
+                </Button>
+            )}
         </div>
     );
 }

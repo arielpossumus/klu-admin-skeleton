@@ -7,8 +7,16 @@ import { Switch } from "@/components/ui/switch";
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { acquisitionBanksService } from "@/services/annex/acquisitionBanksService";
 import { channelsService } from "@/services/annex/channelsService";
+import { IVA_PORCENTAJE } from "@/config/constants";
 import type { AddCorporateFormValues } from "@/types/corporate/addCorporate";
 import ParagraphH2 from "@/components/text/ParagraphH2";
+
+const COSTO_ADQUIRENCIA_RANGOS: { key: "costoAdquirenciaRango1" | "costoAdquirenciaRango2" | "costoAdquirenciaRango3" | "costoAdquirenciaRango4"; label: string }[] = [
+    { key: "costoAdquirenciaRango1", label: "1 - 250,000" },
+    { key: "costoAdquirenciaRango2", label: "250,001 - 500,000" },
+    { key: "costoAdquirenciaRango3", label: "500,001 - 800,000" },
+    { key: "costoAdquirenciaRango4", label: "800,001 - ≤" },
+];
 
 export function Step4() {
     const form = useFormContext<AddCorporateFormValues>();
@@ -242,6 +250,55 @@ export function Step4() {
                         <FieldError errors={[form.formState.errors.commercial?.numeroTransacciones]} />
                     </FieldContent>
                 </Field>
+            </FieldSet>
+            <FieldGroup className="grid grid-cols-1  gap-4 mb-4 px-0">
+                <ParagraphH2 text="Costo por Transacción" />
+            </FieldGroup>
+            <FieldSet className="grid grid-cols-1 gap-4">
+                <FieldLabel className="col-span-full">Costo de Adquirencia</FieldLabel>
+                {COSTO_ADQUIRENCIA_RANGOS.map(({ key, label }) => {
+                    const costValue = form.watch(`commercial.${key}`);
+                    const costNum = Number.parseFloat(String(costValue).replace(/,/g, "")) || 0;
+                    const ivaNum = costNum * (IVA_PORCENTAJE / 100);
+                    const totalNum = costNum + ivaNum;
+                    const formatMoneda = (n: number) =>
+                        Number.isNaN(n) || n === 0 ? "—" : n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    return (
+                        <div key={key} className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end rounded-md border border-border/60 bg-muted/30 p-4">
+                            <span className="text-sm font-medium text-foreground">{label}</span>
+                            <Field className="grid gap-2">
+                                <FieldLabel htmlFor={`commercial.${key}`} className="text-xs">Costo</FieldLabel>
+                                <FieldContent>
+                                    <Controller
+                                        name={`commercial.${key}`}
+                                        control={form.control}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <Input
+                                                id={`commercial.${key}`}
+                                                placeholder="0.00"
+                                                type="text"
+                                                inputMode="decimal"
+                                                value={field.value ?? ""}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                ref={field.ref}
+                                            />
+                                        )}
+                                    />
+                                </FieldContent>
+                            </Field>
+                            <div className="grid gap-1">
+                                <span className="text-xs text-muted-foreground">IVA ({IVA_PORCENTAJE}%)</span>
+                                <span className="text-sm font-medium">{formatMoneda(ivaNum)}</span>
+                            </div>
+                            <div className="grid gap-1">
+                                <span className="text-xs text-muted-foreground">Total</span>
+                                <span className="text-sm font-medium">{formatMoneda(totalNum)}</span>
+                            </div>
+                        </div>
+                    );
+                })}
             </FieldSet>
         </div>
     );

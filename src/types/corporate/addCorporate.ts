@@ -70,6 +70,11 @@ export type CommercialFormValues = {
     rentaMensual: string;
     diasCancelacion: string;
     numeroTransacciones: string;
+    /** Costo de adquirencia por rango (1-250k, 250k-500k, 500k-800k, 800k+). */
+    costoAdquirenciaRango1: string;
+    costoAdquirenciaRango2: string;
+    costoAdquirenciaRango3: string;
+    costoAdquirenciaRango4: string;
 };
 
 /** Paso 5: Módulos habilitados (cada clave = switch on/off). */

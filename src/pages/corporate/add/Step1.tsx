@@ -8,6 +8,7 @@ import { fiidService } from "@/services/annex/fiidService";
 import { rsaService } from "@/services/annex/rsaService";
 import { corporateModelsService } from "@/services/annex/corporateModelsService";
 import type { AddCorporateFormValues } from "@/types/corporate/addCorporate";
+import { moreThan4CharactersValidation } from "@/lib/validation";
 
 const ACCEPT_IMAGES = "image/png,image/jpeg,.png,.jpg";
 
@@ -79,6 +80,7 @@ export function Step1() {
                         aria-invalid={Boolean(form.formState.errors.general?.nombreCorporativo)}
                         {...form.register("general.nombreCorporativo", {
                             required: "El nombre del corporativo es obligatorio",
+                            ...moreThan4CharactersValidation,
                         })}
                     />
                     <FieldError errors={[form.formState.errors.general?.nombreCorporativo]} />

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { toast } from "sonner";
 import { CustomCard } from "@/components/commons/CustomCard";
 import SectionTitle from "@/components/text/SectionTitle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,6 +15,9 @@ import { Step2 } from "./add/Step2";
 import { Step3 } from "./add/step3";
 import { Step4 } from "./add/step4";
 import { Step5 } from "./add/Step5";
+import { createCorporate } from "@/services/corporate/createCorporateService";
+import { TOAST_SUCCESS_STYLE, TOAST_ERROR_STYLE } from "@/types/ui/ToastStyles";
+import type { AddCorporateMessagesProps } from "@/types/corporate/AddCorporateMessages";
 
 
 type TabId = StepIdFromConfig<typeof INTERNAL_ADD_CORPORATE_NAV>;
@@ -59,6 +63,10 @@ const defaultCommercial: CommercialFormValues = {
     rentaMensual: "",
     diasCancelacion: "",
     numeroTransacciones: "",
+    costoAdquirenciaRango1: "",
+    costoAdquirenciaRango2: "",
+    costoAdquirenciaRango3: "",
+    costoAdquirenciaRango4: "",
 };
 
 const defaultModules: ModulesFormValues = {
@@ -104,7 +112,12 @@ const defaultValues: AddCorporateFormValues = {
     modules: defaultModules,
 };
 
-export function AddCorporate() {
+
+
+export function AddCorporate({
+    toastSuccessMessage = "Corporativo creado correctamente.",
+    toastErrorMessage = "Hubo un Error al crear el corporativo.",
+}: AddCorporateMessagesProps = {}) {
     const stepIds = useMemo(() => INTERNAL_ADD_CORPORATE_NAV.map((n) => n.id), []);
     const [currentTab, setCurrentTab] = useState<TabId>(stepIds[0]);
 
@@ -125,11 +138,14 @@ export function AddCorporate() {
         generalWatch?.modeloCorporativo
     );
 
-
-    const handleFormSubmit = (() => {
-        console.log("Form data:", form.getValues());
-        // TODO: llamar API para crear corporativo
-    });
+    const handleFormSubmit = async (data: AddCorporateFormValues) => {
+        try {
+            await createCorporate(data);
+            toast.success(toastSuccessMessage, { style: TOAST_SUCCESS_STYLE, position: "top-center" });
+        } catch {
+            toast.error(toastErrorMessage, { style: TOAST_ERROR_STYLE, position: "top-center" });
+        }
+    };
     return (
         <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
             <SectionTitle title="Agregar Corporativo" subtitle="Agregar un nuevo corporativo" />
@@ -221,7 +237,7 @@ export function AddCorporate() {
                                             submitAriaLabel="Crear corporativo"
                                             lastStepButtonLabel="Crear corporativo"
                                             confirmDialogDescription={`Esta por añadir el Corporativo ${generalWatch?.nombreCorporativo?.trim() || "(sin nombre)"}`}
-                                            onSubmit={() => handleFormSubmit()}
+                                            onSubmit={form.handleSubmit(handleFormSubmit)}
                                         />
                                     </CardContent>
                                 </Card>

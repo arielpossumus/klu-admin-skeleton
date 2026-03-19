@@ -8,6 +8,7 @@ import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
 import { taxRegimeService } from "@/services/annex/taxRegimeService";
 import { countriesService } from "@/services/annex/countriesService";
 import ParagraphH2 from "@/components/text/ParagraphH2";
+import { emailValidation, moreThan4CharactersValidation } from "@/lib/validation";
 import type { AddCorporateFormValues } from "@/types/corporate/addCorporate";
 
 export function Step2() {
@@ -81,7 +82,7 @@ export function Step2() {
                             id="legal.repLegalNombre"
                             placeholder="Nombre"
                             aria-required
-                            {...form.register("legal.repLegalNombre", { required: "Requerido" })}
+                            {...form.register("legal.repLegalNombre", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.repLegalNombre]} />
                     </FieldContent>
@@ -95,7 +96,7 @@ export function Step2() {
                             id="legal.repLegalApellidoPaterno"
                             placeholder="Apellido Paterno"
                             aria-required
-                            {...form.register("legal.repLegalApellidoPaterno", { required: "Requerido" })}
+                            {...form.register("legal.repLegalApellidoPaterno", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.repLegalApellidoPaterno]} />
                     </FieldContent>
@@ -109,7 +110,7 @@ export function Step2() {
                             id="legal.repLegalApellidoMaterno"
                             placeholder="Apellido Materno"
                             aria-required
-                            {...form.register("legal.repLegalApellidoMaterno", { required: "Requerido" })}
+                            {...form.register("legal.repLegalApellidoMaterno", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.repLegalApellidoMaterno]} />
                     </FieldContent>
@@ -142,7 +143,7 @@ export function Step2() {
                             id="legal.razonSocial"
                             placeholder="Razón Social"
                             aria-required
-                            {...form.register("legal.razonSocial", { required: "Requerido" })}
+                            {...form.register("legal.razonSocial", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.razonSocial]} />
                     </FieldContent>
@@ -239,7 +240,7 @@ export function Step2() {
                             id="legal.ciudad"
                             placeholder="Ciudad"
                             aria-required
-                            {...form.register("legal.ciudad", { required: "Requerido" })}
+                            {...form.register("legal.ciudad", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.ciudad]} />
                     </FieldContent>
@@ -253,7 +254,7 @@ export function Step2() {
                             id="legal.calle"
                             placeholder="Calle"
                             aria-required
-                            {...form.register("legal.calle", { required: "Requerido" })}
+                            {...form.register("legal.calle", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.calle]} />
                     </FieldContent>
@@ -305,7 +306,7 @@ export function Step2() {
                             id="legal.delegacionMunicipio"
                             placeholder="Delegación o Municipio"
                             aria-required
-                            {...form.register("legal.delegacionMunicipio", { required: "Requerido" })}
+                            {...form.register("legal.delegacionMunicipio", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.delegacionMunicipio]} />
                     </FieldContent>
@@ -334,7 +335,7 @@ export function Step2() {
                             type="email"
                             placeholder="nombre@ejemplo.com"
                             aria-required
-                            {...form.register("legal.email", { required: "Requerido" })}
+                            {...form.register("legal.email", { required: "Requerido", ...emailValidation })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.email]} />
                     </FieldContent>
@@ -379,7 +380,7 @@ export function Step2() {
                             id="legal.contactoLegalNombre"
                             placeholder="Nombre"
                             aria-required
-                            {...form.register("legal.contactoLegalNombre", { required: "Requerido" })}
+                            {...form.register("legal.contactoLegalNombre", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.contactoLegalNombre]} />
                     </FieldContent>
@@ -393,7 +394,7 @@ export function Step2() {
                             id="legal.contactoLegalApellidoPaterno"
                             placeholder="Apellido Paterno"
                             aria-required
-                            {...form.register("legal.contactoLegalApellidoPaterno", { required: "Requerido" })}
+                            {...form.register("legal.contactoLegalApellidoPaterno", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.contactoLegalApellidoPaterno]} />
                     </FieldContent>
@@ -407,7 +408,7 @@ export function Step2() {
                             id="legal.contactoLegalApellidoMaterno"
                             placeholder="Apellido Materno"
                             aria-required
-                            {...form.register("legal.contactoLegalApellidoMaterno", { required: "Requerido" })}
+                            {...form.register("legal.contactoLegalApellidoMaterno", { required: "Requerido", ...moreThan4CharactersValidation, })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.contactoLegalApellidoMaterno]} />
                     </FieldContent>
@@ -476,7 +477,7 @@ export function Step2() {
                             type="email"
                             placeholder="nombre@ejemplo.com"
                             aria-required
-                            {...form.register("legal.contactoLegalEmail", { required: "Requerido" })}
+                            {...form.register("legal.contactoLegalEmail", { required: "Requerido", ...emailValidation })}
                         />
                         <FieldError errors={[form.formState.errors.legal?.contactoLegalEmail]} />
                     </FieldContent>

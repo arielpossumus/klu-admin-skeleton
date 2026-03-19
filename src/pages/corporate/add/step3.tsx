@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
+import { emailValidation } from "@/lib/validation";
 import type { AddCorporateFormValues } from "@/types/corporate/addCorporate";
 import ParagraphH2 from "@/components/text/ParagraphH2";
 
@@ -180,7 +181,7 @@ export function Step3() {
                                     type="email"
                                     placeholder="nombre@ejemplo.com"
                                     aria-required
-                                    {...form.register(`contacts.${key}.email`, { required: "Requerido" })}
+                                    {...form.register(`contacts.${key}.email`, { required: "Requerido", ...emailValidation })}
                                 />
                                 <FieldError errors={[form.formState.errors.contacts?.[key]?.email]} />
                             </FieldContent>

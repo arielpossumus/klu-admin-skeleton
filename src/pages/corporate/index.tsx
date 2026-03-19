@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { Eraser, FileDown, FileBraces, FileCode, FileText, FileType, Database, Sheet, Plus, ListFilter, ChevronDown } from "lucide-react";
 import { DataTable } from "@/components/ui/data-table";
@@ -13,8 +14,8 @@ import { Card } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+import { DropdownWithSearch, type DropdownWithSearchOption } from "@/components/ui/dropdown-with-search";
+import { fiidService } from "@/services/annex/fiidService";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type CorporateIndexFiltersFormValues, EMPTY_CORPORATE_INDEX_FILTERS } from "@/types/filters/CorporateIndexFilters";
 import { useNavigate } from "react-router";
@@ -35,10 +36,22 @@ const CorporateIndex = () => {
   const [filters, setFilters] = useState<CorporateIndexFiltersFormValues | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(true);
 
-  const { register, handleSubmit, reset, watch, control } = useForm<CorporateIndexFiltersFormValues>({
+  const { handleSubmit, reset, watch, control } = useForm<CorporateIndexFiltersFormValues>({
     mode: "onTouched",
     defaultValues: EMPTY_CORPORATE_INDEX_FILTERS,
   });
+
+  const { data: fiidList = [], isPending: isFiidPending } = useQuery({
+    queryKey: ["fiid"],
+    queryFn: () => fiidService.getAll(),
+    staleTime: 60_000,
+  });
+
+  const fiidOptions: DropdownWithSearchOption[] = useMemo(
+    () => fiidList.map((item) => ({ value: String(item.id), label: item.value })),
+    [fiidList],
+  );
+
   const watched = watch();
   const hasAnyFilter = [
     watched.nombre,
@@ -98,11 +111,20 @@ const CorporateIndex = () => {
                 </Field>
                 <Field className="grid gap-2">
                   <FieldLabel htmlFor="corporate-filter-fiid">FIID</FieldLabel>
-                  <Input
-                    id="corporate-filter-fiid"
-                    type="text"
-                    placeholder="FIID"
-                    {...register("fiid")}
+                  <Controller
+                    name="fiid"
+                    control={control}
+                    render={({ field }) => (
+                      <DropdownWithSearch
+                        id="corporate-filter-fiid"
+                        options={fiidOptions}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Seleccione"
+                        disabled={isFiidPending}
+                        emptyLabel={isFiidPending ? "Cargando…" : "Sin resultados"}
+                      />
+                    )}
                   />
                 </Field>
                 <Field className="grid gap-2">
