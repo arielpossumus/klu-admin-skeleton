@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
-import { Eye } from "lucide-react";
+import { BadgeX, Eye } from "lucide-react";
 
 import { type CorporateGrid } from "@/types/corporate/CorporateGrid";
 
@@ -48,6 +48,12 @@ export const corporateColumns: ColumnDef<CorporateGrid>[] = [
             const name = row.getValue<string>("corporateName");
             const corporateId = row.getValue<number>("corporateId");
             if (!name) return "—";
+
+            const deleteCorporate = () => {
+                // TODO: llamar al servicio de baja del corporativo (corporateId)
+                console.log("Dar de baja corporativo:", corporateId);
+            };
+
             return (
                 <div className="flex items-center gap-2">
                     <Link
@@ -57,7 +63,19 @@ export const corporateColumns: ColumnDef<CorporateGrid>[] = [
                     >
                         <Eye className="size-4" />
                     </Link>
-                    <CustomAlertDialog title={`¿Desea dar de baja a ${name}?`} description="Esta acción puede afectar el estado del corporativo. ¿Desea continuar?" />
+                    <CustomAlertDialog
+                        title={`¿Desea dar de baja a ${name}?`}
+                        description="Esta acción puede afectar el estado del corporativo. ¿Desea continuar?"
+                        onConfirm={deleteCorporate}
+                    >
+                        <button
+                            type="button"
+                            className="cursor-pointer text-[var(--error-dark)] hover:opacity-80 transition-opacity"
+                            aria-label="Dar de baja corporativo"
+                        >
+                            <BadgeX className="size-4" />
+                        </button>
+                    </CustomAlertDialog>
                 </div>
             );
         },

@@ -10,6 +10,7 @@ const SectionTitle = ({
   showButton = false,
   showBadge = false,
   badgeText = "",
+  handleAction = () => { },
 }: {
   title: string;
   subtitle: string;
@@ -18,6 +19,7 @@ const SectionTitle = ({
   showButton?: boolean;
   showBadge?: boolean;
   badgeText?: string;
+  handleAction?: () => void;
 }) => {
   const isActive = badgeText?.trim().toLowerCase() === "activo";
   const badgeBgClass = isActive
@@ -44,7 +46,7 @@ const SectionTitle = ({
         )}
       </div>
       {showButton && (
-        <Button variant="outline" className="shrink-0 gap-2 bg-[var(--primary)] text-primary-foreground hover:bg-[var(--primary-dark)]">
+        <Button variant="outline" className="shrink-0 gap-2 bg-[var(--primary)] text-primary-foreground hover:bg-[var(--primary-dark)]" onClick={handleAction}>
           {ActionIcon != null && <ActionIcon className="size-4" aria-hidden />}
           {actionName}
         </Button>

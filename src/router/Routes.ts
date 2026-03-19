@@ -6,6 +6,7 @@ import PosHealth from "@/pages/poshealt/Index";
 import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
 import CorporateIndex from "@/pages/corporate/index";
 import CorporateDetail from "@/pages/corporate/CorporateDetail";
+import { AddCorporate } from "@/pages/corporate/AddCorporate";
 export const routes = [
     { path: "/", Component: Login },
     {
@@ -32,6 +33,7 @@ export const routes = [
         children: [
             { index: true, Component: CorporateIndex },
             { path: ":corporateId", Component: CorporateDetail },
+            { path: "add-corporate", Component: AddCorporate },
         ],
     },
 ];

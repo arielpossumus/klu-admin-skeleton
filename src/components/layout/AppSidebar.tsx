@@ -5,7 +5,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -24,6 +23,13 @@ import { navMain, type NavEntry, type NavMainItem } from "@/config/navigation";
 const isNavItem = (entry: NavEntry): entry is NavMainItem =>
   "title" in entry && "url" in entry;
 
+const isPathActive = (pathname: string, itemUrl: string): boolean => {
+  if (itemUrl === "#") return false;
+  if (pathname === itemUrl) return true;
+  const prefix = itemUrl.endsWith("/") ? itemUrl : `${itemUrl}/`;
+  return pathname.startsWith(prefix);
+};
+
 const AppSidebar = () => {
   const location = useLocation();
   const [userOpenKeys, setUserOpenKeys] = useState<Set<string>>(() => new Set());
@@ -33,7 +39,13 @@ const AppSidebar = () => {
     const parentToOpen = navMain.find(
       (entry): entry is NavMainItem =>
         isNavItem(entry) &&
-        Boolean(entry.items?.some((sub) => sub.url === location.pathname))
+        Boolean(
+          entry.items?.some(
+            (sub) =>
+              sub.url !== "#" &&
+              (location.pathname === sub.url || isPathActive(location.pathname, sub.url))
+          )
+        )
     );
     if (parentToOpen) next.add(parentToOpen.title);
     return next;
@@ -80,7 +92,9 @@ const AppSidebar = () => {
                 const item = entry as NavMainItem;
                 if (item.items?.length) {
                   const isParentActive = item.items.some(
-                    (sub) => sub.url !== "#" && location.pathname === sub.url
+                    (sub) =>
+                      sub.url !== "#" &&
+                      (location.pathname === sub.url || isPathActive(location.pathname, sub.url))
                   );
                   const isOpen = openKeys.has(item.title);
                   return (
@@ -116,7 +130,9 @@ const AppSidebar = () => {
                       {isOpen && (
                         <SidebarMenuSub>
                           {item.items.map((sub) => {
-                            const isActive = location.pathname === sub.url;
+                            const isActive =
+                              location.pathname === sub.url ||
+                              (sub.url !== "#" && isPathActive(location.pathname, sub.url));
                             return (
                               <SidebarMenuSubItem key={sub.url}>
                                 <SidebarMenuSubButton
@@ -133,7 +149,8 @@ const AppSidebar = () => {
                     </SidebarMenuItem>
                   );
                 }
-                const isActive = location.pathname === item.url;
+                const isActive =
+                  location.pathname === item.url || isPathActive(location.pathname, item.url);
                 return (
                   <SidebarMenuItem key={item.url + item.title}>
                     <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>

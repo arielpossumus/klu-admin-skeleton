@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type CorporateIndexFiltersFormValues, EMPTY_CORPORATE_INDEX_FILTERS } from "@/types/filters/CorporateIndexFilters";
+import { useNavigate } from "react-router";
 
 type CorporateTypeRow = { typeId: number; typeName: string; };
 type StatusRow = { id: string; description: string; };
@@ -29,7 +30,7 @@ const statusOptions = dataStatus.map((s) => ({ value: s.description, label: s.de
 
 const CorporateIndex = () => {
   const data = dataCorporates;
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState<CorporateIndexFiltersFormValues | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(true);
@@ -60,9 +61,13 @@ const CorporateIndex = () => {
     }, 3000);
   }, []);
 
+  const handleAddCorporate = () => {
+    navigate("/corporate/add-corporate");
+  };
+
   return (
     <>
-      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" actionName="Agregar Corporativo " actionIcon={Plus} showButton={true} />
+      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" actionName="Agregar Corporativo " actionIcon={Plus} showButton={true} handleAction={handleAddCorporate} />
       <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
         <CustomCollapsibleCard
           title="Filtrar"
