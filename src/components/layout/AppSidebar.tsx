@@ -61,8 +61,12 @@ const AppSidebar = () => {
   }, []);
 
   return (
-    <Sidebar collapsible="icon" >
-      <SidebarHeader className="relative z-10 h-14 shrink-0 flex flex-row items-center border-b border-black/10 bg-[var(--primary-light)] shadow-[var(--shadow-header)]">
+    <Sidebar
+      collapsible="icon"
+      innerClassName="bg-primary-light"
+      className="!border-none"
+    >
+      <SidebarHeader className="relative z-10 flex h-14 shrink-0 flex-row items-center border-0 bg-transparent shadow-none">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="font-semibold hover:bg-transparent hover:text-sidebar-foreground active:bg-transparent active:text-sidebar-foreground data-[state=open]:bg-transparent data-[state=open]:text-sidebar-foreground">
@@ -75,7 +79,7 @@ const AppSidebar = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="bg-[var(--primary-light)] pt-8">
+      <SidebarContent className="bg-transparent pt-8">
         <SidebarGroup>
           {/* <SidebarGroupLabel>Secciones</SidebarGroupLabel> */}
           <SidebarGroupContent>

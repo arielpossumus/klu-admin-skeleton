@@ -1,6 +1,6 @@
 const ParagraphH1 = ({ text }: { text: string; }) => {
     return (
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance mb-4">
+        <h1 className="scroll-m-20 text-[50px] font-extrabold leading-none tracking-tight text-balance mb-2">
             {text}
         </h1>
     );

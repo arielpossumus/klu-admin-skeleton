@@ -105,8 +105,8 @@ const PosHealth = () => {
     const modelEmptyLabel = !watchedBrand.trim()
         ? "Seleccione una marca"
         : modelOptions.length === 0
-          ? "Sin modelos"
-          : "Sin resultados";
+            ? "Sin modelos"
+            : "Sin resultados";
 
     useEffect(() => {
         if (!watchedBrand.trim()) {
@@ -144,6 +144,7 @@ const PosHealth = () => {
                     open={filtersOpen}
                     onOpenChange={setFiltersOpen}
                     icon={<ListFilter className="size-3.5" aria-hidden />}
+                    cardBackgroundClassName="bg-[var(--color-primary)]"
                 >
                     <Card className="p-4 mt-4">
                         <form

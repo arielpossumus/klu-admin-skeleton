@@ -156,12 +156,15 @@ function Sidebar({
   variant = "sidebar",
   collapsible = "offcanvas",
   className,
+  innerClassName,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
+  /** Reemplaza el fondo del contenedor interno (desktop + sheet móvil). */
+  innerClassName?: string;
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
@@ -171,6 +174,7 @@ function Sidebar({
         data-slot="sidebar"
         className={cn(
           "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
+          innerClassName,
           className
         )}
         {...props}
@@ -187,7 +191,10 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+          className={cn(
+            "w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+            innerClassName
+          )}
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -246,7 +253,8 @@ function Sidebar({
           data-slot="sidebar-inner"
           className={cn(
             "flex h-full w-full flex-col bg-sidebar overflow-hidden",
-            "group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm"
+            "group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm",
+            innerClassName
           )}
         >
           {children}

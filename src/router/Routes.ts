@@ -1,5 +1,6 @@
 import Login from "@/pages/login/Index";
 import AdminLayout from "@/layouts/AdminLayout";
+import AdminLayoutNoHeader from "@/layouts/AdminLayoutNoHeader";
 import Components from "@/pages/components/Components";
 import Dashboard from "@/pages/dashboard/Index";
 import PosHealth from "@/pages/poshealt/Index";
@@ -7,6 +8,7 @@ import PosHealthDetail from "@/pages/poshealt/PosHealthDetail";
 import CorporateIndex from "@/pages/corporate/index";
 import CorporateDetail from "@/pages/corporate/CorporateDetail";
 import { AddCorporate } from "@/pages/corporate/AddCorporate";
+
 export const routes = [
     { path: "/", Component: Login },
     {
@@ -16,7 +18,7 @@ export const routes = [
     },
     {
         path: "/dashboard",
-        Component: AdminLayout,
+        Component: AdminLayoutNoHeader,
         children: [{ index: true, Component: Dashboard }],
     },
     {

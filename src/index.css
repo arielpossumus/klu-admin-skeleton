@@ -58,6 +58,11 @@
     --color-warning-light: var(--warning-light);
     --color-info-dark: var(--info-dark);
     --color-info-light: var(--info-light);
+    --color-dashboard-canvas: var(--dashboard-canvas);
+    --color-dark-blue: var(--dark-blue);
+    --color-dark-blue-foreground: var(--dark-blue-foreground);
+    --color-dark-blue-background: var(--dark-blue-background);
+    --color-dark: var(--dark);
 
     /* 
     Ejemplo para agregar colores personalizados:
@@ -71,6 +76,8 @@
     --primary-foreground: #dfeff0;
     --primary-dark: #0A2D28;
     --primary-light: #087771;
+    /* Área de contenido admin (dashboard sin header): mismo tono que el panel bento */
+    --dashboard-canvas: #052e2a;
     --gray: #F2F0EF;
     --radius: 0.625rem;
     --shadow-header: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -83,6 +90,10 @@
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
     --secondary: #1E2F45;
+    --dark-blue:#1E2F45;
+    --dark-blue-foreground: #31496a;
+    --dark-blue-background: #e6eefe;
+    --dark:#1e1e20;
     --secondary-foreground: #E6EEFE;
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
@@ -132,6 +143,7 @@
     --primary-foreground: oklch(0.205 0 0);
     --primary-dark: #0A2D28;
     --primary-light: #087771;
+    --dashboard-canvas: #052e2a;
     --gray: #1E2F45;
     --secondary: #1E2F45;
     --secondary-foreground: #E6EEFE;

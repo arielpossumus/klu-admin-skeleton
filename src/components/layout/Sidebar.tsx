@@ -1,16 +1,16 @@
-import { Link, useLocation } from "react-router"
-import { cn } from "@/lib/utils"
+import { Link, useLocation } from "react-router";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard" },
-] as const
+] as const;
 
 const Sidebar = () => {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <aside
-      className="flex w-56 flex-col border-r border-border bg-sidebar text-sidebar-foreground"
+      className="flex w-56 flex-col border-r border-border bg-[var(--color-primary)] text-sidebar-foreground"
       aria-label="Navegación principal"
     >
       <div className="flex h-14 items-center border-b border-sidebar-border px-4">
@@ -18,7 +18,7 @@ const Sidebar = () => {
       </div>
       <nav className="flex flex-1 flex-col gap-1 p-2">
         {navItems.map(({ path, label }) => {
-          const isActive = location.pathname === path
+          const isActive = location.pathname === path;
           return (
             <Link
               key={path}
@@ -31,11 +31,11 @@ const Sidebar = () => {
             >
               {label}
             </Link>
-          )
+          );
         })}
       </nav>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

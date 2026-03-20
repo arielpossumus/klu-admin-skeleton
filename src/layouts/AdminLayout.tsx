@@ -14,7 +14,7 @@ const AdminLayout = () => {
         <SidebarInset>
           <Header />
           <main
-            className="flex flex-1 flex-col overflow-auto bg-[#F9F9FB] p-4"
+            className="flex flex-1 flex-col overflow-auto bg-[var(--color-primary-light)]  p-4"
             role="main"
           >
             <div className="flex flex-1 flex-col">
