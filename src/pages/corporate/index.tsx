@@ -62,6 +62,7 @@ const CorporateIndex = () => {
 
   const onFilter = (values: CorporateIndexFiltersFormValues) => {
     setFilters(values);
+    console.log(filters);
   };
   const onClearFilters = () => {
     reset(EMPTY_CORPORATE_INDEX_FILTERS);
