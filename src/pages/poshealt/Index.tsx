@@ -233,7 +233,7 @@ const PosHealth = () => {
                                 <Button
                                     type="submit"
                                     disabled={!hasAnyFilter}
-                                    className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
+                                    className="btn-form-action btn-primary gap-2"
                                 >
                                     <ListFilter className="size-4" />
                                     Filtrar
@@ -243,7 +243,7 @@ const PosHealth = () => {
                                     variant="outline"
                                     disabled={!hasAnyFilter}
                                     onClick={onClearFilters}
-                                    className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                                    className="gap-2 btn-form-action btn-cancel"
                                 >
                                     <Eraser className="size-4" />
                                     Borrar

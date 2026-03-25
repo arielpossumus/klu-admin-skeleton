@@ -1,6 +1,7 @@
 import { ChevronsLeft, ChevronsRight, Save } from "lucide-react";
 import { Button } from "../ui/button";
 import { CustomAlertDialog } from "../commons/CustomAlertDialog";
+import { cn } from "@/lib/utils";
 
 /** Extrae el tipo del `id` a partir de un array de config con propiedad `id` (ej. INTERNAL_ADD_CORPORATE_NAV). */
 export type StepIdFromConfig<T extends readonly { id: string; }[]> = T[number]["id"];
@@ -79,7 +80,7 @@ export function CustomStepFormButtons<T extends string = string>({
                         type="button"
                         aria-label={submitAriaLabel}
                         disabled={false}
-                        className="bg-[var(--color-accent)] text-[var(--color-accent-foreground)] hover:opacity-90"
+                        className={cn("btn-form-action gap-2")}
                     >
                         <Save className="mr-2 size-4" aria-hidden />
                         {lastStepButtonLabel}
@@ -91,7 +92,7 @@ export function CustomStepFormButtons<T extends string = string>({
                     onClick={handleSiguiente}
                     aria-label="Siguiente paso"
                     disabled={isNextDisabled}
-                    className="bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:opacity-90"
+                    className={cn("btn-form-action gap-2")}
                 >
                     {nextStepButtonLabel}
                     <ChevronsRight className="ml-2 size-4" aria-hidden />

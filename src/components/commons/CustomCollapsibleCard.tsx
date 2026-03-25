@@ -11,7 +11,7 @@ import ParagraphH4 from "@/components/text/ParagraphH4";
 import { cn } from "@/lib/utils";
 
 const DEFAULT_CARD_SURFACE =
-    "bg-[var(--color-gray)] border-[var(--color-gray)] text-[var(--color-gray-foreground)]";
+    "bg-[var(--color-primary)] border-[var(--color-primary-light)] text-[var(--color-primary-foreground)]";
 
 /** Evita el `border-border` global (`index.css` *) cuando solo se pasa `bg-*`. */
 const withBorderMatchingBackground = (surface: string): string => {
@@ -66,7 +66,7 @@ export const CustomCollapsibleCard = ({
                 "gap-0 py-0",
                 "px-2 pt-4 pb-2",
                 surface,
-                surface.includes("bg-[var(--color-primary)]") ? "text-white" : null
+                surface.includes("bg-[var(--color-primary)]") ? "text-primary-foreground" : null
             )}
         >
             <Collapsible open={open} onOpenChange={handleOpenChange}>
@@ -80,7 +80,7 @@ export const CustomCollapsibleCard = ({
                         aria-expanded={open}
                         aria-label={open ? "Ocultar contenido" : "Mostrar contenido"}
                     >
-                        <CardTitle className="flex items-center gap-2 text-sm font-medium text-inherit uppercase tracking-wide">
+                        <CardTitle className="flex items-center gap-2 bg text-sm font-medium text-primary-foreground uppercase tracking-wide">
                             {icon}
                             <ParagraphH4 text={title} />
                         </CardTitle>

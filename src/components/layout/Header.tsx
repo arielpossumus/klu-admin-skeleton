@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <header
-      className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 bg-[var(--color-primary-light)]  text-white px-4 "
+      className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b border-white/10 bg-primary/25 px-4 text-white backdrop-blur-md"
     >
       <SidebarTrigger />
       <Breadcrumb>

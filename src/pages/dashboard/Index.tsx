@@ -48,7 +48,7 @@ const Dashboard = () => {
     return (
         <>
             <div
-                className="@container/main min-w-0 overflow-hidden rounded-none border-0 bg-[var(--color-primary-light)] p-5 text-white shadow-none md:p-8"
+                className="@container/main min-w-0 overflow-hidden rounded-none border-0 bg-background-gradient p-5 text-white shadow-none md:p-8"
                 role="region"
                 aria-label="Panel principal home banking"
             >

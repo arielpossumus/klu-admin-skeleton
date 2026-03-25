@@ -86,6 +86,7 @@ const CorporateIndex = () => {
           title="Filtrar"
           open={filtersOpen}
           onOpenChange={setFiltersOpen}
+          cardBackgroundClassName="bg-[var(--color-primary)]"
         >
           <Card className="p-4 mt-4">
             <form onSubmit={handleSubmit(onFilter)} className="flex flex-col gap-4">
@@ -167,7 +168,7 @@ const CorporateIndex = () => {
                 <Button
                   type="submit"
                   disabled={!hasAnyFilter}
-                  className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent-dark)]"
+                  className="btn-form-action btn-primary gap-2"
                 >
                   <ListFilter className="size-4" />
                   Filtrar
@@ -177,7 +178,7 @@ const CorporateIndex = () => {
                   variant="outline"
                   disabled={!hasAnyFilter}
                   onClick={onClearFilters}
-                  className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                  className="gap-2 btn-form-action btn-cancel"
                 >
                   <Eraser className="size-4" />
                   Borrar
