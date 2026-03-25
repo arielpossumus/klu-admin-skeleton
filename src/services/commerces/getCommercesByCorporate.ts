@@ -1,4 +1,5 @@
-import allCommercesJson from "../../../public/mockups/commerces/allCommerces.json" with { type: "json" };
+import { BASE_URL, API_URL_COMMERCES } from "@/config/constants";
+import { axiosClient } from "@/services/axiosClient";
 import type {
     AllCommercesResponse,
     CommerceBusinessApi,
@@ -9,6 +10,8 @@ export type GetCommercesByCorporateParams = {
     corporateFiid: string;
     corporateName: string;
 };
+
+const ENDPOINT = `${BASE_URL}${API_URL_COMMERCES}allCommercesByCorporate.json`;
 
 const mapToRow = (b: CommerceBusinessApi): CommerceTableRow => ({
     id: b.id,
@@ -33,15 +36,20 @@ const matchesCorporate = (
 };
 
 /**
- * Obtiene comercios asociados al corporativo (mock desde `allCommerces.json`).
+ * Obtiene comercios asociados al corporativo vía HTTP (`axiosClient`).
  * Filtra por `corpData.fiid` o `corpData.name` cuando venga en cada ítem.
- * Si ningún ítem trae `corpData` o no hay coincidencias, se devuelve toda la lista del mock (solo desarrollo).
+ * Si ningún ítem trae `corpData` o no hay coincidencias, se devuelve toda la lista (útil con mocks).
  */
 export const getCommercesByCorporate = async (
     params: GetCommercesByCorporateParams
 ): Promise<CommerceTableRow[]> => {
-    const raw = allCommercesJson as AllCommercesResponse;
-    const list = raw.data_response?.businessList ?? [];
+    const { data } = await axiosClient.get<AllCommercesResponse>(ENDPOINT, {
+        params: {
+            corporateFiid: params.corporateFiid,
+            corporateName: params.corporateName,
+        },
+    });
+    const list = data?.data_response?.businessList ?? [];
     const filtered = list.filter((b) => matchesCorporate(b, params));
     const hasCorpMeta = list.some((b) => b.corpData != null);
     const source = hasCorpMeta ? filtered : list;

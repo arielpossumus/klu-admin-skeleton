@@ -1,13 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { Eraser, FileDown, FileBraces, FileCode, FileText, FileType, Database, Sheet, Plus, ListFilter, ChevronDown } from "lucide-react";
 import { DataTable } from "@/components/ui/data-table";
-import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.json" with { type: "json" };
 import corporatesTypesJson from "../../../public/mockups/annex/getAllCorporatesTypes.json" with { type: "json" };
 import statusJson from "../../../public/mockups/annex/getAllStatus.json" with { type: "json" };
 import { corporateColumns } from "@/components/tables/corporateColumns";
-import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import SectionTitle from "@/components/text/SectionTitle";
 import { Card } from "@/components/ui/card";
@@ -16,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { DropdownWithSearch, type DropdownWithSearchOption } from "@/components/ui/dropdown-with-search";
 import { fiidService } from "@/services/annex/fiidService";
+import { getAllCorporates } from "@/services/corporate/getAllCorporates";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type CorporateIndexFiltersFormValues, EMPTY_CORPORATE_INDEX_FILTERS } from "@/types/filters/CorporateIndexFilters";
 import { useNavigate } from "react-router";
@@ -23,22 +22,25 @@ import { useNavigate } from "react-router";
 type CorporateTypeRow = { typeId: number; typeName: string; };
 type StatusRow = { id: string; description: string; };
 
-const dataCorporates = (corporatesJson?.rows ?? []) as CorporateGrid[];
 const dataTypes = (corporatesTypesJson ?? []) as CorporateTypeRow[];
 const dataStatusAll = (statusJson ?? []) as StatusRow[];
 const dataStatus = dataStatusAll.filter((s) => s.id === "1" || s.id === "2");
 const statusOptions = dataStatus.map((s) => ({ value: s.description, label: s.description }));
 
 const CorporateIndex = () => {
-  const data = dataCorporates;
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState<CorporateIndexFiltersFormValues | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(true);
 
   const { handleSubmit, reset, watch, control } = useForm<CorporateIndexFiltersFormValues>({
     mode: "onTouched",
     defaultValues: EMPTY_CORPORATE_INDEX_FILTERS,
+  });
+
+  const { data: corporatesRows = [], isPending: isCorporatesPending } = useQuery({
+    queryKey: ["corporates", "all"],
+    queryFn: getAllCorporates,
+    staleTime: 60_000,
   });
 
   const { data: fiidList = [], isPending: isFiidPending } = useQuery({
@@ -69,12 +71,6 @@ const CorporateIndex = () => {
     setFilters(undefined);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
-
   const handleAddCorporate = () => {
     navigate("/corporate/add-corporate");
   };
@@ -100,7 +96,7 @@ const CorporateIndex = () => {
                     render={({ field }) => (
                       <DropdownWithSearch
                         id="corporate-filter-nombre"
-                        options={dataCorporates.map((c) => ({
+                        options={corporatesRows.map((c) => ({
                           value: String(c.corporateId),
                           label: c.corporateName,
                         }))}
@@ -231,8 +227,10 @@ const CorporateIndex = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {isLoading ? <TablesLoader columnCount={5} rowCount={5} loadingText="Cargando datos de corporativos" /> : (
-            <DataTable columns={corporateColumns} data={data} />
+          {isCorporatesPending ? (
+            <TablesLoader columnCount={5} rowCount={5} loadingText="Cargando datos de corporativos" />
+          ) : (
+            <DataTable columns={corporateColumns} data={corporatesRows} />
           )}
         </Card>
       </div>
