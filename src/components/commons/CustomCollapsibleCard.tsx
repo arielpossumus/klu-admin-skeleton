@@ -9,6 +9,7 @@ import {
 import { CardTitle } from "@/components/ui/card";
 import ParagraphH4 from "@/components/text/ParagraphH4";
 import { cn } from "@/lib/utils";
+import type { CustomCollapsibleCardProps } from "@/types/ui/CustomCollapsibleCardProps";
 
 const DEFAULT_CARD_SURFACE =
     "bg-[var(--color-primary)] border-[var(--color-primary-light)] text-[var(--color-primary-foreground)]";
@@ -25,16 +26,6 @@ const withBorderMatchingBackground = (surface: string): string => {
     return cn(surface, "border-[var(--color-primary)]");
 };
 
-interface CustomCollapsibleCardProps {
-    title: string;
-    children: React.ReactNode;
-    icon?: React.ReactNode;
-    defaultOpen?: boolean;
-    open?: boolean;
-    onOpenChange?: (open: boolean) => void;
-    /** Fondo (y opcionalmente borde) de la tarjeta. Si solo pasás `bg-*`, se añade un borde del mismo token cuando sea primary/gray. */
-    cardBackgroundClassName?: string;
-}
 
 export const CustomCollapsibleCard = ({
     title,
