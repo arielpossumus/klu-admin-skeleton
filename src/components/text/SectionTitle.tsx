@@ -1,6 +1,8 @@
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import type { LucideIcon } from "lucide-react";
+import ParagraphH1 from "./ParagraphH1";
+import ParagraphH3 from "./ParagraphH4";
 
 const SectionTitle = ({
   title,
@@ -10,6 +12,7 @@ const SectionTitle = ({
   showButton = false,
   showBadge = false,
   badgeText = "",
+  handleAction = () => { },
 }: {
   title: string;
   subtitle: string;
@@ -18,6 +21,7 @@ const SectionTitle = ({
   showButton?: boolean;
   showBadge?: boolean;
   badgeText?: string;
+  handleAction?: () => void;
 }) => {
   const isActive = badgeText?.trim().toLowerCase() === "activo";
   const badgeBgClass = isActive
@@ -28,9 +32,7 @@ const SectionTitle = ({
     <div className="flex flex-wrap justify-between items-end gap-4 mb-4">
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <h3 className="scroll-m-20 text-4xl tracking-tight text-balance">
-            {title}
-          </h3>
+          <ParagraphH1 text={title} />
           {showBadge && badgeText != null && badgeText !== "" && (
             <Badge variant="outline" className={`shrink-0 ${badgeBgClass}`}>
               {badgeText}
@@ -38,18 +40,19 @@ const SectionTitle = ({
           )}
         </div>
         {subtitle != null && subtitle !== "" && (
-          <p className="scroll-m-20 text-sm tracking-tight text-balance mt-1">
-            {subtitle}
-          </p>
+          <ParagraphH3 text={subtitle} />
         )}
       </div>
-      {showButton && (
-        <Button variant="outline" className="shrink-0 gap-2 bg-[var(--primary)] text-primary-foreground hover:bg-[var(--primary-dark)]">
-          {ActionIcon != null && <ActionIcon className="size-4" aria-hidden />}
-          {actionName}
-        </Button>
-      )}
-    </div>
+      {
+        showButton && (
+          <Button variant="outline" className="shrink-0 gap-2 btn-form-action btn-primary" onClick={handleAction}>
+            {ActionIcon != null && <ActionIcon className="size-4" aria-hidden />}
+            {actionName}
+          </Button>
+        )
+      }
+
+    </div >
   );
 };
 

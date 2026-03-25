@@ -6,9 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card";
 import {
     Field,
@@ -99,7 +96,7 @@ export function LoginForm({
                                         <FieldError errors={errors.password ? [errors.password] : undefined} />
                                     </Field>
                                     <Field>
-                                        <Button type="submit" className="w-full bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]">Ingresar</Button>
+                                        <Button type="submit" className={cn("btn-form-action btn-primary w-full")}>Ingresar</Button>
                                     </Field>
                                 </FieldGroup>
                             </form>

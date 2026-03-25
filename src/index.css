@@ -6,7 +6,30 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";   --radius-sm: calc(var(--radius) - 4px);
+    --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* Gradiente global: valor en :root; utility bg-background-gradient (Tailwind v4 → --background-image-*) */
+    --background-image-background-gradient: var(--background-gradient);
+    /* --color-* en el mismo orden que :root (L75–127) */
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary-dark: var(--primary-dark);
+    --color-primary-light: var(--primary-light);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-accent: var(--accent);
+    --color-accent-dark: var(--accent-dark);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-success-dark: var(--success-dark);
+    --color-success-light: var(--success-light);
+    --color-error-dark: var(--error-dark);
+    --color-error-light: var(--error-light);
+    --color-warning-dark: var(--warning-dark);
+    --color-warning-light: var(--warning-light);
+    --color-info-dark: var(--info-dark);
+    --color-info-light: var(--info-light);
+    --color-gray: var(--gray);
+    --color-dashboard-canvas: var(--dashboard-canvas);
+    --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
@@ -14,23 +37,19 @@
     --radius-3xl: calc(var(--radius) + 12px);
     --radius-4xl: calc(var(--radius) + 16px);
     --color-background: var(--background);
+    --color-background-login: var(--background-login);
+    --color-foreground-login: var(--foreground-login);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
     --color-card-foreground: var(--card-foreground);
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary-dark: var(--primary-dark);
-    --color-primary-light: var(--primary-light);
-    --color-gray: var(--gray);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
+    --color-dark-blue: var(--dark-blue);
+    --color-dark-blue-foreground: var(--dark-blue-foreground);
+    --color-dark-blue-background: var(--dark-blue-background);
+    --color-dark: var(--dark);
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-dark: var(--accent-dark);
-    --color-accent-foreground: var(--accent-foreground);
     --color-destructive: var(--destructive);
     --color-border: var(--border);
     --color-input: var(--input);
@@ -48,16 +67,7 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
-    --color-background-login: var(--background-login);
-    --color-foreground-login: var(--foreground-login);
-    --color-success-dark: var(--success-dark);
-    --color-success-light: var(--success-light);
-    --color-error-dark: var(--error-dark);
-    --color-error-light: var(--error-light);
-    --color-warning-dark: var(--warning-dark);
-    --color-warning-light: var(--warning-light);
-    --color-info-dark: var(--info-dark);
-    --color-info-light: var(--info-light);
+
 
     /* 
     Ejemplo para agregar colores personalizados:
@@ -67,14 +77,30 @@
   }
 
 :root {
-    --primary: #0B3C36;
+    --primary: #0B5752;
     --primary-foreground: #dfeff0;
     --primary-dark: #0A2D28;
     --primary-light: #087771;
-    --gray: #F2F0EF;
+    --secondary: #087771;
+    --secondary-foreground: #E6EEFE;
+    --accent: #F99B1C;
+    --accent-dark: #ad4a02;
+    --accent-foreground:#ffffff;
+    --success-dark:#3BCC84;
+    --success-light:#AAF0C7;
+    --error-dark:#F04438;
+    --error-light:#FEF3F2;
+    --warning-dark:#FDA712;
+    --warning-light:#FFEBA8;
+    --info-dark:#7796BA;
+    --info-light:#D3DFEA;
+    --gray: #6C6D6E;
+    /* Área de contenido admin (dashboard sin header): mismo tono que el panel bento */
+    --dashboard-canvas: #052e2a;
     --radius: 0.625rem;
     --shadow-header: 0 4px 12px rgba(0, 0, 0, 0.05);
     --background: oklch(1 0 0);
+    --background-gradient: linear-gradient(192.36deg, #469895 2.42%, #C7EBEB 23.29%);
     --background-login: #0a2d28;
     --foreground-login: #0b5752;
     --foreground: oklch(0.145 0 0);
@@ -82,13 +108,12 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --secondary: #1E2F45;
-    --secondary-foreground: #E6EEFE;
+    --dark-blue:#1E2F45;
+    --dark-blue-foreground: #31496a;
+    --dark-blue-background: #e6eefe;
+    --dark:#1e1e20;
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
-    --accent: #E96F16;
-    --accent-dark: #ad4a02;
-    --accent-foreground:#ffffff;
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
@@ -106,14 +131,9 @@
     --sidebar-accent-foreground: #0B3C36;
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --success-dark:#17B26A;
-    --success-light:#EDFCF3;
-    --error-dark:#F04438;
-    --error-light:#FEF3F2;
-    --warning-dark:#FDA712;
-    --warning-light:#FFFBED;
-    --info-dark:#234369;
-    --info-light:#F3F6FC;
+    /* Botones de acción en formularios (píldora + gradiente teal, texto blanco) */
+    --form-action-button-gradient: linear-gradient(90deg, #052421 0%, #0a3f3a 32%, #0b5752 62%, #18b5a3 100%);
+
     /*
     Ejemplo para agregar colores personalizados:
    Aca se define el color y el color del texto
@@ -123,6 +143,7 @@
 
 .dark {
     --background: oklch(0.145 0 0);
+    --background-gradient: linear-gradient(192.36deg, #469895 2.42%, #C7EBEB 23.29%);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
@@ -132,6 +153,7 @@
     --primary-foreground: oklch(0.205 0 0);
     --primary-dark: #0A2D28;
     --primary-light: #087771;
+    --dashboard-canvas: #052e2a;
     --gray: #1E2F45;
     --secondary: #1E2F45;
     --secondary-foreground: #E6EEFE;
@@ -165,6 +187,7 @@
     --warning-light:#FFFBED;
     --info-dark:#A855F71A;
     --info-light:#F3F6FC;
+    --form-action-button-gradient: linear-gradient(90deg, #0a302c 0%, #0d4a44 35%, #127a70 70%, #2dd4bf 100%);
      /*
     Ejemplo para agregar colores personalizados:
     En dark mode
@@ -173,11 +196,65 @@
     --warnincito-foreground: #5e0000; */
 }
 
+@layer components {
+  /**
+   * Solo para botones de acción principal en formularios (enviar, guardar, siguiente, etc.).
+   * No usar en navegación ni en iconos secundarios.
+   */
+  .btn-form-action {
+    border-radius: 9999px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color: #fff !important;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+      background-color: var(--primary) !important;
+      color: var(--primary-foreground) !important;
+      &:hover {
+        background-color: var(--primary-dark) !important;
+      }
+      &:focus-visible {
+        outline: none !important;
+      }
+      &:active:not(:disabled) {
+        background-color: var(--primary-dark) !important;
+      }
+    }
+
+    .btn-cancel {
+      background-color: var(--error-dark) !important;
+      color: var(--error-light) !important;
+      &:hover {
+        background-color: var(--error-dark) !important;
+      }
+    }
+    &:focus-visible {
+        outline: none !important;
+      }
+      &:active:not(:disabled) {
+        background-color: var(--error-dark) !important;
+      }  
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    min-height: 100%;
+  }
   body {
-    @apply bg-[#E6EEFE] text-foreground;
+    @apply min-h-full text-foreground;
+    background-image: var(--background-gradient);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  #root {
+    min-height: 100%;
   }
 }

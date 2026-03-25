@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { Eraser, ListFilter } from "lucide-react";
 import SectionTitle from "@/components/text/SectionTitle";
@@ -25,7 +26,8 @@ import corporatesJson from "../../../public/mockups/corporates/getAllCorporates.
 import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type PosHealthFiltersFormValues, EMPTY_FILTERS } from "@/types/filters/CorporateFilters";
-import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+import { DropdownWithSearch, type DropdownWithSearchOption } from "@/components/ui/dropdown-with-search";
+import { getAllPosBrands } from "@/services/posHealt/getAllPosBrands";
 
 
 
@@ -70,12 +72,47 @@ const PosHealth = () => {
         connections,
         onActionClick: handleActionClick,
     });
-    const { register, handleSubmit, reset, watch, control } = useForm<PosHealthFiltersFormValues>({
+    const { register, handleSubmit, reset, watch, control, setValue } = useForm<PosHealthFiltersFormValues>({
         mode: "onTouched",
         defaultValues: EMPTY_FILTERS,
     });
 
+    const { data: posBrands = [], isPending: isPosBrandsPending } = useQuery({
+        queryKey: ["posBrands"],
+        queryFn: getAllPosBrands,
+        staleTime: 60_000,
+    });
+
     const watched = watch();
+    const watchedBrand = watched.brand;
+
+    const brandOptions: DropdownWithSearchOption[] = useMemo(() => {
+        return posBrands.map((b) => ({
+            value: b.Brand,
+            label: b.Brand,
+        }));
+    }, [posBrands]);
+
+    const modelOptions: DropdownWithSearchOption[] = useMemo(() => {
+        if (!watchedBrand.trim()) return [];
+        const entry = posBrands.find((b) => b.Brand === watchedBrand);
+        if (!entry) return [];
+        return entry.Models.map((m) => ({ value: m, label: m }));
+    }, [posBrands, watchedBrand]);
+
+    const isModelDropdownDisabled = !watchedBrand.trim() || isPosBrandsPending;
+
+    const modelEmptyLabel = !watchedBrand.trim()
+        ? "Seleccione una marca"
+        : modelOptions.length === 0
+            ? "Sin modelos"
+            : "Sin resultados";
+
+    useEffect(() => {
+        if (!watchedBrand.trim()) {
+            setValue("model", "");
+        }
+    }, [watchedBrand, setValue]);
     const hasAnyFilter = [
         watched.corporate,
         watched.commerce,
@@ -107,6 +144,7 @@ const PosHealth = () => {
                     open={filtersOpen}
                     onOpenChange={setFiltersOpen}
                     icon={<ListFilter className="size-3.5" aria-hidden />}
+                    cardBackgroundClassName="bg-[var(--color-primary)]"
                 >
                     <Card className="p-4 mt-4">
                         <form
@@ -153,20 +191,41 @@ const PosHealth = () => {
                                 </Field>
                                 <Field className="grid gap-2">
                                     <FieldLabel htmlFor="poshealth-filter-brand">Marca</FieldLabel>
-                                    <Input
-                                        id="poshealth-filter-brand"
-                                        type="text"
-                                        placeholder="Marca"
-                                        {...register("brand")}
+                                    <Controller
+                                        name="brand"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DropdownWithSearch
+                                                id="poshealth-filter-brand"
+                                                options={brandOptions}
+                                                value={field.value}
+                                                onValueChange={(val) => {
+                                                    field.onChange(val);
+                                                    setValue("model", "");
+                                                }}
+                                                placeholder="Seleccione"
+                                                disabled={isPosBrandsPending}
+                                                emptyLabel={isPosBrandsPending ? "Cargando…" : "Sin resultados"}
+                                            />
+                                        )}
                                     />
                                 </Field>
                                 <Field className="grid gap-2">
                                     <FieldLabel htmlFor="poshealth-filter-model">Modelo</FieldLabel>
-                                    <Input
-                                        id="poshealth-filter-model"
-                                        type="text"
-                                        placeholder="Modelo"
-                                        {...register("model")}
+                                    <Controller
+                                        name="model"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DropdownWithSearch
+                                                id="poshealth-filter-model"
+                                                options={modelOptions}
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                                placeholder={watchedBrand.trim() ? "Seleccione" : "Seleccione una marca"}
+                                                disabled={isModelDropdownDisabled}
+                                                emptyLabel={modelEmptyLabel}
+                                            />
+                                        )}
                                     />
                                 </Field>
                             </FieldGroup>
@@ -174,7 +233,7 @@ const PosHealth = () => {
                                 <Button
                                     type="submit"
                                     disabled={!hasAnyFilter}
-                                    className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
+                                    className="btn-form-action btn-primary gap-2"
                                 >
                                     <ListFilter className="size-4" />
                                     Filtrar
@@ -184,7 +243,7 @@ const PosHealth = () => {
                                     variant="outline"
                                     disabled={!hasAnyFilter}
                                     onClick={onClearFilters}
-                                    className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                                    className="gap-2 btn-form-action btn-cancel"
                                 >
                                     <Eraser className="size-4" />
                                     Borrar

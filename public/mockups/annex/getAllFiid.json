@@ -1,0 +1,1258 @@
+[
+  {
+    "id": 1,
+    "value": "AMERICAN EXPRESS"
+  },
+  {
+    "id": 3,
+    "value": "CONFIA"
+  },
+  {
+    "id": 6,
+    "value": "BANJERCITO"
+  },
+  {
+    "id": 7,
+    "value": "HSBC MEX"
+  },
+  {
+    "id": 8,
+    "value": "BNCI SNC"
+  },
+  {
+    "id": 10,
+    "value": "IXE BANCO"
+  },
+  {
+    "id": 12,
+    "value": "INTERACCIONES"
+  },
+  {
+    "id": 13,
+    "value": "BANORTE SOFOM"
+  },
+  {
+    "id": 15,
+    "value": "SCOTIABANK INVERLAT"
+  },
+  {
+    "id": 21,
+    "value": "INFONACOT"
+  },
+  {
+    "id": 22,
+    "value": "CHASE MANHATTAN BANK"
+  },
+  {
+    "id": 23,
+    "value": "SODEXO"
+  },
+  {
+    "id": 24,
+    "value": "C. VALLE DE GUADALUPE"
+  },
+  {
+    "id": 25,
+    "fiid": "CAJA SOL SIERRA S JUAN"
+  },
+  {
+    "id": 27,
+    "value": "AUTOFIN MEXICO"
+  },
+  {
+    "id": 28,
+    "fiid": "BANCO COMPARTAMOS"
+  },
+  {
+    "id": 29,
+    "value": "BANCO FAMSA"
+  },
+  {
+    "id": 30,
+    "value": "BANCO MULTIVA"
+  },
+  {
+    "id": 33,
+    "value": "NCUBO CAPITAL"
+  },
+  {
+    "id": 34,
+    "value": "INTERBANCO"
+  },
+  {
+    "id": 36,
+    "value": "CAJA ACREIMEX"
+  },
+  {
+    "id": 37,
+    "value": "CONSUBANCO SA IBM"
+  },
+  {
+    "id": 38,
+    "value": "CAJA OBLATOS"
+  },
+  {
+    "id": 39,
+    "value": "IXE BANCO"
+  },
+  {
+    "id": 41,
+    "value": "BANCA INMOBILIARIO"
+  },
+  {
+    "id": 42,
+    "value": "CAJA INMACULADA"
+  },
+  {
+    "id": 43,
+    "value": "CAJA SANTA MARIA"
+  },
+  {
+    "id": 44,
+    "fiid": "CAJA POPULAR LOS REYES"
+  },
+  {
+    "id": 46,
+    "value": "CAJA POPULAR SAHUAYO"
+  },
+  {
+    "id": 47,
+    "value": "PERS VALLE DE TEHUACAN"
+  },
+  {
+    "id": 48,
+    "value": "CONCREEC"
+  },
+  {
+    "id": 49,
+    "value": "CAJA POPULAR TATAVASCO"
+  },
+  {
+    "id": 50,
+    "value": "CAJA SOLID HUEJUQUILLA"
+  },
+  {
+    "id": 51,
+    "value": "BANORTE CARDTRONICS"
+  },
+  {
+    "id": 52,
+    "value": "AKII GLOBAL TRAN PLATF"
+  },
+  {
+    "id": 53,
+    "value": "EVOUCHER CAPITAL"
+  },
+  {
+    "id": 54,
+    "value": "BANSEFI"
+  },
+  {
+    "id": 55,
+    "value": "GRUPO MEDA"
+  },
+  {
+    "id": 56,
+    "value": "CAJA DE AHORROS UNIFAM"
+  },
+  {
+    "id": 57,
+    "value": "CAJA SOLIDARIA HUERTA"
+  },
+  {
+    "id": 58,
+    "value": "CAJA FRAY JUAN CALERO"
+  },
+  {
+    "id": 59,
+    "value": "LIBERTAD SF SA CV SFP"
+  },
+  {
+    "id": 60,
+    "value": "EDENRED"
+  },
+  {
+    "id": 62,
+    "fiid": "GIFT CARD PRODUCT"
+  },
+  {
+    "id": 63,
+    "value": "CIMACO"
+  },
+  {
+    "id": 64,
+    "value": "HOLLYWOOD MOVIE MAGIC"
+  },
+  {
+    "id": 65,
+    "value": "CAJA GUACHINANGO"
+  },
+  {
+    "id": 66,
+    "value": "CAJA CRISTO REY"
+  },
+  {
+    "id": 67,
+    "value": "RED ECO DE LA MONTANA"
+  },
+  {
+    "id": 68,
+    "value": "CAJA NUEVA GALICIA"
+  },
+  {
+    "id": 69,
+    "value": "CAJA TEN APATZ TZOTZOB"
+  },
+  {
+    "id": 70,
+    "value": "CAJA CORTAZAR"
+  },
+  {
+    "id": 71,
+    "value": "CAJA APASEO"
+  },
+  {
+    "id": 72,
+    "value": "CAJA CUAUTLITLAN"
+  },
+  {
+    "id": 73,
+    "value": "CAJA SOLIDARIA TALPA"
+  },
+  {
+    "id": 74,
+    "value": "CAJA GALEANA"
+  },
+  {
+    "id": 75,
+    "value": "CAJA TAPALPA"
+  },
+  {
+    "id": 76,
+    "value": "CAJA SAN SEBASTIAN"
+  },
+  {
+    "id": 77,
+    "value": "CAJA TECOLOTLAN"
+  },
+  {
+    "id": 78,
+    "value": "CAJA NEMESIS"
+  },
+  {
+    "id": 79,
+    "value": "CAJA PROVIDENCIA"
+  },
+  {
+    "id": 80,
+    "value": "BANCO BICENTENARIO"
+  },
+  {
+    "id": 81,
+    "value": "CAJA SMG"
+  },
+  {
+    "id": 82,
+    "value": "CAJA HUASTECA"
+  },
+  {
+    "id": 83,
+    "value": "CAJA YANGA"
+  },
+  {
+    "id": 84,
+    "value": "CAJA SANNICOLAS"
+  },
+  {
+    "id": 85,
+    "value": "CAJA MORELIA"
+  },
+  {
+    "id": 86,
+    "value": "CAJA CRISTOBAL COLON"
+  },
+  {
+    "id": 87,
+    "value": "CAJA POPULAR MEXICANA"
+  },
+  {
+    "id": 88,
+    "value": "ONE CARD"
+  },
+  {
+    "id": 89,
+    "value": "AKALA"
+  },
+  {
+    "id": 90,
+    "fiid": "VALEMEX"
+  },
+  {
+    "id": 91,
+    "fiid": "LA SAGRADA FAMILIA"
+  },
+  {
+    "id": 92,
+    "fiid": "OPAM"
+  },
+  {
+    "id": 93,
+    "fiid": "PRESTACIONES UNIVERSAL"
+  },
+  {
+    "id": 94,
+    "fiid": "PREVISION DEL TRABAJO"
+  },
+  {
+    "id": 95,
+    "fiid": "FINUTIL"
+  },
+  {
+    "id": 96,
+    "fiid": "TODITO PAGOS"
+  },
+  {
+    "id": 97,
+    "fiid": "CREDITO GLOBAL"
+  },
+  {
+    "id": 98,
+    "fiid": "FINAN INDEPENDENCIA"
+  },
+  {
+    "id": 99,
+    "fiid": "SERVITBCA"
+  },
+  {
+    "id": 100,
+    "fiid": "IXE CREDITO"
+  },
+  {
+    "id": 101,
+    "fiid": "EMISOR PROSA"
+  },
+  {
+    "id": 102,
+    "fiid": "TOKA  INVESTMENT"
+  },
+  {
+    "id": 103,
+    "fiid": "AKALA"
+  },
+  {
+    "id": 106,
+    "fiid": "FINACIERA CUALLIX"
+  },
+  {
+    "id": 107,
+    "fiid": "BANORTE 2"
+  },
+  {
+    "id": 108,
+    "fiid": "FINANCIERA AUXI"
+  },
+  {
+    "id": 109,
+    "fiid": "CREDICLUB"
+  },
+  {
+    "id": 110,
+    "fiid": "LIVERPOOL EMISOR"
+  },
+  {
+    "id": 111,
+    "fiid": "FICEN"
+  },
+  {
+    "id": 112,
+    "fiid": "BRADESCARD"
+  },
+  {
+    "id": 113,
+    "fiid": "BANJERCITO PONY"
+  },
+  {
+    "id": 114,
+    "fiid": "BANORTE REV"
+  },
+  {
+    "id": 61,
+    "fiid": "SI VALE"
+  },
+  {
+    "id": 115,
+    "fiid": "UNIONCOOP"
+  },
+  {
+    "id": 116,
+    "fiid": "EXPANDIT"
+  },
+  {
+    "id": 117,
+    "fiid": "EFECTIVALE"
+  },
+  {
+    "id": 118,
+    "fiid": "GLOBAL CARD"
+  },
+  {
+    "id": 119,
+    "fiid": "BANCO DE PRUEBA"
+  },
+  {
+    "id": 120,
+    "fiid": "AMEX EMI"
+  },
+  {
+    "id": 121,
+    "fiid": "BANCOMER"
+  },
+  {
+    "id": 122,
+    "fiid": "FONACOT"
+  },
+  {
+    "id": 124,
+    "fiid": "SERFIN-PROTON"
+  },
+  {
+    "id": 126,
+    "fiid": "SCOTIABANK-CARDTRONICS"
+  },
+  {
+    "id": 127,
+    "fiid": "CREDOMATIC"
+  },
+  {
+    "id": 128,
+    "fiid": "CETELEM"
+  },
+  {
+    "id": 129,
+    "fiid": "BANCO SANTANDER"
+  },
+  {
+    "id": 130,
+    "fiid": "BANCO SANTANDER"
+  },
+  {
+    "id": 132,
+    "fiid": "BAJIO DOLARES"
+  },
+  {
+    "id": 133,
+    "fiid": "IXE DOLARES"
+  },
+  {
+    "id": 134,
+    "fiid": "BANREGIO DOLARES"
+  },
+  {
+    "id": 135,
+    "fiid": "BANSI DOLARES"
+  },
+  {
+    "id": 136,
+    "fiid": "BANORTE DOLARES"
+  },
+  {
+    "id": 137,
+    "fiid": "INTERBANCO DOLARES"
+  },
+  {
+    "id": 138,
+    "fiid": "BANCO SANTANDER TCC"
+  },
+  {
+    "id": 139,
+    "fiid": "EGLOBAL"
+  },
+  {
+    "id": 140,
+    "fiid": "SCOTIABANK INVERLAT"
+  },
+  {
+    "id": 141,
+    "fiid": "GE CAPITAL BANK"
+  },
+  {
+    "id": 142,
+    "fiid": "GEDAS"
+  },
+  {
+    "id": 143,
+    "fiid": "BCO INVEX"
+  },
+  {
+    "id": 144,
+    "fiid": "DUMMY"
+  },
+  {
+    "id": 145,
+    "fiid": "JCB"
+  },
+  {
+    "id": 146,
+    "fiid": "LIVERPOOL"
+  },
+  {
+    "id": 147,
+    "fiid": "DIST. LIVERPOOL"
+  },
+  {
+    "id": 148,
+    "fiid": "PRESTACOMER"
+  },
+  {
+    "id": 149,
+    "fiid": "MASTER CARD"
+  },
+  {
+    "id": 150,
+    "fiid": "MVS COMS"
+  },
+  {
+    "id": 151,
+    "fiid": "SANTANDER AQD. POS"
+  },
+  {
+    "id": 152,
+    "fiid": "HSBC PROSA ADQ"
+  },
+  {
+    "id": 153,
+    "fiid": "SCOTIABANK ADQUIRENTE"
+  },
+  {
+    "id": 154,
+    "fiid": "AUTOFIN ADQUIRENTE"
+  },
+  {
+    "id": 155,
+    "fiid": "INVEX ATM CONVENIENCIA"
+  },
+  {
+    "id": 156,
+    "fiid": "PRESTACOMER"
+  },
+  {
+    "id": 157,
+    "fiid": "GIFT CARD PRODUCT"
+  },
+  {
+    "id": 158,
+    "fiid": "IXE FE"
+  },
+  {
+    "id": 159,
+    "fiid": "INTERACCIONES DIRECT C"
+  },
+  {
+    "id": 160,
+    "fiid": "SWITCH GATE"
+  },
+  {
+    "id": 161,
+    "fiid": "BANSI FE"
+  },
+  {
+    "id": 162,
+    "fiid": "BANCO MULTIVA"
+  },
+  {
+    "id": 163,
+    "fiid": "BANCEFI ATM"
+  },
+  {
+    "id": 164,
+    "fiid": "BANCO DEL BAJIO"
+  },
+  {
+    "id": 165,
+    "fiid": "INBURSA FE"
+  },
+  {
+    "id": 166,
+    "fiid": "SCOTIABANK INVERLAT FE"
+  },
+  {
+    "id": 168,
+    "fiid": "CAJA VALLE DE GPE"
+  },
+  {
+    "id": 169,
+    "fiid": "CAJA SOL SIERRA S JUAN"
+  },
+  {
+    "id": 170,
+    "fiid": "AZTECA FE"
+  },
+  {
+    "id": 171,
+    "fiid": "AUTOFIN MEXICO"
+  },
+  {
+    "id": 172,
+    "fiid": "BCO COMPARTAMOS ADQ"
+  },
+  {
+    "id": 173,
+    "fiid": "BANCO FAMSA"
+  },
+  {
+    "id": 174,
+    "fiid": "BANCO ACTIVER ADQ"
+  },
+  {
+    "id": 177,
+    "fiid": "BCO AMIGO ADQ"
+  },
+  {
+    "id": 178,
+    "fiid": "CAJA ACREIMEX ADQ"
+  },
+  {
+    "id": 179,
+    "fiid": "CAJA OBLATOS ADQ"
+  },
+  {
+    "id": 180,
+    "fiid": "EL BANCO DEUNO"
+  },
+  {
+    "id": 181,
+    "fiid": "CI BANCO ADQ"
+  },
+  {
+    "id": 182,
+    "fiid": "CAJA INMACULADA ADQ"
+  },
+  {
+    "id": 183,
+    "fiid": "CAJA SANTA MARIA ADQ"
+  },
+  {
+    "id": 184,
+    "fiid": "CAJA LOS REYES   ADQ"
+  },
+  {
+    "id": 186,
+    "fiid": "CAJA POPULAR SAHUAYO"
+  },
+  {
+    "id": 187,
+    "fiid": "PERS VALLE DE TEHUACAN"
+  },
+  {
+    "id": 188,
+    "fiid": "CAJA POPULAR TATAVASCO"
+  },
+  {
+    "id": 189,
+    "fiid": "CAJA SOLID HUEJUQUILLA"
+  },
+  {
+    "id": 190,
+    "fiid": "CAJA DE AHORROS UNIFAM"
+  },
+  {
+    "id": 191,
+    "fiid": "CAJA SOLIDARIA HUERTA"
+  },
+  {
+    "id": 192,
+    "fiid": "CAJA FRAY JUAN CALERO"
+  },
+  {
+    "id": 193,
+    "fiid": "CAJA LIBERTAD ADQ"
+  },
+  {
+    "id": 194,
+    "fiid": "CAJA GUACHINANGO ADQ"
+  },
+  {
+    "id": 195,
+    "fiid": "CAJA CRISTO REY ADQ"
+  },
+  {
+    "id": 196,
+    "fiid": "CAJA ECO MONTANA ADQ"
+  },
+  {
+    "id": 197,
+    "fiid": "CAJA NVA GALICIA ADQ"
+  },
+  {
+    "id": 198,
+    "fiid": "TEN APATZ TZO ADQ"
+  },
+  {
+    "id": 199,
+    "fiid": "CAJA CORTAZAR"
+  },
+  {
+    "id": 200,
+    "fiid": "CAJA APASEO ADQ"
+  },
+  {
+    "id": 201,
+    "fiid": "CAJA CUAUTITLAN"
+  },
+  {
+    "id": 202,
+    "fiid": "CAJA TALPA"
+  },
+  {
+    "id": 203,
+    "fiid": "CAJA GALEANA"
+  },
+  {
+    "id": 204,
+    "fiid": "CAJA TAPALPA"
+  },
+  {
+    "id": 205,
+    "fiid": "CAJA SAN SEBASTIAN"
+  },
+  {
+    "id": 206,
+    "fiid": "CAJA TECOLOTLAN"
+  },
+  {
+    "id": 207,
+    "fiid": "CAJA PROVIDENCIA"
+  },
+  {
+    "id": 208,
+    "fiid": "BANCO BICENTENARIO"
+  },
+  {
+    "id": 209,
+    "fiid": "CAJA POPULAR SMG"
+  },
+  {
+    "id": 210,
+    "fiid": "CAJA HUASTECA"
+  },
+  {
+    "id": 211,
+    "fiid": "CAJA YANGA ADQ"
+  },
+  {
+    "id": 212,
+    "fiid": "CAJA SAN NICOLAS"
+  },
+  {
+    "id": 213,
+    "fiid": "CAJA MORELIA VALLADOLI"
+  },
+  {
+    "id": 214,
+    "fiid": "CAJA CRISTOBAL COLON"
+  },
+  {
+    "id": 215,
+    "fiid": "CAJA POPULAR MEXICANA"
+  },
+  {
+    "id": 216,
+    "fiid": "LA SAGRADA FAMILIA AD"
+  },
+  {
+    "id": 217,
+    "fiid": "AKALA"
+  },
+  {
+    "id": 219,
+    "fiid": "UNISOL ADQ"
+  },
+  {
+    "id": 220,
+    "fiid": "FINANCIERA MEXICO"
+  },
+  {
+    "id": 221,
+    "fiid": "BANCO REGIONAL NORESTE"
+  },
+  {
+    "id": 222,
+    "fiid": "BANORTE DOLARES"
+  },
+  {
+    "id": 223,
+    "fiid": "CIBANCO DOLARES"
+  },
+  {
+    "id": 224,
+    "fiid": "BANREGIO DOLARES"
+  },
+  {
+    "id": 225,
+    "fiid": "PU DOLARES"
+  },
+  {
+    "id": 226,
+    "fiid": "CHINA UNION PAY"
+  },
+  {
+    "id": 227,
+    "fiid": "SERFIN-SAFE-SEND"
+  },
+  {
+    "id": 125,
+    "fiid": "CREDITO HSBC MEX"
+  },
+  {
+    "id": 228,
+    "fiid": "PONI CARD"
+  },
+  {
+    "id": 229,
+    "fiid": "VISA SMS"
+  },
+  {
+    "id": 230,
+    "fiid": "GENERAL"
+  },
+  {
+    "id": 231,
+    "fiid": "DEFAULT"
+  },
+  {
+    "id": 32,
+    "fiid": "BANCO WALMART"
+  },
+  {
+    "id": 175,
+    "fiid": "BANCO WALMART ADQUIRE"
+  },
+  {
+    "id": 232,
+    "fiid": "INVESTA BANK"
+  },
+  {
+    "id": 233,
+    "fiid": "VISA INTERNACIONAL"
+  },
+  {
+    "id": 234,
+    "fiid": "ACCENDO BANCO"
+  },
+  {
+    "id": 235,
+    "fiid": "BANCO PAGA TODO"
+  },
+  {
+    "id": 236,
+    "fiid": "BANCO SABADELL"
+  },
+  {
+    "id": 237,
+    "fiid": "BANCO VE POR MAS EG"
+  },
+  {
+    "id": 238,
+    "fiid": "BELANEA MEXICO"
+  },
+  {
+    "id": 239,
+    "fiid": "CACAO PAYCARD"
+  },
+  {
+    "id": 240,
+    "fiid": "CADENA COMER OXXO"
+  },
+  {
+    "id": 241,
+    "fiid": "COPAYMENT MEXICO"
+  },
+  {
+    "id": 242,
+    "fiid": "COSMO PAY CARD"
+  },
+  {
+    "id": 243,
+    "fiid": "GFY"
+  },
+  {
+    "id": 244,
+    "fiid": "GRUPO BELVEG"
+  },
+  {
+    "id": 245,
+    "fiid": "IMP PA EL DES DE MEX"
+  },
+  {
+    "id": 246,
+    "fiid": "NOVOPAYMENT MEXICO"
+  },
+  {
+    "id": 247,
+    "fiid": "NU BN MEX"
+  },
+  {
+    "id": 248,
+    "fiid": "SERVIFINA-SORIANA EG"
+  },
+  {
+    "id": 249,
+    "fiid": "TAMIZI"
+  },
+  {
+    "id": 250,
+    "fiid": "TRUU INNOVATION"
+  },
+  {
+    "id": 251,
+    "fiid": "BANXICO"
+  },
+  {
+    "id": 252,
+    "fiid": "BANCOMEXT"
+  },
+  {
+    "id": 253,
+    "fiid": "BANOBRAS"
+  },
+  {
+    "id": 254,
+    "fiid": "NAFIN"
+  },
+  {
+    "id": 255,
+    "fiid": "BaBien"
+  },
+  {
+    "id": 256,
+    "fiid": "HIPOTECARIA FED"
+  },
+  {
+    "id": 271,
+    "fiid": "BANCO COVALTO"
+  },
+  {
+    "id": 272,
+    "fiid": "ICBC"
+  },
+  {
+    "id": 273,
+    "fiid": "SABADELL"
+  },
+  {
+    "id": 274,
+    "fiid": "SHINHAN"
+  },
+  {
+    "id": 275,
+    "fiid": "MIZUHO BANK"
+  },
+  {
+    "id": 276,
+    "fiid": "BANK OF CHINA"
+  },
+  {
+    "id": 277,
+    "fiid": "BANCO S3"
+  },
+  {
+    "id": 278,
+    "fiid": "MONEXCB"
+  },
+  {
+    "id": 279,
+    "fiid": "GBM"
+  },
+  {
+    "id": 280,
+    "fiid": "MASARI"
+  },
+  {
+    "id": 281,
+    "fiid": "VALUE"
+  },
+  {
+    "id": 282,
+    "fiid": "VECTOR"
+  },
+  {
+    "id": 283,
+    "fiid": "FINAMEX"
+  },
+  {
+    "id": 284,
+    "fiid": "VALMEX"
+  },
+  {
+    "id": 285,
+    "fiid": "PROFUTURO"
+  },
+  {
+    "id": 286,
+    "fiid": "CBINTERCAM"
+  },
+  {
+    "id": 287,
+    "fiid": "CI BOLSA"
+  },
+  {
+    "id": 289,
+    "fiid": "REFORMA"
+  },
+  {
+    "id": 290,
+    "fiid": "EVERCORE"
+  },
+  {
+    "id": 291,
+    "fiid": "CREDICAPITAL"
+  },
+  {
+    "id": 292,
+    "fiid": "KUSPIT"
+  },
+  {
+    "id": 293,
+    "fiid": "UNAGRA"
+  },
+  {
+    "id": 294,
+    "fiid": "ASP INTEGRA OPC"
+  },
+  {
+    "id": 295,
+    "fiid": "ALTERNATIVOS"
+  },
+  {
+    "id": 296,
+    "fiid": "LIBERTAD"
+  },
+  {
+    "id": 297,
+    "fiid": "CAJA POP MEXICA"
+  },
+  {
+    "id": 298,
+    "fiid": "CRISTOBAL COLON"
+  },
+  {
+    "id": 299,
+    "fiid": "CAJA TELEFONIST"
+  },
+  {
+    "id": 300,
+    "fiid": "OPM"
+  },
+  {
+    "id": 301,
+    "fiid": "FONDO (FIRA)"
+  },
+  {
+    "id": 302,
+    "fiid": "INVERCAP"
+  },
+  {
+    "id": 303,
+    "fiid": "FOMPED"
+  },
+  {
+    "id": 304,
+    "fiid": "TESORED"
+  },
+  {
+    "id": 305,
+    "fiid": "NVIO"
+  },
+  {
+    "id": 306,
+    "fiid": "INDEVAL"
+  },
+  {
+    "id": 307,
+    "fiid": "CoDi Valida"
+  },
+  {
+    "id": 308,
+    "fiid": "HSBC2*"
+  },
+  {
+    "id": 309,
+    "fiid": "BANORTE2*"
+  },
+  {
+    "id": 310,
+    "fiid": "ARCUS"
+  },
+  {
+    "id": 311,
+    "fiid": "NVIO"
+  },
+  {
+    "id": 312,
+    "fiid": "BANAMEX2"
+  },
+  {
+    "id": 123,
+    "fiid": "BANAMEX"
+  },
+  {
+    "id": 5,
+    "fiid": "BBVA BANCOMER"
+  },
+  {
+    "id": 2,
+    "fiid": "SANTANDER"
+  },
+  {
+    "id": 4,
+    "fiid": "SANTANDER"
+  },
+  {
+    "id": 257,
+    "fiid": "SANTANDER"
+  },
+  {
+    "id": 131,
+    "fiid": "HSBC"
+  },
+  {
+    "id": 9,
+    "fiid": "BAJIO"
+  },
+  {
+    "id": 258,
+    "fiid": "BAJIO"
+  },
+  {
+    "id": 11,
+    "fiid": "INBURSA"
+  },
+  {
+    "id": 259,
+    "fiid": "INBURSA"
+  },
+  {
+    "id": 14,
+    "fiid": "MIFEL"
+  },
+  {
+    "id": 260,
+    "fiid": "MIFEL"
+  },
+  {
+    "id": 261,
+    "fiid": "SCOTIABANK"
+  },
+  {
+    "id": 16,
+    "fiid": "BANREGIO"
+  },
+  {
+    "id": 262,
+    "fiid": "BANREGIO"
+  },
+  {
+    "id": 17,
+    "fiid": "INVEX"
+  },
+  {
+    "id": 105,
+    "fiid": "INVEX"
+  },
+  {
+    "id": 263,
+    "fiid": "INVEX"
+  },
+  {
+    "id": 18,
+    "fiid": "BANSI"
+  },
+  {
+    "id": 19,
+    "fiid": "AFIRME"
+  },
+  {
+    "id": 264,
+    "fiid": "AFIRME"
+  },
+  {
+    "id": 20,
+    "fiid": "BANORTE"
+  },
+  {
+    "id": 167,
+    "fiid": "BANORTE"
+  },
+  {
+    "id": 265,
+    "fiid": "BANK OF AMERICA"
+  },
+  {
+    "id": 266,
+    "fiid": "VE POR MAS"
+  },
+  {
+    "id": 26,
+    "fiid": "AZTECA"
+  },
+  {
+    "id": 267,
+    "fiid": "AUTOFIN"
+  },
+  {
+    "id": 268,
+    "fiid": "BARCLAYS"
+  },
+  {
+    "id": 31,
+    "fiid": "ACTINVER"
+  },
+  {
+    "id": 176,
+    "fiid": "BANCOPPEL"
+  },
+  {
+    "id": 35,
+    "fiid": "ABC CAPITAL"
+  },
+  {
+    "id": 269,
+    "fiid": "CONSUBANCO"
+  },
+  {
+    "id": 40,
+    "fiid": "CIBANCO"
+  },
+  {
+    "id": 270,
+    "fiid": "CIBANCO"
+  },
+  {
+    "id": 185,
+    "fiid": "BANKAOOL"
+  },
+  {
+    "id": 104,
+    "fiid": "FINCOMUN"
+  },
+  {
+    "id": 218,
+    "fiid": "FINCOMUN"
+  },
+  {
+    "id": 288,
+    "fiid": "NU MEXICO"
+  },
+  {
+    "id": 45,
+    "fiid": "BANKAOOL"
+  },
+  {
+    "id": 313,
+    "fiid": "KUSHKI PAY"
+  },
+  {
+    "id": 314,
+    "fiid": "KLU TECH"
+  }
+]

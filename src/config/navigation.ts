@@ -58,9 +58,9 @@ export const navMain: NavEntry[] = [
     url: "#",
     icon: Store,
     items: [
-      { title: "Comercios físicos", url: "#" },
-      { title: "Comercios móvil", url: "#" },
-      { title: "E-commerce", url: "#" },
+      { title: "Comercios físicos", url: "/commerces/physical" },
+      { title: "Comercios móvil", url: "/commerces/mobile" },
+      { title: "E-commerce", url: "/commerces/ecommerce" },
     ],
   },
   { type: "separator" },

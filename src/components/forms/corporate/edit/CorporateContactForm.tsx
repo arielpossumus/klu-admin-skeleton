@@ -4,12 +4,9 @@ import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
+import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
 import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
 import ParagraphH2 from "@/components/text/ParagraphH2";
-
-const WEEKDAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"] as const;
 
 type ContactBlock = {
     name: string;
@@ -71,13 +68,6 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
     const { register, watch, setValue, handleSubmit, formState: { errors } } = useForm<CorporateContactFormValues>({
         defaultValues: resolvedDefaults,
     });
-
-    const handleToggleDay = (section: ContactSectionKey, day: string) => {
-        const path = `contactData.${section}.days` as const;
-        const current = (watch(path) ?? []) as string[];
-        const next = current.includes(day) ? current.filter((d) => d !== day) : [...current, day];
-        setValue(path, next);
-    };
 
     const handleDisabledField = useCallback(() => {
         setDisabledField((prev) => !prev);
@@ -197,28 +187,12 @@ export function CorporateContactForm(props: CorporateContactFormProps) {
                     </Field>
                     <Field className="grid gap-2 md:col-span-2">
                         <FieldLabel>Días de atención</FieldLabel>
-                        <ButtonGroup className="flex-wrap">
-                            {WEEKDAYS.map((day) => {
-                                const isSelected = days.includes(day);
-                                return (
-                                    <Button
-                                        key={day}
-                                        type="button"
-                                        variant={isSelected ? "default" : "outline"}
-                                        size="sm"
-                                        disabled={disabledField}
-                                        onClick={() => handleToggleDay(section, day)}
-                                        className={
-                                            isSelected
-                                                ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                                : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"
-                                        }
-                                    >
-                                        {day}
-                                    </Button>
-                                );
-                            })}
-                        </ButtonGroup>
+                        <WeekDaysButtonGroup
+                            value={days}
+                            onValueChange={(next) => setValue(`contactData.${section}.days` as const, next)}
+                            disabled={disabledField}
+                            className="flex-wrap"
+                        />
                     </Field>
                     <Field className="grid gap-2 mb-4">
                         <FieldLabel htmlFor={`${section}-startHour`}>Hora de inicio</FieldLabel>

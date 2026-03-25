@@ -1,1 +1,0 @@
-export const ENVIROMENT = import.meta.env.VITE_ENVIRONMENT ?? ''

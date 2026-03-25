@@ -3,6 +3,7 @@
 import { Pencil, PenOff, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
+import { cn } from "@/lib/utils";
 
 export type CustomFormButtonsProps = {
     /** true = formulario en solo lectura, se muestra solo "Editar"; false = modo edición, se muestran "Cancelar" y "Guardar" */
@@ -32,10 +33,9 @@ export function CustomFormButtons({ isReadOnly, onToggle }: CustomFormButtonsPro
                 <Button
                     type={isReadOnly ? "button" : "submit"}
                     onClick={isReadOnly ? (e) => { e.preventDefault(); onToggle(); } : undefined}
-                    className={`group flex overflow-hidden w-10 h-10 p-0 hover:w-28 transition-[width] duration-200 ease-out ${isReadOnly
-                        ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                        : "bg-[var(--success-dark)] text-white hover:bg-[var(--success-dark)]/90"
-                    }`}
+                    className={cn(
+                        "btn-form-action group flex h-10 w-10 overflow-hidden p-0 transition-[width] duration-200 ease-out hover:w-28"
+                    )}
                 >
                     <span className="flex items-center justify-center group-hover:justify-end gap-2 w-full min-w-0 pr-2 group-hover:pr-3 transition-[justify-content] duration-200 ease-out">
                         <span className="max-w-0 overflow-hidden opacity-0 whitespace-nowrap group-hover:max-w-20 group-hover:opacity-100 group-hover:mr-2 transition-[max-width,opacity,margin] duration-200 ease-out">
