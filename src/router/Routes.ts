@@ -9,6 +9,7 @@ import CorporateIndex from "@/pages/corporate/index";
 import CorporateDetail from "@/pages/corporate/CorporateDetail";
 import { AddCorporate } from "@/pages/corporate/AddCorporate";
 import CommercesIndex from "@/pages/commerces/index";
+import { CommerceDetail } from "@/pages/commerces/CommerceDetail";
 
 export const routes = [
     { path: "/", Component: Login },
@@ -44,6 +45,7 @@ export const routes = [
         Component: AdminLayout,
         children: [
             { path: "physical", Component: CommercesIndex },
+            { path: "physical/:idCommerce", Component: CommerceDetail },
         ],
     },
 ];

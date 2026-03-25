@@ -7,7 +7,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Card } from "@/components/ui/card";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import SectionTitle from "@/components/text/SectionTitle";
-import { allCommercesColumns } from "@/components/tables/allCommercesColumns";
+import { allCommercesColumns } from "@/components/tables/commerces/allCommercesColumns";
 import { getAllCommerces } from "@/services/commerces/getAllCommerces";
 import { getAllCorporates } from "@/services/corporate/getAllCorporates";
 import type { AllCommercesGridApiRow } from "@/types/commerce/CommerceList";

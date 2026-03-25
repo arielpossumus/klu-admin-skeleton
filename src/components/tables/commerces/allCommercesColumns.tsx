@@ -1,4 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
+import { Eye } from "lucide-react";
+import { Link } from "react-router";
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -23,9 +25,19 @@ export const allCommercesColumns: ColumnDef<AllCommercesGridApiRow>[] = [
     {
         accessorKey: "businessId",
         header: "ID",
-        cell: ({ getValue }) => {
-            const v = getValue<number>();
-            return v != null ? String(v) : "—";
+        cell: ({ row }) => {
+            const id = row.original.businessId;
+            if (id == null) return "—";
+            const idStr = String(id);
+            return (
+                <Link
+                    to={`/commerces/physical/${idStr}`}
+                    className="text-primary underline underline-offset-4 hover:no-underline"
+                    aria-label={`Ver comercio ${idStr}`}
+                >
+                    {idStr}
+                </Link>
+            );
         },
     },
     {
@@ -86,6 +98,23 @@ export const allCommercesColumns: ColumnDef<AllCommercesGridApiRow>[] = [
                 >
                     {status}
                 </Badge>
+            );
+        },
+    },
+    {
+        id: "actions",
+        header: "Acciones",
+        cell: ({ row }) => {
+            const id = row.original.businessId;
+            if (id == null) return "—";
+            return (
+                <Link
+                    to={`/commerces/physical/${id}`}
+                    className="cursor-pointer text-[var(--primary)] hover:opacity-80"
+                    aria-label="Ver detalle"
+                >
+                    <Eye className="size-4" />
+                </Link>
             );
         },
     },
