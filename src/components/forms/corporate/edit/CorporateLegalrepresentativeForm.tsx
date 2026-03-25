@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
+import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import taxRegimeJson from "../../../../../public/mockups/annex/getAllTaxRegime.json" with { type: "json" };
 import countriesJson from "../../../../../public/mockups/annex/getAllcountries.json" with { type: "json" };
@@ -84,8 +83,6 @@ export type CorporateLegalrepresentativeFormValues = {
         endHour: string;
     };
 };
-
-const WEEKDAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"] as const;
 
 const defaultLegalContact: CorporateLegalrepresentativeFormValues["legalContact"] = {
     name: "",
@@ -181,15 +178,7 @@ export function CorporateLegalrepresentativeForm(
         }
     };
 
-    const legalContactDays = watch("legalContact.days") ?? [];
-
-    const handleToggleDay = (day: string) => {
-        const current = legalContactDays as string[];
-        const next = current.includes(day)
-            ? current.filter((d) => d !== day)
-            : [...current, day];
-        setValue("legalContact.days", next);
-    };
+    const legalContactDays = (watch("legalContact.days") ?? []) as string[];
 
     const handleDisabledField = useCallback(() => {
         setDisabledField((prev) => !prev);
@@ -551,28 +540,12 @@ export function CorporateLegalrepresentativeForm(
                 </Field>
                 <Field className="grid gap-2 md:col-span-2 mb-4">
                     <FieldLabel>Días de atención</FieldLabel>
-                    <ButtonGroup className="flex-wrap">
-                        {WEEKDAYS.map((day) => {
-                            const isSelected = legalContactDays.includes(day);
-                            return (
-                                <Button
-                                    key={day}
-                                    type="button"
-                                    variant={isSelected ? "default" : "outline"}
-                                    size="sm"
-                                    disabled={disabledField}
-                                    onClick={() => handleToggleDay(day)}
-                                    className={
-                                        isSelected
-                                            ? "bg-[var(--accent)] text-accent-foreground hover:bg-[var(--accent-dark)]"
-                                            : "bg-[var(--background)] text-foreground hover:bg-[var(--accent)] hover:text-accent-foreground"
-                                    }
-                                >
-                                    {day}
-                                </Button>
-                            );
-                        })}
-                    </ButtonGroup>
+                    <WeekDaysButtonGroup
+                        value={legalContactDays}
+                        onValueChange={(next) => setValue("legalContact.days", next)}
+                        disabled={disabledField}
+                        className="flex-wrap"
+                    />
                 </Field>
                 <Field className="grid gap-2 mb-4">
                     <FieldLabel htmlFor="legalContact-startHour">Hora de inicio</FieldLabel>

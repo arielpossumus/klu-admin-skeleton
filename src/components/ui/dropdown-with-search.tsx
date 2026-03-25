@@ -46,15 +46,11 @@ export function DropdownWithSearch({
 }: DropdownWithSearchProps) {
     const [open, setOpen] = React.useState(false);
 
-    const optionsWithEmpty = placeholder
-        ? [{ value: "", label: placeholder }, ...options]
-        : options;
-
-    const selectedOption = optionsWithEmpty.find((opt) => opt.value === value);
+    const selectedOption = options.find((opt) => opt.value === value);
     const displayLabel = selectedOption?.label ?? placeholder;
 
     const handleSelect = (selectedValue: string) => {
-        const option = optionsWithEmpty.find(
+        const option = options.find(
             (opt) => opt.label.toLowerCase() === selectedValue.toLowerCase()
         );
         if (option) {
@@ -85,14 +81,22 @@ export function DropdownWithSearch({
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
-                <Command shouldFilter={true}>
+                <Command
+                    shouldFilter={true}
+                    filter={(itemValue, search) => {
+                        if (!search.trim()) return 1;
+                        return (itemValue ?? "").toLowerCase().includes(search.toLowerCase().trim())
+                            ? 1
+                            : 0;
+                    }}
+                >
                     <CommandInput placeholder="Buscar..." className="h-9" />
-                    <CommandList>
+                    <CommandList className="min-h-[80px]">
                         <CommandEmpty>{emptyLabel}</CommandEmpty>
                         <CommandGroup>
-                            {optionsWithEmpty.map((opt) => (
+                            {options.map((opt) => (
                                 <CommandItem
-                                    key={opt.value || "__empty__"}
+                                    key={opt.value}
                                     value={opt.label}
                                     onSelect={handleSelect}
                                 >

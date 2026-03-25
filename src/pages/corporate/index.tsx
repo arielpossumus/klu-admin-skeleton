@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { Eraser, FileDown, FileBraces, FileCode, FileText, FileType, Database, Sheet, Plus, ListFilter, ChevronDown } from "lucide-react";
 import { DataTable } from "@/components/ui/data-table";
@@ -13,10 +14,11 @@ import { Card } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
+import { DropdownWithSearch, type DropdownWithSearchOption } from "@/components/ui/dropdown-with-search";
+import { fiidService } from "@/services/annex/fiidService";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type CorporateIndexFiltersFormValues, EMPTY_CORPORATE_INDEX_FILTERS } from "@/types/filters/CorporateIndexFilters";
+import { useNavigate } from "react-router";
 
 type CorporateTypeRow = { typeId: number; typeName: string; };
 type StatusRow = { id: string; description: string; };
@@ -29,15 +31,27 @@ const statusOptions = dataStatus.map((s) => ({ value: s.description, label: s.de
 
 const CorporateIndex = () => {
   const data = dataCorporates;
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState<CorporateIndexFiltersFormValues | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(true);
 
-  const { register, handleSubmit, reset, watch, control } = useForm<CorporateIndexFiltersFormValues>({
+  const { handleSubmit, reset, watch, control } = useForm<CorporateIndexFiltersFormValues>({
     mode: "onTouched",
     defaultValues: EMPTY_CORPORATE_INDEX_FILTERS,
   });
+
+  const { data: fiidList = [], isPending: isFiidPending } = useQuery({
+    queryKey: ["fiid"],
+    queryFn: () => fiidService.getAll(),
+    staleTime: 60_000,
+  });
+
+  const fiidOptions: DropdownWithSearchOption[] = useMemo(
+    () => fiidList.map((item) => ({ value: String(item.id), label: item.value })),
+    [fiidList],
+  );
+
   const watched = watch();
   const hasAnyFilter = [
     watched.nombre,
@@ -60,14 +74,19 @@ const CorporateIndex = () => {
     }, 3000);
   }, []);
 
+  const handleAddCorporate = () => {
+    navigate("/corporate/add-corporate");
+  };
+
   return (
     <>
-      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" actionName="Agregar Corporativo " actionIcon={Plus} showButton={true} />
+      <SectionTitle title="Corporativo" subtitle="Corporativo de la aplicación" actionName="Agregar Corporativo " actionIcon={Plus} showButton={true} handleAction={handleAddCorporate} />
       <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
         <CustomCollapsibleCard
           title="Filtrar"
           open={filtersOpen}
           onOpenChange={setFiltersOpen}
+          cardBackgroundClassName="bg-[var(--color-primary)]"
         >
           <Card className="p-4 mt-4">
             <form onSubmit={handleSubmit(onFilter)} className="flex flex-col gap-4">
@@ -93,11 +112,20 @@ const CorporateIndex = () => {
                 </Field>
                 <Field className="grid gap-2">
                   <FieldLabel htmlFor="corporate-filter-fiid">FIID</FieldLabel>
-                  <Input
-                    id="corporate-filter-fiid"
-                    type="text"
-                    placeholder="FIID"
-                    {...register("fiid")}
+                  <Controller
+                    name="fiid"
+                    control={control}
+                    render={({ field }) => (
+                      <DropdownWithSearch
+                        id="corporate-filter-fiid"
+                        options={fiidOptions}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Seleccione"
+                        disabled={isFiidPending}
+                        emptyLabel={isFiidPending ? "Cargando…" : "Sin resultados"}
+                      />
+                    )}
                   />
                 </Field>
                 <Field className="grid gap-2">
@@ -140,7 +168,7 @@ const CorporateIndex = () => {
                 <Button
                   type="submit"
                   disabled={!hasAnyFilter}
-                  className="gap-2 bg-[var(--accent)] text-white hover:bg-[var(--accent-dark)]"
+                  className="btn-form-action btn-primary gap-2"
                 >
                   <ListFilter className="size-4" />
                   Filtrar
@@ -150,7 +178,7 @@ const CorporateIndex = () => {
                   variant="outline"
                   disabled={!hasAnyFilter}
                   onClick={onClearFilters}
-                  className="gap-2 bg-[var(--error-dark)] text-white hover:bg-[var(--error-dark)]/90"
+                  className="gap-2 btn-form-action btn-cancel"
                 >
                   <Eraser className="size-4" />
                   Borrar

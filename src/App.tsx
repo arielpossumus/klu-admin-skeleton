@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ENVIROMENT } from '@/config/constants'
+import { ENVIROMENT } from "@/config/constants.ts"
 import './App.css'
 import { Button } from "@/components/ui/button"
 
