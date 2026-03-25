@@ -1,6 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import corporateByIdJson from "../../../public/mockups/corporates/getCorporateById.json" with { type: "json" };
 import type { CorporateByIdResponse } from "@/types/corporate/Corporate";
 import { Card, CardContent } from "@/components/ui/card";
+import { DataTable } from "@/components/ui/data-table";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SectionTitle from "@/components/text/SectionTitle";
 import { CorporateGeneralDetailsForm } from "@/components/forms/corporate/edit/CorporateGeneralDetailsForm";
@@ -14,6 +17,8 @@ import { CustomCard } from "@/components/commons/CustomCard";
 import { Building2, List } from "lucide-react";
 import { INTERNAL_CORPORATE_NAV } from "@/types/internalMenues/internalCorporate";
 import { getSectionIcon } from "@/lib/getSectionIcon";
+import { getCommercesByCorporate } from "@/services/commerces/getCommercesByCorporate";
+import { corporateCommerceColumns } from "@/components/tables/corporate/corporateCommerceColumns";
 
 function LegalRepresentativeFormWrapper(props: CorporateLegalrepresentativeFormProps) {
     return <CorporateLegalrepresentativeForm {...(props as object)} />;
@@ -22,6 +27,16 @@ function LegalRepresentativeFormWrapper(props: CorporateLegalrepresentativeFormP
 const CorporateDetail = () => {
     const corporateById = corporateByIdJson as CorporateByIdResponse;
     const corporate = corporateById.data_response;
+
+    const commercesQuery = useQuery({
+        queryKey: ["commercesByCorporate", corporate?.fiid, corporate?.name],
+        queryFn: () =>
+            getCommercesByCorporate({
+                corporateFiid: corporate?.fiid ?? "",
+                corporateName: corporate?.name ?? "",
+            }),
+        enabled: Boolean(corporate?.fiid || corporate?.name),
+    });
 
     return (
         <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
@@ -184,6 +199,32 @@ const CorporateDetail = () => {
                                             : undefined
                                     }
                                 />
+                            </CardContent>
+                        </Card>
+                    </CustomCard>
+                </TabsContent>
+                <TabsContent value="commerce" className="mt-6 flex-1 min-h-0 data-[state=inactive]:hidden">
+                    <CustomCard title={INTERNAL_CORPORATE_NAV.find((n) => n.id === "commerce")?.label ?? "Comercios"} icon={getSectionIcon(INTERNAL_CORPORATE_NAV, "commerce", { fallbackIcon: Building2 })}>
+                        <Card>
+                            <CardContent className="pt-6">
+                                {commercesQuery.isPending && (
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-10 w-full" />
+                                        <Skeleton className="h-32 w-full" />
+                                    </div>
+                                )}
+                                {commercesQuery.isError && (
+                                    <p className="text-sm text-destructive" role="alert">
+                                        No se pudieron cargar los comercios. Intentá de nuevo más tarde.
+                                    </p>
+                                )}
+                                {commercesQuery.isSuccess && (
+                                    <DataTable
+                                        columns={corporateCommerceColumns}
+                                        data={commercesQuery.data}
+                                        getRowId={(row) => row.id}
+                                    />
+                                )}
                             </CardContent>
                         </Card>
                     </CustomCard>
