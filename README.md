@@ -1,6 +1,6 @@
-# Admin Momentum
+# Admin Klu
 
-Panel de administración construido con React, TypeScript, Vite, Shadcn UI y Tailwind CSS.
+Panel de administración en arquitectura **Microfrontends** con React, TypeScript, Vite, Shadcn UI y Tailwind CSS.
 
 ## Tabla de contenidos
 
@@ -9,7 +9,9 @@ Panel de administración construido con React, TypeScript, Vite, Shadcn UI y Tai
 - [Desarrollo](#desarrollo)
 - [Build](#build)
 - [Lint y formato](#lint-y-formato)
+- [Arquitectura de microfrontends](#arquitectura-de-microfrontends)
 - [Crear una nueva página y configurar el ruteo](#crear-una-nueva-página-y-configurar-el-ruteo)
+- [Agregar un nuevo Microfrontend](#agregar-un-nuevo-microfrontend)
 - [Pasos para mostrar una DataGrid con datos](#pasos-para-mostrar-una-datagrid-con-datos)
 - [Componentes de tipografía](#componentes-de-tipografía-srccomponentstext)
 - [Dashboard](#dashboard)
@@ -32,103 +34,124 @@ Panel de administración construido con React, TypeScript, Vite, Shadcn UI y Tai
 
 ## Estructura del proyecto
 
+Monorepo **pnpm**: el panel usa `apps/host` como **shell** y carga dominios desde `apps/mfe-*` por Module Federation. UI compartida en `packages/ui-kit`.
+
 ```
 admin_momentum/
-├── src/
-│   ├── assets/              # Recursos estáticos (imágenes, íconos, fuentes)
-│   ├── components/          # Componentes React reutilizables
-│   │   ├── ui/              # Componentes Shadcn (Button, Card, DropdownMenu, DataTable, etc.)
-│   │   ├── layout/          # AppSidebar, Header, NavUser
-│   │   ├── commons/         # Componentes comunes (CustomCard, CustomCollapsibleCard, DistributionListCard, CustomAlertDialog)
-│   │   ├── text/            # Tipografía (ParagraphH1, ParagraphH4, SectionTitle, etc.)
-│   │   ├── charts/          # Gráficos (MovementsChart, AcceptanceChart, IncidentsBarChart, TopCorporativosChart, UsageRadial, ChargeLevelRadial)
-│   │   ├── tables/          # Columnas para DataTable (corporateColumns, posHealth/, deviceColumns, corporate/transactionsLiteColumns, etc.)
-│   │   ├── forms/           # Formularios (LoginForm, CustomFormButtons, corporate/edit/*)
-│   │   ├── tabsContent/     # Contenido de pestañas (device/)
-│   │   └── loaders/         # Loaders (TablesLoader)
-│   ├── layouts/             # AdminLayout (SidebarProvider, AppSidebar, Header, Outlet)
-│   ├── pages/               # Páginas/vistas principales
-│   │   ├── dashboard/       # Dashboard (Index.tsx): KPIs, transacciones y gráficos
-│   │   ├── login/           # Login (Index.tsx)
-│   │   ├── corporate/       # Listado (index.tsx), detalle por ID (CorporateDetail.tsx)
-│   │   ├── poshealt/        # POS Health listado (Index.tsx), detalle por serial (PosHealthDetail.tsx)
-│   │   └── components/      # Página de ejemplos de componentes (Components.tsx)
-│   ├── types/               # Tipos e interfaces TypeScript
-│   ├── config/              # Configuraciones (navegación, charts, opciones)
-│   ├── lib/                 # Utilidades (utils, api, auth)
-│   ├── services/            # Servicios y llamadas a API por recurso
-│   ├── hooks/               # Custom hooks
-│   ├── context/             # Contextos React (Auth, Currency, etc.)
-│   ├── router/              # Rutas: Routes.ts (export routes), AppRouter.tsx (createBrowserRouter + RouterProvider)
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css            # Estilos globales (Tailwind)
+├── apps/
+│   ├── host/                # Shell Federation + router principal — puerto 5000
+│   ├── mfe-login/           # Login — 5001
+│   ├── mfe-pos-health/      # 5002
+│   ├── mfe-corporate/       # 5003
+│   ├── mfe-commerces/       # 5004
+│   ├── mfe-dashboard/       # 5005
+│   └── README.md
+├── packages/
+│   └── ui-kit/              # Shadcn (ui), text, commons/, lib/utils, use-mobile
+├── pnpm-workspace.yaml
+├── tsconfig.json            # Referencia a apps/host + paths @/components/ui → ui-kit
+├── components.json          # Shadcn (css: apps/host/src/index.css)
 │
-├── vite.config.ts           # Vite (alias @ → src)
-├── tsconfig.json            # TypeScript (paths @/*)
-└── components.json          # Shadcn
+└── apps/host/
+    ├── vite.config.ts       # remotes + shared singleton + alias
+    └── src/
+        ├── router/Routes.ts # rutas shell -> páginas remotas
+        └── pages/microfrontends/MfRemotePages.tsx
 ```
+
+En este README, si no se aclara, `src/` refiere a `apps/host/src/`.
 
 ## Desarrollo
 
+Requiere **Node 20+** y **pnpm**. Recomendado: usar Corepack.
+
 ```bash
-npm install
-npm run dev          # desarrollo por defecto
-npm run dev:local    # apunta a ambiente local
-npm run dev:develop  # apunta a ambiente develop
-npm run dev:staging  # apunta a ambiente staging
+corepack enable
+pnpm install
+pnpm dev              # host en http://localhost:5000
+pnpm run dev:local    # modo localdev (.env en la raíz del repo)
+pnpm run dev:develop
+pnpm run dev:staging
 ```
+
+Para levantar **todo integrado**:
+
+```bash
+# Terminal A
+pnpm dev:mf:remotes
+
+# Terminal B
+pnpm dev:mf:host
+```
+
+Rutas principales del shell:
+
+- `/` -> `mfe_login`
+- `/dashboard` -> `mfe_dashboard`
+- `/pos-health` -> `mfe_pos_health`
+- `/corporate` -> `mfe_corporate`
+- `/commerces/physical` -> `mfe_commerces`
+
+Más detalle de puertos/rutas en `apps/README.md`.
 
 ## Build
 
 ```bash
-npm run build
-npm run preview   # previsualizar el build
+pnpm run build        # host (typecheck + build)
+pnpm run preview      # preview del host
+pnpm run build:mf     # host + todos los mfe
+
+# Builds puntuales:
+pnpm --filter @momentum/mfe-login build
+pnpm --filter @momentum/mfe-dashboard build
+pnpm --filter @momentum/host build
 ```
 
 ## Lint y formato
 
 ```bash
-npm run lint        # comprobar con ESLint
-npm run lint:fix    # corregir automáticamente
-npm run format      # formatear con Prettier (src)
+pnpm run lint        # comprobar con ESLint
+pnpm run lint:fix    # corregir automáticamente
+pnpm run format      # formatear apps/host/src con Prettier
 ```
+
+## Arquitectura de microfrontends
+
+Mental model simple:
+
+- **Host (`apps/host`)**: pasillo principal (shell).
+  - Tiene el router global.
+  - Carga remotos con `lazy(() => import("mfe_xxx/RemoteApp"))`.
+  - Define `remotes` y `shared` en `vite.config.ts`.
+- **Cada `apps/mfe-*`**: una feature/autonomía por dominio.
+  - Tiene su propio `RemoteApp.tsx`, páginas, servicios, tipos y mocks.
+  - Puede correr solo (dev aislado) y también dentro del host.
+- **`packages/ui-kit`**: piezas UI compartidas para consistencia visual y menor duplicación.
+
+Shared críticos en Federation (host + remotos):
+
+- `react`
+- `react-dom`
+- `react-router`
+- `@tanstack/react-query` (si el remoto usa queries)
+- `@tanstack/react-table` (si el remoto usa tablas)
+
+Siempre como `singleton: true`.
 
 ## Crear una nueva página y configurar el ruteo
 
-### 1. Crear el componente de página
+Si la pantalla es pequeña o temporal, podés crearla local en host.  
+Si es una feature de dominio, preferí crearla dentro de su MFE.
 
-Crear una carpeta dentro de `src/pages/` con el nombre de la sección (en kebab-case si aplica) y un archivo con el componente:
+### 1) Página local en host (caso puntual)
 
-- **Ruta del archivo:** `src/pages/<seccion>/<NombrePagina>.tsx`
-- **Ejemplo:** `src/pages/settings/Settings.tsx`
+Crear componente en `apps/host/src/pages/...` y registrar ruta en `apps/host/src/router/Routes.ts`.
 
-```tsx
-const Settings = () => {
-  return (
-    <>
-      <h1>Configuración</h1>
-      {/* contenido de la página */}
-    </>
-  );
-};
-
-export default Settings;
-```
-
-### 2. Registrar la ruta en el router
-
-En **`src/router/Routes.ts`**:
-
-1. Importar el componente de la nueva página.
-2. Agregar un objeto en el array `routes` con `path`, `Component: AdminLayout` y `children` para que la página use el layout con sidebar y header.
-
-**Ejemplo** (página en `/settings`):
+Ejemplo:
 
 ```tsx
 import Settings from "@/pages/settings/Settings";
 
-// Dentro del array routes:
 {
   path: "/settings",
   Component: AdminLayout,
@@ -140,28 +163,25 @@ import Settings from "@/pages/settings/Settings";
 - **`Component: AdminLayout`:** todas las rutas con layout de admin usan este componente.
 - **`children: [{ index: true, Component: Settings }]`:** el contenido en esa ruta es el componente `Settings` (ruta índice de `/settings`).
 
-Para rutas **sin** layout (ej. login), se usa solo `path` y `Component`:
+### 2) Ruta remota (recomendado para dominio)
 
-```tsx
-{ path: "/", Component: Login },
-```
-
-Para **rutas anidadas** (ej. detalle por ID), se agrega un hijo con `path` con parámetro:
+En host se enruta a `Mf<Feature>Page`:
 
 ```tsx
 {
   path: "/corporate",
   Component: AdminLayout,
   children: [
-    { index: true, Component: CorporateIndex },
-    { path: ":corporateId", Component: CorporateDetail },
+    { index: true, Component: MfCorporatePage },
+    { path: "add-corporate", Component: MfCorporatePage },
+    { path: ":corporateId", Component: MfCorporatePage },
   ],
 },
 ```
 
-El array `routes` se exporta en **`src/router/Routes.ts`** y se usa en **`src/router/AppRouter.tsx`** con `createBrowserRouter(routes)` y `<RouterProvider router={router} />`.
+La página real vive en el remoto (`apps/mfe-.../src/exposes/RemoteApp.tsx` + páginas internas).
 
-### 3. Agregar ítems en el menú lateral (opcional)
+### 3) Menú lateral (opcional)
 
 El menú usa la estructura **`navMain`** en **`src/config/navigation.ts`**, que admite ítems simples, ítems con subítems colapsables y separadores. Esta misma configuración alimenta el **breadcrumb** del header de forma automática.
 
@@ -209,9 +229,29 @@ Se agrega en el array `navMain` en el orden deseado. Los ítems con `items` se a
 
 | Paso | Archivo | Acción |
 |------|---------|--------|
-| 1 | `src/pages/<seccion>/<NombrePagina>.tsx` | Crear el componente de la página |
-| 2 | `src/router/Routes.ts` | Importar el componente y agregar la ruta en `routes` |
-| 3 | `src/config/navigation.ts` | (Opcional) Agregar entrada en `navMain`: ítem, ítem con `items`, o `{ type: "separator" }` |
+| 1 | `src/router/Routes.ts` | Agregar ruta local o ruta hacia un remoto |
+| 2 | `src/pages/microfrontends/MfRemotePages.tsx` | (si es remoto) agregar lazy + fallback |
+| 3 | `src/config/navigation.ts` | (Opcional) reflejar entrada de menú |
+
+## Agregar un nuevo Microfrontend
+
+Ejemplo: `mfe-transactions`.
+
+1. Crear carpeta `apps/mfe-transactions` con base Vite + TS:
+   - `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`
+   - `src/main.tsx`, `src/exposes/RemoteApp.tsx`, `src/vite-env.d.ts`
+2. En `RemoteApp` definir rutas internas (`/transactions`, `/:id`, etc.).
+3. Mover ahí componentes/services/types/mocks del dominio.
+4. En host:
+   - `apps/host/vite.config.ts` -> agregar remoto `mfe_transactions`
+   - `apps/host/src/vite-env.d.ts` -> declarar módulo `mfe_transactions/RemoteApp`
+   - `apps/host/src/pages/microfrontends/MfRemotePages.tsx` -> crear `MfTransactionsPage`
+   - `apps/host/src/router/Routes.ts` -> ruta `/transactions`
+5. Verificar shared singleton en host + remoto (router/query/table según uso).
+6. Probar dev integrado y build:
+   - `pnpm dev:mf:remotes` + `pnpm dev:mf:host`
+   - `pnpm --filter @momentum/mfe-transactions build`
+   - `pnpm --filter @momentum/host build`
 
 ## Pasos para mostrar una DataGrid con datos
 
@@ -307,8 +347,8 @@ export default MiPagina;
 
 ### Ejemplos en el proyecto
 
-- **Corporativos:** `src/components/tables/corporateColumns.tsx` + `src/pages/corporate/index.tsx`. Detalle: `src/pages/corporate/CorporateDetail.tsx`; columnas de transacciones lite: `src/components/tables/corporate/transactionsLiteColumns.tsx`.
-- **POS Health (dispositivos):** `src/components/tables/posHealth/` (posHealthColumns, PosHealthExpandedContent, secciones de detalle) + `src/pages/poshealt/Index.tsx` (listado) y `src/pages/poshealt/PosHealthDetail.tsx` (detalle por `:serialId`). Columnas de batería, impresora y conexión: `deviceBatteryColumns`, `devicePrinterColumns`, `deviceconectionsColumns`.
+- **Corporativos:** listado, alta y detalle en **`apps/mfe-corporate`** (`CorporateListPage`, `AddCorporate`, `CorporateDetailPage`); columnas de transacciones lite: `src/components/tables/corporate/transactionsLiteColumns.tsx`.
+- **POS Health (dispositivos):** listado y detalle en **`apps/mfe-pos-health`** (`PosHealthListPage`, `PosHealthDetailPage`); columnas de detalle de dispositivo en host: `deviceBatteryColumns`, `devicePrinterColumns`, `deviceconectionsColumns`.
 - **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
 - **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
 - **Conexión:** `src/components/tables/deviceconectionsColumns.tsx` (señal WiFi, estado SIM, etc.)
@@ -385,7 +425,9 @@ Para cambiar tamaño, peso o márgenes, se editan las clases Tailwind en el comp
 
 ## Dashboard
 
-La página **Dashboard** (`src/pages/dashboard/Index.tsx`) usa **SectionTitle** para el título de la página y muestra:
+Dashboard ya está migrado a `apps/mfe-dashboard`.
+
+Mantiene:
 
 - **Transacciones:** bloque con `CustomCard` que contiene:
   - **DistributionListCard:** donut (Aprobadas/Rechazadas), valor central Diarias, total acumulado en $, controles de agregación y moneda.
@@ -395,18 +437,20 @@ La página **Dashboard** (`src/pages/dashboard/Index.tsx`) usa **SectionTitle** 
   - Porcentaje de aceptación por marca (`AcceptanceChart`, gráfico de torta).
   - Incidentes POS Health (`IncidentsBarChart`).
 
-Los datos provienen de mocks en `public/mockups/` (getTrxValues, getPanelInformation, getAllPosIncidents, movimientos por año/mes/semana/día, top corporativos, etc.).
+Los datos mock viven en `apps/mfe-dashboard/public/mockups/`.
 
 ## Componentes comunes (commons)
 
-En **`src/components/commons/`** hay componentes reutilizables para cards, filtros y visualización de datos:
+Viven en **`packages/ui-kit/src/commons/`** (paquete `@momentum/ui-kit`). En **`apps/host`** y en los MFE el alias **`@/components/commons`** apunta ahí vía `vite-aliases.mjs` y los `paths` de TypeScript.
 
 | Componente | Descripción | Uso |
 |------------|-------------|-----|
+| **BentoPanel** | Panel tipo bento para métricas o bloques en dashboard. | Varios widgets del dashboard en el host. |
 | **CustomCard** | Card con estilo unificado (fondo gris, borde) y título. | Envolver bloques con título (ej. sección "Transacciones" en Dashboard). |
-| **CustomCollapsibleCard** | Igual que CustomCard pero el contenido se muestra/oculta al hacer clic en el título. Incluye chevron que rota. | Sección de **filtros** en listados (Corporativo, POS Health). Acepta `title`, `children`, y opcionalmente `open` / `onOpenChange` para estado controlado, o `defaultOpen` para no controlado. |
-| **DistributionListCard** | Card con donut chart (Aprobadas/Rechazadas), valor central (Diarias), total en $ (Acumulado), desplegable de agregación y toggle Pesos/Dólares. Tooltips en el donut y leyenda. | Resumen de transacciones en el Dashboard. Recibe `items: { label, count }[]` (ej. Aprobadas, Rechazadas, Diarias, Acumulado). |
+| **CustomCollapsibleCard** | Igual que CustomCard pero el contenido se muestra/oculta al hacer clic en el título. Incluye chevron que rota. | Sección de **filtros** en listados. Acepta `title`, `children`, y opcionalmente `open` / `onOpenChange` para estado controlado, o `defaultOpen` para no controlado. |
+| **DistributionListCard** | Card con donut chart (Aprobadas/Rechazadas), valor central (Diarias), total en $ (Acumulado), desplegable de agregación y toggle Pesos/Dólares. Opciones del gráfico en `commons/distributionChartConfig.ts`. | Resumen de transacciones en el Dashboard. Recibe `items: { label, count }[]` (ej. Aprobadas, Rechazadas, Diarias, Acumulado). |
 | **CustomAlertDialog** | Diálogo de confirmación reutilizable. | Acciones destructivas o que requieren confirmación. |
+| **WeekDaysButtonGroup** | Selector de días de la semana. | Formularios corporativos en el host. |
 
 **Ejemplo CustomCollapsibleCard (filtros):**
 
@@ -420,18 +464,22 @@ En **`src/components/commons/`** hay componentes reutilizables para cards, filtr
 </CustomCollapsibleCard>
 ```
 
-Usado en **`src/pages/corporate/index.tsx`** y **`src/pages/poshealt/Index.tsx`** para la sección de filtros colapsable.
+Los listados de **corporativo**, **POS Health** y **comercios físicos** viven en **`apps/mfe-corporate`**, **`apps/mfe-pos-health`** y **`apps/mfe-commerces`** (ver `apps/README.md`).
 
 ---
 
 ## Formularios (`src/components/forms`)
 
-- **LoginForm:** formulario de login.
-- **CustomFormButtons:** botones estándar para formularios (Guardar, Cancelar, etc.).
-- **corporate/edit/:** formularios del detalle de corporativo:
+En host quedó principalmente UI transversal.  
+Formularios de negocio viven en MFEs (ej. corporate/login).
+
+En `mfe-corporate`:
+
+- **CustomFormButtons:** botones estándar para formularios.
+- **corporate/edit/**:
   - **CorporateGeneralDetailsForm**
   - **CorporateLegalrepresentativeForm**
   - **CorporateContactForm**
   - **CorporateComercialModel** (modelo comercial)
 
-Se usan en **CorporateDetail** (`src/pages/corporate/CorporateDetail.tsx`) dentro de cards por sección, con navegación lateral y scroll por secciones.
+También está migrado el flujo de alta completo (`AddCorporate` + steps).

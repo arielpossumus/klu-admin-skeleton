@@ -1,0 +1,118 @@
+{
+    "status": true,
+    "message": "OK",
+    "total": 304,
+    "rows": [
+        {
+            "businessSubmembership": "",
+            "businessEmail": "drs@grupoaffinitas.com",
+            "businessMembership": "8994920",
+            "corporate": "AFFIPAY",
+            "businessLine": "GIROS BANCARIOS/POSTALES",
+            "businessId": 1,
+            "businessName": "PRUEBAS LACPI BP",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "5582508350"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "omedina@zonazero.info",
+            "businessMembership": "8226481",
+            "corporate": "AFFIPAY",
+            "businessLine": "COMPUTADORAS EQUIPO PERIFERICO DE COMPUTADORAS SOF",
+            "businessId": 4,
+            "businessName": "FUND FOR A SUSTAINABLE",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "5512411457"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "eduardo@modi.com.mx",
+            "businessMembership": "8226471",
+            "corporate": "AFFIPAY",
+            "businessLine": "COMPUTADORAS EQUIPO PERIFERICO DE COMPUTADORAS SOF",
+            "businessId": 6,
+            "businessName": "MODI",
+            "businessStatus": "INACTIVO",
+            "businessPhone": "5588311404"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "paul@onyxglobal.tech",
+            "businessMembership": "8251284",
+            "corporate": "AFFIPAY",
+            "businessLine": "AGENCIAS DE VIAJES OPERADORAS DE VIAJES",
+            "businessId": 8,
+            "businessName": "IBUYW88.COM",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "1587317911-"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "paul@onyxglobal.tech",
+            "businessMembership": "8251306",
+            "corporate": "AFFIPAY",
+            "businessLine": "CONTRATISTAS EN GENERAL- RESIDENCIAL Y COMERCIAL",
+            "businessId": 9,
+            "businessName": "IBUYW88.COM A\t",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "1587317911-"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "sergiosanchez@ipglobal.es",
+            "businessMembership": "8226471",
+            "corporate": "AFFIPAY",
+            "businessLine": "CONTRATISTAS EN GENERAL- RESIDENCIAL Y COMERCIAL",
+            "businessId": 11,
+            "businessName": "IPGLOBAL",
+            "businessStatus": "INACTIVO",
+            "businessPhone": "5981278077"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "dcoronado@drizline.com",
+            "businessMembership": "8226471",
+            "corporate": "AFFIPAY",
+            "businessLine": "PARTES Y EQUIPO ELECTRICO",
+            "businessId": 18,
+            "businessName": "DRIZLINE",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "3310255116"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "droa@blumonpay.com",
+            "businessMembership": "544949",
+            "corporate": "AFFIPAY",
+            "businessLine": "UNITED AIRLINES",
+            "businessId": 62,
+            "businessName": "PRUEBAS",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "5558233131"
+        },
+        {
+            "businessSubmembership": " ",
+            "businessEmail": "juancarlos.lopez@pagaphone.com",
+            "businessMembership": "8226471",
+            "corporate": "AFFIPAY",
+            "businessLine": "OTROS SERVICIOS EMPRESARIALES NO CLASIFICADOS",
+            "businessId": 228,
+            "businessName": "PAGA PHONE DEMO",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "5584346006"
+        },
+        {
+            "businessSubmembership": "",
+            "businessEmail": "msanchez@blumonpay.com",
+            "businessMembership": "8511077",
+            "corporate": "AFFIPAY",
+            "businessLine": "ALMACEN DE MERCANCIAS EN GENERAL",
+            "businessId": 240,
+            "businessName": "INTERJET",
+            "businessStatus": "ACTIVO",
+            "businessPhone": "5511225558"
+        }
+    ],
+    "objectList": null
+}

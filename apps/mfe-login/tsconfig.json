@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@/components/ui/*": ["../../packages/ui-kit/src/components/ui/*"],
+      "@/components/text/*": ["../../packages/ui-kit/src/components/text/*"],
+      "@/components/commons/*": ["../../packages/ui-kit/src/commons/*"],
+      "@/lib/utils": ["../../packages/ui-kit/src/lib/utils.ts"],
+      "@/hooks/use-mobile": ["../../packages/ui-kit/src/hooks/use-mobile.ts"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}
