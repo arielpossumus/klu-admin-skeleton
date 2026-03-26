@@ -1,0 +1,50 @@
+{
+    "status": true,
+    "message": "OK",
+    "filterType": "SEMANAL",
+    "chartData": [
+        {
+            "index": 1,
+            "columnName": "Mié 04 Mar 2026",
+            "totalApproved": 1,
+            "totalRejected": 24
+        },
+        {
+            "index": 2,
+            "columnName": "Jue 05 Mar 2026",
+            "totalApproved": 9,
+            "totalRejected": 17
+        },
+        {
+            "index": 3,
+            "columnName": "Vie 06 Mar 2026",
+            "totalApproved": 6,
+            "totalRejected": 17
+        },
+        {
+            "index": 4,
+            "columnName": "Sáb 07 Mar 2026",
+            "totalApproved": 5,
+            "totalRejected": 5
+        },
+        {
+            "index": 5,
+            "columnName": "Dom 08 Mar 2026",
+            "totalApproved": 29,
+            "totalRejected": 1
+        },
+        {
+            "index": 6,
+            "columnName": "Lun 09 Mar 2026",
+            "totalApproved": 32,
+            "totalRejected": 1
+        },
+        {
+            "index": 7,
+            "columnName": "Mar 10 Mar 2026",
+            "totalApproved": 8,
+            "totalRejected": 7
+        }
+    ],
+    "charts": null
+}

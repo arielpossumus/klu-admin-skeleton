@@ -1,0 +1,769 @@
+{
+    "status": true,
+    "date": "25/03/2026",
+    "time": "09:35:17",
+    "request_id": "e73637c9-d3c7-4dfd-84fb-cd932490e7e3",
+    "data_response": {
+        "businessList": [
+            {
+                "id": "228",
+                "name": "PAGA PHONE DEMO",
+                "affiliations": [
+                    {
+                        "idMembership": "141",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226471",
+                        "debitRate": "2.26 %",
+                        "creditRate": "1.65 %"
+                    }
+                ],
+                "subAffiliation": " ",
+                "businessType": "OTROS SERVICIOS EMPRESARIALES NO CLASIFICADOS",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "PAGAPHONE SMARTPAY SA DE CV",
+                    "fiscalRegime": "SUELDOS Y SALARIOS E INGRESOS ASIMILADOS A SALARIOS",
+                    "rfc": "RFCR523452354",
+                    "businessAddressData": {
+                        "street": "OAXACA",
+                        "outNumber": "32",
+                        "inNumber": "piso 2",
+                        "town": "ROMA NORTE",
+                        "municipaly": "CUAHUTEMOC",
+                        "fedState": "MEXICO",
+                        "city": "MEXICO",
+                        "zip": "78572"
+                    },
+                    "contactData": {
+                        "email": "juancarlos.lopez@pagaphone.com",
+                        "phoneA": "5584346006",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "ULISES",
+                "supportContact": "JUAN CARLOS",
+                "legalContact": "ULISES",
+                "commercialContactSurname1": "TELLEZ",
+                "supportContactSurname1": "LOPEZ",
+                "legalContactSurname1": "TELLEZ",
+                "commercialContactSurname2": "RODRIGUEZ",
+                "supportContactSurname2": "JACINTO",
+                "legalContactSurname2": "RODRIGUEZ",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "ulises.tellez@pagaphone.com",
+                "supportContactEmail": "juancarlos.lopez@pagaphone.com",
+                "legalContactEmail": "ulises.tellez@pagaphone.com",
+                "commercialContactPhone": "5584346006",
+                "supportContactPhone": "5584346006",
+                "legalContactPhone": "5584346006",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "4",
+                "name": "FUND FOR A SUSTAINABLE",
+                "affiliations": [
+                    {
+                        "idMembership": "4",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226481",
+                        "debitRate": "3.50 %",
+                        "creditRate": "3.85 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "COMPUTADORAS EQUIPO PERIFERICO DE COMPUTADORAS SOF",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "ZONA ZERO SA DE CV",
+                    "fiscalRegime": "GENERAL DE LEY PERSONAS MORALES",
+                    "rfc": "ZZE040708QJ9",
+                    "businessAddressData": {
+                        "street": "ISABEL LA CATÓLICA E IGNACIO ALLENDE ",
+                        "outNumber": "S/N",
+                        "inNumber": "",
+                        "town": "CENTRO",
+                        "municipaly": "LA PAZ",
+                        "fedState": "BCS",
+                        "city": "LA PAZ",
+                        "zip": "23000"
+                    },
+                    "contactData": {
+                        "email": "omedina@zonazero.info",
+                        "phoneA": "5512411457",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "100.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "10000.00",
+                    "deviceFee": "200",
+                    "penalty": "200",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "OSCAR OMAR",
+                "supportContact": "OSCAR OMAR",
+                "legalContact": "OSCAR OMAR",
+                "commercialContactSurname1": "MEDINA",
+                "supportContactSurname1": "MEDINA",
+                "legalContactSurname1": "MEDINA",
+                "commercialContactSurname2": "MIRAMONTES",
+                "supportContactSurname2": "MIRAMONTES",
+                "legalContactSurname2": "MIRAMONTES",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "omedina@zonazero.info",
+                "supportContactEmail": "omedina@zonazero.info",
+                "legalContactEmail": "omedina@zonazero.info",
+                "commercialContactPhone": "5512411145",
+                "supportContactPhone": "5512411145",
+                "legalContactPhone": "5512411145",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "6",
+                "name": "MODI",
+                "affiliations": [
+                    {
+                        "idMembership": "6",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226471",
+                        "debitRate": "2.00 %",
+                        "creditRate": "2.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "COMPUTADORAS EQUIPO PERIFERICO DE COMPUTADORAS SOF",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "DISPENSADOR MOVIL S DE RL",
+                    "fiscalRegime": "GENERAL DE LEY PERSONAS MORALES",
+                    "rfc": "DMO190927B74",
+                    "businessAddressData": {
+                        "street": "AV GABRIEL MANCERA ",
+                        "outNumber": "146",
+                        "inNumber": "",
+                        "town": "DEL VALLE NORTE",
+                        "municipaly": "BENITO JUAREZ",
+                        "fedState": "CDMX",
+                        "city": "MEXICO",
+                        "zip": "03103"
+                    },
+                    "contactData": {
+                        "email": "eduardo@modi.com.mx",
+                        "phoneA": "5588311404",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "EDUARDO ENRIQUE ",
+                "supportContact": "ADAN",
+                "legalContact": "MARCO",
+                "commercialContactSurname1": "MARADIAGA",
+                "supportContactSurname1": "LAINEZ",
+                "legalContactSurname1": "NAVARRO",
+                "commercialContactSurname2": "BATRES",
+                "supportContactSurname2": "LAINEZ",
+                "legalContactSurname2": "NAVARRO",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "eduardo@modi.com.mx",
+                "supportContactEmail": "adanlainez@gmail.com",
+                "legalContactEmail": "mnavarro@lmsconsultores.net",
+                "commercialContactPhone": "5588311404",
+                "supportContactPhone": "1726872315",
+                "legalContactPhone": "5527730958",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "9",
+                "name": "IBUYW88.COM A\t",
+                "affiliations": [
+                    {
+                        "idMembership": "9",
+                        "processor": "PROSA-DÓLAR ESTADOUNIDENSE",
+                        "currency": "143",
+                        "membershipNumber": "8251306",
+                        "debitRate": "1.00 %",
+                        "creditRate": "1.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "CONTRATISTAS EN GENERAL- RESIDENCIAL Y COMERCIAL",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "ONYX GLOBAL TECHNOLOGIES LTD",
+                    "fiscalRegime": "GENERAL DE LEY PERSONAS MORALES",
+                    "rfc": "RFC201509296",
+                    "businessAddressData": {
+                        "street": "PAYA LEBAR ROAD",
+                        "outNumber": "60",
+                        "inNumber": "",
+                        "town": "PAYA LEBAR SQUARE",
+                        "municipaly": "SINGAPORE",
+                        "fedState": "SINGAPORE",
+                        "city": "SINGAPORE",
+                        "zip": "40905"
+                    },
+                    "contactData": {
+                        "email": "paul@onyxglobal.tech",
+                        "phoneA": "1587317911",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "ESTEBAN",
+                "supportContact": "GEENA",
+                "legalContact": "PAUL",
+                "commercialContactSurname1": "ALONSO",
+                "supportContactSurname1": "SURESH",
+                "legalContactSurname1": "LERNER",
+                "commercialContactSurname2": "",
+                "supportContactSurname2": "",
+                "legalContactSurname2": "",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "esteban@wallet88.com",
+                "supportContactEmail": "geena@teslastudio.com",
+                "legalContactEmail": "paul@onyxglobal.tech",
+                "commercialContactPhone": "1587317911-",
+                "supportContactPhone": "1587317911-",
+                "legalContactPhone": "1587317911-",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "11",
+                "name": "IPGLOBAL",
+                "affiliations": [
+                    {
+                        "idMembership": "11",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226471",
+                        "debitRate": "2.00 %",
+                        "creditRate": "2.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "CONTRATISTAS EN GENERAL- RESIDENCIAL Y COMERCIAL",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "B15910847",
+                    "fiscalRegime": "PERSONAS MORALES CON FINES NO LUCRATIVOS",
+                    "rfc": "BBBB15910847",
+                    "businessAddressData": {
+                        "street": "RÚA ALTA",
+                        "outNumber": "5",
+                        "inNumber": "",
+                        "town": "A CORUÑA",
+                        "municipaly": "A CORUÑA",
+                        "fedState": "A CORUÑA",
+                        "city": "A CORUÑA",
+                        "zip": "15003"
+                    },
+                    "contactData": {
+                        "email": "sergiosanchez@ipglobal.es",
+                        "phoneA": "5981278077",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "SERGIO",
+                "supportContact": "SERGIO",
+                "legalContact": "SERGIO",
+                "commercialContactSurname1": "SÁNCHEZ",
+                "supportContactSurname1": "SÁNCHEZ",
+                "legalContactSurname1": "SÁNCHEZ",
+                "commercialContactSurname2": "ÁLVAREZ",
+                "supportContactSurname2": "ÁLVAREZ",
+                "legalContactSurname2": "ÁLVAREZ",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "sergiosanchez@ipglobal.es",
+                "supportContactEmail": "sergiosanchez@ipglobal.es",
+                "legalContactEmail": "sergiosanchez@ipglobal.es",
+                "commercialContactPhone": "5981278077-2023",
+                "supportContactPhone": "5981278077-2023",
+                "legalContactPhone": "5981278077-2023",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "18",
+                "name": "DRIZLINE",
+                "affiliations": [
+                    {
+                        "idMembership": "20",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226471",
+                        "debitRate": "2.00 %",
+                        "creditRate": "2.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "PARTES Y EQUIPO ELECTRICO",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "BUNDY APP SAPI DE CV",
+                    "fiscalRegime": "GENERAL DE LEY PERSONAS MORALES",
+                    "rfc": "BAP141216GT8",
+                    "businessAddressData": {
+                        "street": "MAGALLANES ",
+                        "outNumber": "1155",
+                        "inNumber": "2A",
+                        "town": "SANTA ANITA ",
+                        "municipaly": "SAN PEDRO TLAQUEPAQUE",
+                        "fedState": "JALISCO",
+                        "city": "GUADALAJARA ZMG",
+                        "zip": "45650"
+                    },
+                    "contactData": {
+                        "email": "dcoronado@drizline.com",
+                        "phoneA": "3310255116",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "SAÚL",
+                "supportContact": "ALAN ISRAEL",
+                "legalContact": "LARISSA AHOLIVAMA",
+                "commercialContactSurname1": "ZUGASTI ",
+                "supportContactSurname1": "BARRETO ",
+                "legalContactSurname1": "ZACONI ",
+                "commercialContactSurname2": "FRANCO",
+                "supportContactSurname2": "HERNANDEZ",
+                "legalContactSurname2": "CASTRO",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "szugasti@drizline.com",
+                "supportContactEmail": "support@drizline.com",
+                "legalContactEmail": "dcoronado@drizline.com",
+                "commercialContactPhone": "3319676366",
+                "supportContactPhone": "3314631015",
+                "legalContactPhone": "5547773510",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "62",
+                "name": "PRUEBAS",
+                "affiliations": [
+                    {
+                        "idMembership": "51",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "544949",
+                        "debitRate": "3.00 %",
+                        "creditRate": "3.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "UNITED AIRLINES",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "RAZON SA DE CV",
+                    "fiscalRegime": "ARRENDAMIENTO",
+                    "rfc": "PRSJ636363636",
+                    "businessAddressData": {
+                        "street": "CALLE",
+                        "outNumber": "8",
+                        "inNumber": "",
+                        "town": "COLONIA",
+                        "municipaly": "MUNICIPIO",
+                        "fedState": "ESTADO",
+                        "city": "CIUDAD",
+                        "zip": "11300"
+                    },
+                    "contactData": {
+                        "email": "droa@blumonpay.com",
+                        "phoneA": "5558233131",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "OSCAR IVAN",
+                "supportContact": "OSCAR",
+                "legalContact": "OSCAR IVAN",
+                "commercialContactSurname1": "TURCOTT",
+                "supportContactSurname1": "TURCOTT",
+                "legalContactSurname1": "PATERNO",
+                "commercialContactSurname2": "ROJAS",
+                "supportContactSurname2": "ROJAS",
+                "legalContactSurname2": "MTERNO",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "turkas@hotmail.com",
+                "supportContactEmail": "oscar@blumonpay.com",
+                "legalContactEmail": "turkas@hotmail.com",
+                "commercialContactPhone": "5530533518",
+                "supportContactPhone": "5530533518",
+                "legalContactPhone": "5530533518",
+                "q6": [
+                    {
+                        "idQ6": 18,
+                        "category": "Bin",
+                        "conditions": [],
+                        "minAmount": "$3.00",
+                        "term": "9 meses",
+                        "plan": "03-Sin intereses",
+                        "businessId": null,
+                        "ecommerce": false,
+                        "conditionsString": null,
+                        "loadType": null
+                    },
+                    {
+                        "idQ6": 17,
+                        "category": "Bin",
+                        "conditions": [],
+                        "minAmount": "$3.00",
+                        "term": "9 meses",
+                        "plan": "03-Sin intereses",
+                        "businessId": null,
+                        "ecommerce": false,
+                        "conditionsString": null,
+                        "loadType": null
+                    },
+                    {
+                        "idQ6": 16,
+                        "category": "Bin",
+                        "conditions": [],
+                        "minAmount": "$3.00",
+                        "term": "3 meses",
+                        "plan": "03-Sin intereses",
+                        "businessId": null,
+                        "ecommerce": false,
+                        "conditionsString": null,
+                        "loadType": null
+                    },
+                    {
+                        "idQ6": 15,
+                        "category": "Bin",
+                        "conditions": [],
+                        "minAmount": "$3,000.00",
+                        "term": "3 meses",
+                        "plan": "03-Sin intereses",
+                        "businessId": null,
+                        "ecommerce": false,
+                        "conditionsString": null,
+                        "loadType": null
+                    }
+                ],
+                "modules": null
+            },
+            {
+                "id": "1",
+                "name": "PRUEBAS LACPI BP",
+                "affiliations": [
+                    {
+                        "idMembership": "1",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8994920",
+                        "debitRate": "4.00 %",
+                        "creditRate": "4.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "GIROS BANCARIOS/POSTALES",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "AFFINITAS",
+                    "fiscalRegime": "SUELDOS Y SALARIOS E INGRESOS ASIMILADOS A SALARIOS",
+                    "rfc": "AFIN121212121",
+                    "businessAddressData": {
+                        "street": "MONTE KAMERUN",
+                        "outNumber": "---",
+                        "inNumber": "212",
+                        "town": "LOMAS DE CHAPULTEPEC",
+                        "municipaly": "MIGUEL HIDALGO",
+                        "fedState": "ESTADO DE MÉXICO",
+                        "city": "MEXICO",
+                        "zip": "11000"
+                    },
+                    "contactData": {
+                        "email": "drs@grupoaffinitas.com",
+                        "phoneA": "5582508350",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "50000.00",
+                    "averageTicket": "50000.00",
+                    "minAmount": "1000.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": "30"
+                },
+                "commercialContact": "DANIEL",
+                "supportContact": "DANIEL",
+                "legalContact": "DANIEL",
+                "commercialContactSurname1": "ROA",
+                "supportContactSurname1": "ROA",
+                "legalContactSurname1": "ROA",
+                "commercialContactSurname2": "SANCHEZ",
+                "supportContactSurname2": "SANCHEZ",
+                "legalContactSurname2": "SANCHEZ",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 08:00-20:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 08:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-19:00",
+                "commercialContactEmail": "drs@grupoaffinitas.com",
+                "supportContactEmail": "drs@grupoaffinitas.com",
+                "legalContactEmail": "drs@grupoaffinitas.com",
+                "commercialContactPhone": "5582508350",
+                "supportContactPhone": "5582508350",
+                "legalContactPhone": "5582508350",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "240",
+                "name": "INTERJET",
+                "affiliations": [
+                    {
+                        "idMembership": "153",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8511077",
+                        "debitRate": "3.00 %",
+                        "creditRate": "3.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "ALMACEN DE MERCANCIAS EN GENERAL",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "BP SA DE CV",
+                    "fiscalRegime": "INCORPORACIÓN FISCAL",
+                    "rfc": "SACM931012123",
+                    "businessAddressData": {
+                        "street": "HACIENDA DE LOS PORTALES",
+                        "outNumber": "42",
+                        "inNumber": "",
+                        "town": "BOGOTA",
+                        "municipaly": "AZC",
+                        "fedState": "CABINDA",
+                        "city": "ZOM",
+                        "zip": "02546"
+                    },
+                    "contactData": {
+                        "email": "msanchez@blumonpay.com",
+                        "phoneA": "5511225558",
+                        "extA": "",
+                        "phoneB": "2222222222",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "21351.31",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.01",
+                    "deviceFee": "13213",
+                    "penalty": "2132",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": "0"
+                },
+                "commercialContact": "ALEJANDRO",
+                "supportContact": "BIBIANA",
+                "legalContact": "NOE",
+                "commercialContactSurname1": "ROJAS",
+                "supportContactSurname1": "YAÑEZ",
+                "legalContactSurname1": "CANO",
+                "commercialContactSurname2": "TURCOTT",
+                "supportContactSurname2": "VERTIZ",
+                "legalContactSurname2": "MARTINEZ",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "arojas@blumonpay.com",
+                "supportContactEmail": "byanez@blumonpay.com",
+                "legalContactEmail": "ncano@blumonpay.com",
+                "commercialContactPhone": "5544844849",
+                "supportContactPhone": "6515153135",
+                "legalContactPhone": "5544554455",
+                "q6": [],
+                "modules": null
+            },
+            {
+                "id": "8",
+                "name": "IBUYW88.COM",
+                "affiliations": [
+                    {
+                        "idMembership": "8",
+                        "processor": "PROSA-DÓLAR ESTADOUNIDENSE",
+                        "currency": "143",
+                        "membershipNumber": "8251284",
+                        "debitRate": "0.00 %",
+                        "creditRate": "0.00 %"
+                    }
+                ],
+                "subAffiliation": "",
+                "businessType": "AGENCIAS DE VIAJES OPERADORAS DE VIAJES",
+                "status": "ACTIVO",
+                "legalRep": null,
+                "fiscalData": {
+                    "businessName": "ONYX GLOBAL TECHNOLOGIES LTD",
+                    "fiscalRegime": "GENERAL DE LEY PERSONAS MORALES",
+                    "rfc": "RFC201509296",
+                    "businessAddressData": {
+                        "street": "PAYA LEBAR ROAD",
+                        "outNumber": "40905",
+                        "inNumber": "",
+                        "town": "PAYA LEBAR SQUARE",
+                        "municipaly": "SINGAPORE",
+                        "fedState": "SINGAPORE",
+                        "city": "SINGAPORE",
+                        "zip": "40905"
+                    },
+                    "contactData": {
+                        "email": "paul@onyxglobal.tech",
+                        "phoneA": "1587317911",
+                        "extA": "",
+                        "phoneB": "",
+                        "extB": ""
+                    }
+                },
+                "configData": {
+                    "monthlyFee": "0.00",
+                    "averageTicket": "100.00",
+                    "minAmount": "0.00",
+                    "deviceFee": "0",
+                    "penalty": "0",
+                    "credit": null,
+                    "debit": null,
+                    "amex": null,
+                    "cancelationDays": ""
+                },
+                "commercialContact": "GEENA",
+                "supportContact": "GEENA",
+                "legalContact": "ESTEBAN",
+                "commercialContactSurname1": "SURESH",
+                "supportContactSurname1": "SURESH",
+                "legalContactSurname1": "ALONSO",
+                "commercialContactSurname2": "",
+                "supportContactSurname2": "",
+                "legalContactSurname2": "",
+                "commercialContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "supportContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "legalContactSchedule": "Lu,Ma,Mi,Ju,Vi 09:00-18:00",
+                "commercialContactEmail": "geena@teslastudio.com",
+                "supportContactEmail": "geena@teslastudio.com",
+                "legalContactEmail": "esteban@wallet88.com",
+                "commercialContactPhone": "1403808219-",
+                "supportContactPhone": "1587317911-",
+                "legalContactPhone": "1587317911-",
+                "q6": [],
+                "modules": null
+            }
+        ]
+    }
+}

@@ -1,0 +1,130 @@
+import { Fragment } from "react";
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import type { DataTableProps } from "../../types/ui/DataTableProps";
+
+export const DataTable = <TData, TValue>({
+  columns,
+  data,
+  getRowId,
+  pagination = true,
+  expandedRowId = null,
+  renderExpandedContent,
+}: DataTableProps<TData, TValue>) => {
+  const table = useReactTable({
+    data,
+    columns,
+    getRowId: getRowId ? (row, _index) => getRowId(row as TData) : undefined,
+    getCoreRowModel: getCoreRowModel(),
+    ...(pagination ? { getPaginationRowModel: getPaginationRowModel() } : {}),
+  });
+
+  const columnCount = columns.length;
+  const rowModel = pagination ? table.getRowModel() : table.getCoreRowModel();
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader className="bg-[var(--color-secondary-foreground)]">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="px-5 py-4 text-[var(--color-secondary)]">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {rowModel.rows.length ? (
+              rowModel.rows.map((row) => (
+                <Fragment key={row.id}>
+                  <TableRow
+                    data-state={row.getIsSelected() && "selected"}
+                    className="transition-shadow duration-200 hover:relative hover:z-10 hover:bg-[var(--secondary-foreground)] hover:shadow-[0_-6px_20px_rgba(0,0,0,0.1),0_6px_20px_rgba(0,0,0,0.16)]"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="px-5 py-3">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                  {expandedRowId === row.id && renderExpandedContent && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columnCount}
+                        className="bg-muted/40 px-5 py-4"
+                      >
+                        {renderExpandedContent(row.original as TData)}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </Fragment>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  Sin resultados.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {pagination && (
+        <div className="flex items-center justify-between px-2">
+          <span className="text-sm text-muted-foreground">
+            Página {table.getState().pagination.pageIndex + 1} de{" "}
+            {table.getPageCount()}
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Anterior
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Siguiente
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

@@ -1,0 +1,15 @@
+[
+    { "id": 1, "name": "EGLOBAL-PESO MEXICANO" },
+    { "id": 2, "name": "PRISMA-PESO MEXICANO" },
+    { "id": 3, "name": "PRISMA-DÓLAR ESTADOUNIDENSE" },
+    { "id": 4, "name": "VISA NET-PESO MEXICANO" },
+    { "id": 5, "name": "VISA NET-DÓLAR ESTADOUNIDENSE" },
+    { "id": 6, "name": "FEENICIA AMEX-PESO MEXICANO" },
+    { "id": 7, "name": "FEENICIA AMEX-DÓLAR ESTADOUNIDENSE" },
+    { "id": 8, "name": "ZedPayments-DÓLAR ESTADOUNIDENSE" },
+    { "id": 9, "name": "N/A-DÓLAR ESTADOUNIDENSE" },
+    { "id": 10, "name": "MISTRAL PAY-EURO" },
+    { "id": 11, "name": "AMEX-PESO MEXICANO" },
+    { "id": 12, "name": "PAYWORKS BANORTE-PESO MEXICANO" },
+    { "id": 13, "name": "KUSHKI-PESO MEXICANO" }
+]

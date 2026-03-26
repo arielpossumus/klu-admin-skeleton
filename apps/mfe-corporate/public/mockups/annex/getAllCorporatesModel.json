@@ -1,0 +1,14 @@
+[
+    {
+        "typeId": 1,
+        "typeModel": "Agregador"
+    },
+    {
+        "typeId": 2,
+        "typeModel": "Comisionista"
+    },
+    {
+        "typeId": 3,
+        "typeModel": "Renta de Canal"
+    }
+]

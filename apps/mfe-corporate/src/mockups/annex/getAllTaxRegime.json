@@ -1,0 +1,22 @@
+[
+    {
+        "regimeId": 1,
+        "regimeName": "General de Ley Personas Morales"
+    },
+    {
+        "regimeId": 2,
+        "regimeName": "Personas Morales con Fines no Lucrativos"
+    },
+    {
+        "regimeId": 3,
+        "regimeName": "Consolidacion"
+    },
+    {
+        "regimeId": 4,
+        "regimeName": "Sociedades operativas de produccion que optan por diferir sus ingresos"
+    },
+    {
+        "regimeId": 4,
+        "regimeName": "Opcional para grupos de sociedades"
+    }
+]
