@@ -1,5 +1,5 @@
 {
-  "name": "@momentum/mfe-dashboard",
+  "name": "@klu/mfe-dashboard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@momentum/ui-kit": "workspace:*",
+    "@klu/ui-kit": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.6",
     "class-variance-authority": "^0.7.1",

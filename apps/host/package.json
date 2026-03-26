@@ -1,5 +1,5 @@
 {
-  "name": "@momentum/host",
+  "name": "@klu/host",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fontsource-variable/google-sans-flex": "^5.2.1",
-    "@momentum/ui-kit": "workspace:*",
+    "@klu/ui-kit": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.13.6",

@@ -5,13 +5,13 @@
 
 | Paquete                    | Puerto | Rol                                                                                          |
 | -------------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| `@momentum/host`           | 5000   | App admin + shell Federation (`**pnpm dev` en la raíz** apunta acá)                          |
-| `@momentum/mfe-login`      | 5001   | Pantalla de **Login** en `/`                                                                 |
-| `@momentum/mfe-pos-health` | 5002   | Listado **POS Health** en `/pos-health`                                                      |
-| `@momentum/mfe-corporate`  | 5003   | Listado **Corporativo** en `/corporate`                                                      |
-| `@momentum/mfe-commerces`  | 5004   | Listado **Comercios físicos** en `/commerces/physical`                                       |
-| `@momentum/mfe-dashboard`  | 5005   | Home **Dashboard** en `/dashboard`                                                           |
-| `@momentum/ui-kit`         | —      | Shadcn, `text`, `**commons/`** (BentoPanel, CustomCard, …), `foundation.css`, `vite-aliases` |
+| `@klu/host`           | 5000   | App admin + shell Federation (`**pnpm dev` en la raíz** apunta acá)                          |
+| `@klu/mfe-login`      | 5001   | Pantalla de **Login** en `/`                                                                 |
+| `@klu/mfe-pos-health` | 5002   | Listado **POS Health** en `/pos-health`                                                      |
+| `@klu/mfe-corporate`  | 5003   | Listado **Corporativo** en `/corporate`                                                      |
+| `@klu/mfe-commerces`  | 5004   | Listado **Comercios físicos** en `/commerces/physical`                                       |
+| `@klu/mfe-dashboard`  | 5005   | Home **Dashboard** en `/dashboard`                                                           |
+| `@klu/ui-kit`         | —      | Shadcn, `text`, `**commons/`** (BentoPanel, CustomCard, …), `foundation.css`, `vite-aliases` |
 
 
 La aplicación admin vive en `**apps/host**`.
@@ -34,7 +34,7 @@ La aplicación admin vive en `**apps/host**`.
 
 Los tres listados (**corporativo**, **POS Health**, **comercios físicos**) están implementados en `apps/mfe-corporate`, `apps/mfe-pos-health` y `apps/mfe-commerces` (cada uno con mocks bajo `public/mockups/` donde aplica).
 
-### `@momentum/ui-kit`
+### `@klu/ui-kit`
 
 - `**commons/`**: componentes compartidos antes en el host; opciones del donut de `DistributionListCard` viven en `commons/distributionChartConfig.ts`.
 - Alias Vite/TS: `@/components/commons` → `packages/ui-kit/src/commons` (incluido en `vite-aliases.mjs`).
@@ -53,7 +53,7 @@ Desde `**apps/host**`: `npx shadcn@latest add …`
 
 ## Hecho recientemente
 
-- `**commons/**` movido a `@momentum/ui-kit`; alias `@/components/commons` en host y MFE.
+- `**commons/**` movido a `@klu/ui-kit`; alias `@/components/commons` en host y MFE.
 - Rutas reales del shell: `/`, `/dashboard`, `/corporate`, `/pos-health` y `/commerces/physical` cargan remotos.
 - `POS Health`, `Comercios` y `Corporate` renderizan detalle desde sus MFE.
 - Listados migrados: `**mfe-corporate**` (`CorporateListPage`), `**mfe-pos-health**` (`PosHealthListPage` + carpeta `components/tables/posHealth`), `**mfe-commerces**` (`CommerceListPage`).
@@ -70,7 +70,7 @@ Pensalo como una casa:
 
 - El `host` es el **pasillo principal** (shell): tiene el router global, layout y carga cada microfrontend.
 - Cada `mfe-`* es una **habitación**: tiene su propia UI, páginas, servicios y mocks.
-- `@momentum/ui-kit` es la **caja de piezas compartidas**: botones, cards, tablas, textos y utilidades visuales.
+- `@klu/ui-kit` es la **caja de piezas compartidas**: botones, cards, tablas, textos y utilidades visuales.
 
 Que logramos en esta migración:
 
@@ -108,7 +108,7 @@ Resultado: menos acoplamiento, despliegues más independientes y código más or
   - `src/services/transactions/*`
   - `src/types/transactions/*`
   - mocks en `public/mockups/transactions/*`
-- UI común siempre desde `@momentum/ui-kit`.
+- UI común siempre desde `@klu/ui-kit`.
 
 ### 4) Registrar remoto en host
 
@@ -133,6 +133,6 @@ Resultado: menos acoplamiento, despliegues más independientes y código más or
 - Levantar host: `pnpm dev:mf:host`
 - Probar ruta en host: `http://localhost:5000/transactions`
 - Build mínimo:
-  - `pnpm --filter @momentum/mfe-transactions build`
-  - `pnpm --filter @momentum/host build`
+  - `pnpm --filter @klu/mfe-transactions build`
+  - `pnpm --filter @klu/host build`
 

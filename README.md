@@ -102,9 +102,9 @@ pnpm run preview      # preview del host
 pnpm run build:mf     # host + todos los mfe
 
 # Builds puntuales:
-pnpm --filter @momentum/mfe-login build
-pnpm --filter @momentum/mfe-dashboard build
-pnpm --filter @momentum/host build
+pnpm --filter @klu/mfe-login build
+pnpm --filter @klu/mfe-dashboard build
+pnpm --filter @klu/host build
 ```
 
 ## Lint y formato
@@ -250,8 +250,8 @@ Ejemplo: `mfe-transactions`.
 5. Verificar shared singleton en host + remoto (router/query/table según uso).
 6. Probar dev integrado y build:
    - `pnpm dev:mf:remotes` + `pnpm dev:mf:host`
-   - `pnpm --filter @momentum/mfe-transactions build`
-   - `pnpm --filter @momentum/host build`
+   - `pnpm --filter @klu/mfe-transactions build`
+   - `pnpm --filter @klu/host build`
 
 ## Pasos para mostrar una DataGrid con datos
 
@@ -441,7 +441,7 @@ Los datos mock viven en `apps/mfe-dashboard/public/mockups/`.
 
 ## Componentes comunes (commons)
 
-Viven en **`packages/ui-kit/src/commons/`** (paquete `@momentum/ui-kit`). En **`apps/host`** y en los MFE el alias **`@/components/commons`** apunta ahí vía `vite-aliases.mjs` y los `paths` de TypeScript.
+Viven en **`packages/ui-kit/src/commons/`** (paquete `@klu/ui-kit`). En **`apps/host`** y en los MFE el alias **`@/components/commons`** apunta ahí vía `vite-aliases.mjs` y los `paths` de TypeScript.
 
 | Componente | Descripción | Uso |
 |------------|-------------|-----|

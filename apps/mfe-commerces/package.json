@@ -1,5 +1,5 @@
 {
-  "name": "@momentum/mfe-commerces",
+  "name": "@klu/mfe-commerces",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@momentum/ui-kit": "workspace:*",
+    "@klu/ui-kit": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.13.6",

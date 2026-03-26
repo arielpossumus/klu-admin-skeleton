@@ -1,40 +1,62 @@
 ---
-description: Estructura del proyecto admin (React + Vite + Shadcn + TypeScript)
+description: Arquitectura monorepo (pnpm) — host + microfrontends + ui-kit (@klu)
 globs:
 alwaysApply: true
 ---
 - type: file-structure
   value: >
-  La estructura del proyecto sigue este esquema:
+    El proyecto es un **monorepo pnpm** con **Module Federation (Vite)**. Los paquetes usan el scope **`@klu`**.
 
-  📁 admin_momentum/
-  ├── 📁 src/
-  │   ├── 📁 assets/            # Recursos estáticos (imágenes, íconos, fuentes)
-  │   ├── 📁 components/        # Componentes React reutilizables
-  │   │   ├── 📁 ui/            # Componentes de Shadcn (Button, Card, DropdownMenu, etc.)
-  │   │   ├── 📁 layout/        # Componentes de estructura compartidos (Sidebar, Header, MetricCard, CurrencyToggle)
-  │   │   └── 📁 charts/        # Componentes de gráficos (MovementChart, etc.)
-  │   ├── 📁 layouts/           # Layouts de página (AdminLayout con Sidebar + Header + contenido)
-  │   ├── 📁 pages/             # Páginas/vistas principales
-  │   │   ├── 📁 dashboard/     # Inicio y KPIs
-  │   │   ├── 📁 users/         # Usuarios
-  │   │   ├── 📁 transactions/ # Transacciones
-  │   │   ├── 📁 monitoring/   # Monitoreo Momentum
-  │   │   ├── 📁 catalogs/     # Catálogos
-  │   │   ├── 📁 modules/      # Módulos
-  │   │   └── 📁 finances/     # Finanzas
-  │   ├── 📁 types/             # Tipos e interfaces TypeScript (globales, dashboard, navegación)
-  │   ├── 📁 config/            # Configuraciones globales, constantes y env
-  │   ├── 📁 lib/               # Utilidades y lógica (utils.ts, api.ts, auth.ts)
-  │   ├── 📁 services/         # Servicios y llamadas a API (por dominio o recurso)
-  │   ├── 📁 hooks/             # Custom hooks (useFetchData, useCurrency, etc.)
-  │   ├── 📁 context/           # Contextos de React (AuthContext, CurrencyContext, etc.)
-  │   ├── 📁 router/            # Configuración de rutas (React Router)
-  │   ├── 📄 App.tsx            # Componente raíz
-  │   ├── 📄 main.tsx           # Punto de entrada
-  │   └── 📄 index.css          # Estilos globales (Tailwind)
-  │
-  ├── 📄 vite.config.ts         # Configuración de Vite (alias @ → src)
-  └── 📄 tsconfig.json          # TypeScript (paths @/*)
+    📁 admin_momentum/                    # raíz del repo (nombre de carpeta; scripts en package.json raíz)
+    ├── 📁 apps/
+    │   ├── 📁 host/                       # **Shell**: orquestación, rutas globales, layout (sidebar/header), carga de remotos
+    │   │   └── 📁 src/
+    │   │       ├── 📁 router/            # React Router (rutas → páginas que montan MFEs)
+    │   │       ├── 📁 layouts/          # AdminLayout, AdminLayoutNoHeader
+    │   │       ├── 📁 components/layout/ # AppSidebar, Header, NavUser (navegación del shell)
+    │   │       ├── 📁 components/ui/     # resuelve vía alias al **ui-kit** (igual que en MFEs)
+    │   │       ├── 📁 pages/microfrontends/  # lazy de `RemoteApp` de cada MFE
+    │   │       ├── 📁 config/            # navegación, constantes de entorno expuestas al cliente
+    │   │       ├── 📁 lib/               # utilidades mínimas del shell (ej. helpers de UI)
+    │   │       ├── 📄 main.tsx           # QueryClientProvider + router
+    │   │       └── 📄 index.css          # Tailwind + `@import "@klu/ui-kit/foundation.css"`
+    │   │       # El host **no** debe contener `services/` ni lógica de dominio (API por feature vive en el MFE).
+    │   ├── 📁 mfe-login/                 # Login en `/` (remoto Federation)
+    │   ├── 📁 mfe-dashboard/             # Dashboard en `/dashboard/*`
+    │   ├── 📁 mfe-pos-health/          # POS Health en `/pos-health/*`
+    │   ├── 📁 mfe-corporate/           # Corporativo en `/corporate/*`
+    │   └── 📁 mfe-commerces/           # Comercios en `/commerces/*`
+    │       └── 📁 src/                  # patrón típico por MFE:
+    │           ├── 📁 exposes/          # `RemoteApp.tsx` (entrada federada + rutas internas)
+    │           ├── 📁 pages/            # vistas del módulo
+    │           ├── 📁 components/       # UI específica del dominio (si no es genérica)
+    │           ├── 📁 services/         # Axios + funciones por recurso (**por app**)
+    │           ├── 📁 types/             # tipos del dominio
+    │           ├── 📁 config/            # constantes `VITE_*` / endpoints relativos al módulo
+    │           ├── 📁 mockups/          # JSON de desarrollo (import desde `src/`, no desde `public/` en imports)
+    │           ├── 📄 main.tsx          # standalone: BrowserRouter + RemoteApp
+    │           └── 📄 index.css         # mismo patrón de foundation + Tailwind que el host
+    │
+    ├── 📁 packages/
+    │   └── 📁 ui-kit/                    # **@klu/ui-kit** — diseño compartido
+    │       └── 📁 src/
+    │           ├── 📁 components/ui/     # Shadcn (Button, Card, Table, …)
+    │           ├── 📁 components/text/   # tipografía compartida
+    │           ├── 📁 commons/           # BentoPanel, CustomCard, etc.
+    │           ├── 📁 lib/, 📁 hooks/    # `cn`, useIsMobile, …
+    │           ├── 📄 foundation.css     # tema / tokens base
+    │           └── 📄 index.ts           # re-exports públicos opcionales
+    │       # Vite en cada app usa `withAppRootAlias` desde `@klu/ui-kit/vite-aliases`: `@/components/ui` → ui-kit.
+    │
+    ├── 📄 package.json                   # scripts con `--filter @klu/host`, `@klu/mfe-*`, etc.
+    ├── 📄 pnpm-workspace.yaml
+    └── 📄 .env.localdev / .env.*         # variables `VITE_*` (Vite `envDir` apunta a la raíz del repo)
 
-  Cada componente debe ubicarse en la carpeta que corresponda según su rol: UI base en components/ui, estructura compartida en components/layout o components/charts, y páginas completas en pages/<sección>. Configuraciones y constantes en config/; llamadas a API y lógica por recurso en services/. Si un componente incluye múltiples archivos (TSX + estilos o pruebas), usar una subcarpeta con el nombre del componente.
+    **Reglas de ubicación**
+    - UI base reutilizable entre apps → **packages/ui-kit** (o consumo vía `@/components/ui` gracias al alias).
+    - Layout y rutas del producto completo → **apps/host**.
+    - Páginas, datos y servicios de un dominio → carpeta `apps/mfe-*` (ej. `mfe-corporate`; cada uno con su `axiosClient` / servicios).
+    - Nuevo módulo → nuevo paquete bajo `apps/mfe-*`, expone `./RemoteApp`, registro en `host` (remotes + ruta con `/*` cuando el MFE tenga sub-rutas).
+
+    **Integración técnica**
+    - React, react-dom, react-router, TanStack Query y TanStack Table suelen ir como **shared singleton** en Federation para evitar doble instancia de React/contextos.

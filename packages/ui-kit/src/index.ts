@@ -2,8 +2,8 @@
  * Design system: Shadcn (`components/ui`), tipografía (`components/text`), `commons/`
  * (BentoPanel, CustomCard, …), `cn`, `useIsMobile`.
  *
- * - Estilos: `import "@momentum/ui-kit/foundation.css"` + `@source` del kit y del app.
- * - Vite: `import { withAppRootAlias } from "@momentum/ui-kit/vite-aliases"` (`.mjs`).
+ * - Estilos: `import "@klu/ui-kit/foundation.css"` + `@source` del kit y del app.
+ * - Vite: `import { withAppRootAlias } from "@klu/ui-kit/vite-aliases"` (`.mjs`).
  */
 export const UI_KIT_VERSION = "0.0.0" as const;
 

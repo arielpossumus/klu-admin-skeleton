@@ -65,7 +65,7 @@ importers:
       '@fontsource-variable/google-sans-flex':
         specifier: ^5.2.1
         version: 5.2.1
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       '@tanstack/react-query':
@@ -144,7 +144,7 @@ importers:
 
   apps/mfe-commerces:
     dependencies:
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       '@tanstack/react-query':
@@ -220,7 +220,7 @@ importers:
 
   apps/mfe-corporate:
     dependencies:
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       '@tanstack/react-query':
@@ -299,7 +299,7 @@ importers:
 
   apps/mfe-dashboard:
     dependencies:
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       '@tanstack/react-query':
@@ -372,7 +372,7 @@ importers:
 
   apps/mfe-login:
     dependencies:
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       class-variance-authority:
@@ -439,7 +439,7 @@ importers:
 
   apps/mfe-pos-health:
     dependencies:
-      '@momentum/ui-kit':
+      '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
       '@tanstack/react-query':

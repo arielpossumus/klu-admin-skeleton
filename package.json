@@ -5,18 +5,18 @@
   "type": "module",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "dev": "pnpm --filter @momentum/host dev",
-    "dev:local": "pnpm --filter @momentum/host dev -- --mode localdev",
-    "dev:develop": "pnpm --filter @momentum/host dev -- --mode develop",
-    "dev:staging": "pnpm --filter @momentum/host dev -- --mode staging",
-    "dev:mf:host": "pnpm --filter @momentum/host dev -- --mode localdev",
-    "dev:mf:remotes": "pnpm --parallel --filter \"@momentum/mfe-*\" dev -- --mode localdev",
-    "build": "pnpm --filter @momentum/host build",
+    "dev": "pnpm --filter @klu/host dev",
+    "dev:local": "pnpm --filter @klu/host dev -- --mode localdev",
+    "dev:develop": "pnpm --filter @klu/host dev -- --mode develop",
+    "dev:staging": "pnpm --filter @klu/host dev -- --mode staging",
+    "dev:mf:host": "pnpm --filter @klu/host dev -- --mode localdev",
+    "dev:mf:remotes": "pnpm --parallel --filter \"@klu/mfe-*\" dev -- --mode localdev",
+    "build": "pnpm --filter @klu/host build",
     "build:mf": "pnpm --parallel --filter \"./apps/*\" build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"apps/host/src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "preview": "pnpm --filter @momentum/host preview"
+    "preview": "pnpm --filter @klu/host preview"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

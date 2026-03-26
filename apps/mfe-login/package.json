@@ -1,5 +1,5 @@
 {
-  "name": "@momentum/mfe-login",
+  "name": "@klu/mfe-login",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@momentum/ui-kit": "workspace:*",
+    "@klu/ui-kit": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
