@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import type { DataTableProps } from "@/types/ui/DataTableProps";
+import type { DataTableProps } from "../../types/ui/DataTableProps";
 
 export const DataTable = <TData, TValue>({
   columns,
