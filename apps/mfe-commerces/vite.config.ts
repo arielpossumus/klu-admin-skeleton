@@ -35,6 +35,13 @@ export default defineConfig({
     port: 5004,
     origin: "http://localhost:5004",
     cors: true,
+    /** Mock `commerceById.json` y demás viven en `apps/host/public`; con el host en :5000 el detalle resuelve `/mockups/*`. */
+    proxy: {
+      "/mockups": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     target: "chrome89",

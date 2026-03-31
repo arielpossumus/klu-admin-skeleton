@@ -4,18 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
+import { commerceAffiliationsColumns } from "@/components/tables/commerces/commerceAffiliationsColumns";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { DataTable } from "@/components/ui/data-table";
 import type { AllCommercesGridApiRow } from "@/types/commerce/CommerceList";
 
-export type CommerceGeneralDetailsFormValues = {
-  corporateName: string;
-  businessName: string;
-  mcc: string;
-  commercialLine: string;
-  status: "Activo" | "Inactivo";
-};
+import type { CommerceGeneralDetailsFormValues } from "@/types/commerce/CommerceGeneralDetailsFormValues";
 
 const normalizeStatus = (
   raw?: string
@@ -69,12 +65,17 @@ export const CommerceGeneralDetailsForm = ({
     });
   }, [defaults, reset]);
 
-  const onSubmit = useCallback((data: CommerceGeneralDetailsFormValues) => {
-    console.log(data);
+  const onSubmit = useCallback(() => {
     setIsReadOnly(true);
   }, []);
 
+  const affiliations = useMemo(
+    () => commerce?.affiliations ?? [],
+    [commerce?.affiliations]
+  );
+
   return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)} className="contents">
       <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
 
@@ -177,5 +178,26 @@ export const CommerceGeneralDetailsForm = ({
 
       <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
     </form>
+
+    <section
+      className="mt-8 space-y-3"
+      aria-labelledby="commerce-affiliations-heading"
+    >
+      <h3
+        id="commerce-affiliations-heading"
+        className="text-sm font-semibold text-foreground"
+      >
+        Afiliaciones
+      </h3>
+      <DataTable
+        columns={commerceAffiliationsColumns}
+        data={affiliations}
+        pagination={false}
+        getRowId={(row) =>
+          `${row.idMembership ?? ""}-${row.membershipNumber ?? ""}-${row.processor ?? ""}`
+        }
+      />
+    </section>
+    </>
   );
 };

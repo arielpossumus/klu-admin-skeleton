@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommerceGeneralDetailsForm } from "@/components/forms/commerce/CommerceGeneralDetailsForm";
+import { CommerceLegaldata } from "@/components/forms/commerce/CommerceLegaldata";
 
 type CommerceTabId = (typeof INTERNAL_COMMERCES_NAV)[number]["id"];
 
@@ -136,10 +137,31 @@ const CommerceDetailPage = () => {
             })}
           >
             <Card>
-              <CardContent className="pt-6">
+              <CardContent>
                 <div className="flex flex-col gap-4">
                   <CommerceGeneralDetailsForm commerce={commerce} />
                 </div>
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="legal" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "legal")
+                ?.label ?? "Datos legales"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "legal", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommerceLegaldata
+                  legalData={commerce.legalData}
+                  fiscalData={commerce.fiscalData}
+                  legalContact={commerce.fiscalData?.legalContact}
+                />
               </CardContent>
             </Card>
           </CustomCard>
