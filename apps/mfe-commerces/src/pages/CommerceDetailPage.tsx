@@ -19,6 +19,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommerceGeneralDetailsForm } from "@/components/forms/commerce/CommerceGeneralDetailsForm";
 import { CommerceLegaldata } from "@/components/forms/commerce/CommerceLegaldata";
+import { CommerceContactData } from "@/components/forms/commerce/CommerceContactData";
+import { CommercesRatesData } from "@/components/forms/commerce/CommercesRatesData";
 
 type CommerceTabId = (typeof INTERNAL_COMMERCES_NAV)[number]["id"];
 
@@ -162,6 +164,40 @@ const CommerceDetailPage = () => {
                   fiscalData={commerce.fiscalData}
                   legalContact={commerce.fiscalData?.legalContact}
                 />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="contacts" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "contacts")
+                ?.label ?? "Contactos"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "contacts", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommerceContactData contactData={commerce.contactData} />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="finances" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "finances")
+                ?.label ?? "Finanzas"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "finances", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommercesRatesData ratesData={commerce.tradesRates} />
               </CardContent>
             </Card>
           </CustomCard>
