@@ -1,0 +1,90 @@
+{
+    "status": true,
+    "message": "OK",
+    "total": 304,
+    "data_response": {
+        "businessSubmembership": "",
+        "businessEmail": "drs@grupoaffinitas.com",
+        "businessMembership": "8994920",
+        "corporate": "AFFIPAY",
+        "businessLine": "GIROS BANCARIOS/POSTALES",
+        "businessId": 1,
+        "businessName": "PRUEBAS LACPI BP",
+        "businessStatus": "ACTIVO",
+        "businessPhone": "5582508350",
+        "mcc": "1234567890",
+        "affiliations": [
+            {
+                "idMembership": "141",
+                "processor": "PROSA-PESO MEXICANO",
+                "currency": "96",
+                "membershipNumber": "8226471",
+                "debitRate": "2.26 %",
+                "creditRate": "1.65 %",
+                "creditIntRate": "2.10 %",
+                "debitIntRate": "2.50 %",
+                "tipo": "Nacional",
+                "regla": "Estándar"
+            },
+            {
+                "idMembership": "142",
+                "processor": "PROSA-DOLAR AMERICANO",
+                "currency": "96",
+                "membershipNumber": "8226472",
+                "debitRate": "1.26 %",
+                "creditRate": "1.05 %",
+                "creditIntRate": "1.10 %",
+                "debitIntRate": "1.50 %",
+                "tipo": "Internacional",
+                "regla": "Estándar"
+            }
+        ],
+        "legalData": {
+            "Legal Representative": {
+                "firstName": "PAUL",
+                "paternalLastName": "LERNER",
+                "maternalLastName": "LERNER",
+                "documentType": "INE",
+                "documentNumber": "ABC523452345",
+                "birthDate": "15/11/1981",
+                "representativeRfc": "YAVE412341234",
+                "address": {
+                    "street": "MONTE CAMERU",
+                    "outNumber": "212",
+                    "inNumber": "NA",
+                    "city": "MEXICO",
+                    "town": "LOMAS DE CHAPULTEPEC",
+                    "municipaly": "MIGUEL HIDALGO",
+                    "zip": "11000",
+                    "country": "MÉXICO",
+                    "region": "CIUDAD DE MÉXICO"
+                }
+            }
+        },
+        "fiscalData": {
+            "rfc": "AFIN121212121",
+            "legalName": "AFFINITAS",
+            "fiscalRegime": "SUELDOS Y SALARIOS E INGRESOS ASIMILADOS A SALARIOS",
+            "propertyType": "CORPORATION PRIVATE",
+            "fiscalAddress": {
+                "street": "MONTE KAMERUN",
+                "outNumber": "---",
+                "inNumber": "212",
+                "country": "MÉXICO",
+                "region": "ESTADO DE MÉXICO",
+                "city": "MEXICO",
+                "town": "LOMAS DE CHAPULTEPEC",
+                "municipaly": "MIGUEL HIDALGO",
+                "zip": "11000"
+            },
+            "legalContact": {
+                "preferredLanguage": "ESPAÑOL",
+                "email": "drs@grupoaffinitas.com",
+                "phone": "5582508350",
+                "phoneExtension": "---",
+                "additionalPhone": "---",
+                "additionalPhoneExtension": "---"
+            }
+        }
+    }
+}

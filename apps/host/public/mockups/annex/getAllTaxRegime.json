@@ -1,22 +1,74 @@
 [
-    {
-        "regimeId": 1,
-        "regimeName": "General de Ley Personas Morales"
-    },
-    {
-        "regimeId": 2,
-        "regimeName": "Personas Morales con Fines no Lucrativos"
-    },
-    {
-        "regimeId": 3,
-        "regimeName": "Consolidacion"
-    },
-    {
-        "regimeId": 4,
-        "regimeName": "Sociedades operativas de produccion que optan por diferir sus ingresos"
-    },
-    {
-        "regimeId": 4,
-        "regimeName": "Opcional para grupos de sociedades"
-    }
+  {
+    "regimeId": 1,
+    "regimeName": "General de Ley Personas Morales"
+  },
+  {
+    "regimeId": 2,
+    "regimeName": "Personas Morales con Fines no Lucrativos"
+  },
+  {
+    "regimeId": 3,
+    "regimeName": "Consolidacion"
+  },
+  {
+    "regimeId": 4,
+    "regimeName": "Sociedades operativas de produccion que optan por diferir sus ingresos"
+  },
+  {
+    "regimeId": 5,
+    "regimeName": "Opcional para grupos de sociedades"
+  },
+  {
+    "regimeId": 9,
+    "regimeName": "Sueldos y salarios e ingresos asimilados a salarios"
+  },
+  {
+    "regimeId": 10,
+    "regimeName": "Arrendamiento"
+  },
+  {
+    "regimeId": 11,
+    "regimeName": "Demás ingresos"
+  },
+  {
+    "regimeId": 12,
+    "regimeName": "Ingresos por dividendos (socios y accionistas)"
+  },
+  {
+    "regimeId": 13,
+    "regimeName": "Personas físicas con actividades empresariales y profesionales"
+  },
+  {
+    "regimeId": 14,
+    "regimeName": "Ingresos por intereses"
+  },
+  {
+    "regimeId": 15,
+    "regimeName": "Sin obligaciones fiscales"
+  },
+  {
+    "regimeId": 16,
+    "regimeName": "Incorporación fiscal"
+  },
+  {
+    "regimeId": 17,
+    "regimeName": "De los regímenes fiscales preferentes y de las empresas multinacionales"
+  },
+  {
+    "regimeId": 18,
+    "regimeName": "Enajenación de acciones en bolsa de valores"
+  },
+  {
+    "regimeId": 19,
+    "regimeName": "Régimen de los ingresos por obtención de premios"
+  },
+  {
+    "regimeId": 20,
+    "regimeName": "Residentes en el extranjero sin establecimiento permanente en México"
+  },
+  {
+    "regimeId": 21,
+    "regimeName": "Actividades agrícolas, ganaderas, silvícolas y pesqueras"
+  }
 ]

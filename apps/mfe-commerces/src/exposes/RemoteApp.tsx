@@ -8,10 +8,9 @@ const RemoteApp = () => {
     <div data-mfe="commerces">
       <Routes>
         <Route path="/" element={<CommerceListPage />} />
-        <Route path="/:idCommerce" element={<CommerceDetailPage />} />
-        <Route path="/commerces/physical" element={<CommerceListPage />} />
+        <Route path="/physical" element={<CommerceListPage />} />
         <Route
-          path="/commerces/physical/:idCommerce"
+          path="/physical/:idCommerce"
           element={<CommerceDetailPage />}
         />
       </Routes>

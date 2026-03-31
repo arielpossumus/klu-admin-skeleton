@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
+import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import corporatesModelJson from "@/mockups/annex/getAllCorporatesModel.json" with { type: "json" };

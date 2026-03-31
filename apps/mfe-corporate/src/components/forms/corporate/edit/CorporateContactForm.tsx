@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
-import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
+import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import ParagraphH2 from "@/components/text/ParagraphH2";
 
 type ContactBlock = {
