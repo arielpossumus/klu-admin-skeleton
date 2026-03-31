@@ -95,6 +95,13 @@ export type CommerceTradeRateRow = {
   tipoCanal?: string;
 };
 
+/** Fila de comisión MSI (`msiRates` en detalle). */
+export type CommerceMsiRateRow = {
+  month?: string;
+  visaMastercardPorcentage?: string;
+  amexPorcentage?: string;
+};
+
 export type AllCommercesGridApiRow = {
   businessId: number;
   corporate?: string;
@@ -111,6 +118,7 @@ export type AllCommercesGridApiRow = {
   fiscalData?: CommerceFiscalData;
   contactData?: CommerceContactData;
   tradesRates?: CommerceTradeRateRow[];
+  msiRates?: CommerceMsiRateRow[];
 };
 
 export type AllCommercesGridListResponse = {

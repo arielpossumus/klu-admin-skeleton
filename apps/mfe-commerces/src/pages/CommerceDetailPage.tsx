@@ -21,6 +21,7 @@ import { CommerceGeneralDetailsForm } from "@/components/forms/commerce/Commerce
 import { CommerceLegaldata } from "@/components/forms/commerce/CommerceLegaldata";
 import { CommerceContactData } from "@/components/forms/commerce/CommerceContactData";
 import { CommercesRatesData } from "@/components/forms/commerce/CommercesRatesData";
+import { CommerceMsiRatesData } from "@/components/forms/commerce/CommerceMsiRatesData";
 
 type CommerceTabId = (typeof INTERNAL_COMMERCES_NAV)[number]["id"];
 
@@ -198,6 +199,23 @@ const CommerceDetailPage = () => {
             <Card>
               <CardContent>
                 <CommercesRatesData ratesData={commerce.tradesRates} />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="msiCommission" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "msiCommission")
+                ?.label ?? "Comision por MSI"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "msiCommission", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommerceMsiRatesData msiRatesData={commerce.msiRates} />
               </CardContent>
             </Card>
           </CustomCard>

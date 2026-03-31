@@ -153,6 +153,23 @@
                 "chargeType": "Por transacción",
                 "channelType": "E-commerce"
             }
+        ],
+        "msiRates": [
+            {
+                "month": "6 Meses",
+                "visaMastercardPorcentage": "2.26 %",
+                "amexPorcentage": "2.78"
+            },
+            {
+                "month": "12 Meses",
+                "visaMastercardPorcentage": "5 %",
+                "amexPorcentage": "2.50 %"
+            },
+            {
+                "month": "24 Meses",
+                "visaMastercardPorcentage": "8 %",
+                "amexPorcentage": "2.50 %"
+            }
         ]
     }
 }
