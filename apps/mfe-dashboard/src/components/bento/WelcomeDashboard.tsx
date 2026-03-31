@@ -1,6 +1,5 @@
 import { LogOut, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 import { getActiveUser } from "@/services/users/getActiveUser";
 import { Button } from "@/components/ui/button";
 import KluOs from "@/assets/KluOs.svg";
@@ -8,13 +7,12 @@ import ParagraphH1 from "@/components/text/ParagraphH1";
 import ParagraphH3 from "@/components/text/ParagraphH3";
 
 export const WelcomeDashboard = () => {
-    const navigate = useNavigate();
     const { data: activeUser } = useQuery({
         queryKey: ["users", "active"],
         queryFn: getActiveUser,
     });
     const handleLogout = () => {
-        navigate("/", { replace: true });
+        window.location.replace("/");
     };
     return (
         <div className="grid auto-rows-min gap-4 lg:grid-cols-12 lg:gap-5 mb-6">

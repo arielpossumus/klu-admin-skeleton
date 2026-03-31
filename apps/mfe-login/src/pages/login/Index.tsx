@@ -4,7 +4,7 @@ import splahsImage from "@/assets/splashLogin.png";
 
 const Login = () => {
   return (
-    <div className="grid min-h-svh lg:grid-cols-2 bg-transparent">
+    <div className="grid min-h-svh overflow-hidden bg-[var(--color-primary)] md:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a
@@ -25,7 +25,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="relative hidden lg:block">
+      <div className="relative hidden md:block">
         <img
           src={splahsImage}
           alt="Image"

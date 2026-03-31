@@ -18,6 +18,7 @@ export default defineConfig({
       dts: false,
       exposes: {
         "./RemoteApp": "./src/exposes/RemoteApp.tsx",
+        "./LoginStyles": "./src/exposes/LoginStyles.ts",
       },
       shared: {
         react: { singleton: true },

@@ -8,9 +8,14 @@ const RemoteLogin = lazy(() => import("mfe_login/RemoteApp"));
 const RemoteDashboard = lazy(() => import("mfe_dashboard/RemoteApp"));
 
 const MfFallback = () => (
-  <div className="flex items-center gap-2 p-4 text-muted-foreground" role="status">
-    <Loader2 className="size-5 animate-spin" aria-hidden />
-    <span>Cargando sección…</span>
+  <div
+    className="flex min-h-svh w-full items-center justify-center text-muted-foreground"
+    role="status"
+    aria-live="polite"
+    aria-label="Cargando sección"
+  >
+    <Loader2 className="size-10 animate-spin" aria-hidden />
+    <span className="sr-only">Cargando sección…</span>
   </div>
 );
 
