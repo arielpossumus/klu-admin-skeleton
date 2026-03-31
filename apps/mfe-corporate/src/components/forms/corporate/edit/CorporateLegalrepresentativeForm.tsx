@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
+import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import { Input } from "@/components/ui/input";
 import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";

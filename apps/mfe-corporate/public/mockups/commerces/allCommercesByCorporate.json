@@ -16,6 +16,14 @@
                         "membershipNumber": "8226471",
                         "debitRate": "2.26 %",
                         "creditRate": "1.65 %"
+                    },
+                    {
+                        "idMembership": "141",
+                        "processor": "PROSA-PESO MEXICANO",
+                        "currency": "96",
+                        "membershipNumber": "8226471",
+                        "debitRate": "2.26 %",
+                        "creditRate": "1.65 %"
                     }
                 ],
                 "subAffiliation": " ",

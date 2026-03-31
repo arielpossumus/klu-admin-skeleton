@@ -1,0 +1,17 @@
+{
+  "status": true,
+  "message": "OK",
+  "total": 304,
+  "data_response": {
+    "businessSubmembership": "",
+    "businessEmail": "drs@grupoaffinitas.com",
+    "businessMembership": "8994920",
+    "corporate": "AFFIPAY",
+    "businessLine": "GIROS BANCARIOS/POSTALES",
+    "businessId": 1,
+    "businessName": "PRUEBAS LACPI BP",
+    "businessStatus": "ACTIVO",
+    "businessPhone": "5582508350",
+    "mcc": "1234567890"
+  }
+}

@@ -12,6 +12,8 @@ export { useIsMobile } from "./hooks/use-mobile";
 
 export { BentoPanel } from "./commons/BentoPanel";
 export { CustomCard } from "./commons/CustomCard";
+export { CustomFormButtons } from "./commons/CustomFormButtons";
+export type { CustomFormButtonsProps } from "./commons/CustomFormButtons";
 export { CustomCollapsibleCard } from "./commons/CustomCollapsibleCard";
 export { CustomAlertDialog } from "./commons/CustomAlertDialog";
 export type { CustomAlertDialogProps } from "./commons/CustomAlertDialog";

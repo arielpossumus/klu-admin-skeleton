@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import { DataTable } from "@/components/ui/data-table";
-import { CustomFormButtons } from "@/components/forms/CustomFormButtons";
+import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import adquisitionBanksJson from "@/mockups/annex/getAllAdquisitionBanks.json" with { type: "json" };
 import getAllChannelsJson from "@/mockups/annex/getAllChannels.json" with { type: "json" };
 import type { ModelCommercialTransaction } from "@/types/corporate/Corporate";
