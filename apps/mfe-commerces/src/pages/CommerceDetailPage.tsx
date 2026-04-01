@@ -22,6 +22,8 @@ import { CommerceLegaldata } from "@/components/forms/commerce/CommerceLegaldata
 import { CommerceContactData } from "@/components/forms/commerce/CommerceContactData";
 import { CommercesRatesData } from "@/components/forms/commerce/CommercesRatesData";
 import { CommerceMsiRatesData } from "@/components/forms/commerce/CommerceMsiRatesData";
+import PaymentsTermsData from "@/components/forms/commerce/CommercePaymentTermsData";
+import { CommerceDepositData } from "@/components/forms/commerce/CommerceDepositData";
 
 type CommerceTabId = (typeof INTERNAL_COMMERCES_NAV)[number]["id"];
 
@@ -122,7 +124,7 @@ const CommerceDetailPage = () => {
             <TabsTrigger
               key={id}
               value={id}
-              className="rounded-full border-0 px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm after:hidden"
+              className="cursor-pointer rounded-full border-0 px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm after:hidden"
             >
               {label}
             </TabsTrigger>
@@ -216,6 +218,40 @@ const CommerceDetailPage = () => {
             <Card>
               <CardContent>
                 <CommerceMsiRatesData msiRatesData={commerce.msiRates} />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="paymentTerms" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "paymentTerms")
+                ?.label ?? "Plazos de pago"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "paymentTerms", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <PaymentsTermsData paymentsTermsData={commerce.paymentTerms} />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="depositData" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "depositData")
+                ?.label ?? "Datos de depósito"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "paymentTerms", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommerceDepositData accountData={commerce.accountData} />
               </CardContent>
             </Card>
           </CustomCard>

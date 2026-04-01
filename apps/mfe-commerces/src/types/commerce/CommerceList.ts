@@ -102,6 +102,22 @@ export type CommerceMsiRateRow = {
   amexPorcentage?: string;
 };
 
+/** Plazos de pago (`paymentTerms` en detalle). */
+export type CommercePaymentTerms = {
+  nationalDeadline?: number;
+  internationalDeadline?: number;
+  amexDeadline?: number;
+};
+
+/** Cuenta bancaria para depósito (`accountData` en detalle). La API puede usar `Owner*` en PascalCase. */
+export type CommerceAccountData = {
+  bankName?: string;
+  bankCode?: string;
+  OwnerName?: string;
+  OwnerLastName?: string;
+  OwnerMaternalLastName?: string;
+};
+
 export type AllCommercesGridApiRow = {
   businessId: number;
   corporate?: string;
@@ -119,6 +135,8 @@ export type AllCommercesGridApiRow = {
   contactData?: CommerceContactData;
   tradesRates?: CommerceTradeRateRow[];
   msiRates?: CommerceMsiRateRow[];
+  paymentTerms?: CommercePaymentTerms;
+  accountData?: CommerceAccountData;
 };
 
 export type AllCommercesGridListResponse = {

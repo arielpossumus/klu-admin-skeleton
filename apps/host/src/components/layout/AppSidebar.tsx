@@ -104,6 +104,7 @@ const AppSidebar = () => {
                   return (
                     <SidebarMenuItem key={item.url + item.title}>
                       <SidebarMenuButton
+                        className="cursor-pointer"
                         isActive={isParentActive && item.url === "#"}
                         tooltip={item.title}
                         onClick={
@@ -119,7 +120,7 @@ const AppSidebar = () => {
                             <span>{item.title}</span>
                             <ChevronRight
                               className={cn(
-                                "ml-auto size-4 transition-transform duration-200",
+                                "cursor-pointer ml-auto size-4 transition-transform duration-200",
                                 isOpen && "rotate-90"
                               )}
                             />
@@ -138,8 +139,9 @@ const AppSidebar = () => {
                               location.pathname === sub.url ||
                               (sub.url !== "#" && isPathActive(location.pathname, sub.url));
                             return (
-                              <SidebarMenuSubItem key={sub.url}>
+                              <SidebarMenuSubItem key={sub.url} className="cursor-pointer">
                                 <SidebarMenuSubButton
+                                  className="cursor-pointer"
                                   asChild
                                   isActive={isActive || sub.isActive}
                                 >
@@ -157,8 +159,8 @@ const AppSidebar = () => {
                   location.pathname === item.url || isPathActive(location.pathname, item.url);
                 return (
                   <SidebarMenuItem key={item.url + item.title}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
-                      <Link to={item.url}>
+                    <SidebarMenuButton className="cursor-pointer" asChild isActive={isActive} tooltip={item.title}>
+                      <Link className="cursor-pointer" to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
                       </Link>

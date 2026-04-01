@@ -77,8 +77,6 @@ export const CommerceGeneralDetailsForm = ({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="contents">
-        <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
-
         {!isReadOnly && (
           <FieldGroup className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             <Field className="grid gap-2">
@@ -175,7 +173,7 @@ export const CommerceGeneralDetailsForm = ({
             </Field>
           </FieldGroup>
         )}
-
+        <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
       </form>
 
       <section

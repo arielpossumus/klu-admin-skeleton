@@ -170,6 +170,49 @@
                 "visaMastercardPorcentage": "8 %",
                 "amexPorcentage": "2.50 %"
             }
-        ]
+        ],
+        "paymentTerms": {
+            "nationalDeadline": 2,
+            "internationalDeadline": 5,
+            "amexDeadline": 10
+        },
+        "accountData": {
+            "bankName": "Banco Multiva",
+            "bankCode": "012",
+            "OwnerName": "AFFINITAS",
+            "OwnerLastName": "AFFINITAS",
+            "OwnerMaternalLastName": "AFFINITAS"
+        },
+        "commercialModel": {
+            "name": "ARIEL",
+            "lastName": "NAJERA",
+            "maternalLastName": "HERNANDEZ",
+            "email": "anh@grupoaffinitas.com",
+            "phone": "5582508350",
+            "ext": "",
+            "phone2": "",
+            "ext2": "",
+            "days": [
+                "Lunes",
+                "Martes",
+                "Jueves",
+                "Viernes"
+            ],
+            "startHour": "11:00",
+            "endHour": "12:00",
+            "monthlyRent": "$50,000.00",
+            "averageTicket": "$50,000.00",
+            "cancellationDays": 30,
+            "minimumMonthlyAmount": "$1,000.00",
+            "equipmentRent": "$0.00",
+            "penalty": "$0.00",
+            "settlementPeriod": "---",
+            "affiliation": "8994920",
+            "processor": "PROSA-PESO MEXICANO",
+            "credit": "4.0000",
+            "debit": "4.0000",
+            "creditInt": "0.0000",
+            "debitInt": "0.0000"
+        }
     }
 }

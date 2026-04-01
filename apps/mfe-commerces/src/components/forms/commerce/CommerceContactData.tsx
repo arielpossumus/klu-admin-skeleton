@@ -109,13 +109,13 @@ export const CommerceContactData = ({
     const days = (watch(`${base}.days`) ?? []) as string[];
     const err = (
       errors.contactData as
-        | Record<
-            ContactSectionKey,
-            Partial<
-              Record<keyof ContactBlock, { message?: string } | undefined>
-            >
-          >
-        | undefined
+      | Record<
+        ContactSectionKey,
+        Partial<
+          Record<keyof ContactBlock, { message?: string; } | undefined>
+        >
+      >
+      | undefined
     )?.[section];
 
     return (
@@ -268,6 +268,7 @@ export const CommerceContactData = ({
             <FieldError errors={err?.endHour ? [err.endHour] : undefined} />
           </Field>
         </FieldGroup>
+
       </>
     );
   };
@@ -280,18 +281,27 @@ export const CommerceContactData = ({
       className="flex flex-col gap-8"
     >
       <form onSubmit={handleSubmit(handleFormSubmit)} className="contents">
-        <CustomFormButtons
-          isReadOnly={disabledField}
-          onToggle={handleDisabledField}
-        />
         {renderContactSection("commercialContact", "Contacto comercial")}
+        <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-4 mb-4">
+          <CustomFormButtons
+            isReadOnly={disabledField}
+            onToggle={handleDisabledField}
+          />
+        </FieldGroup>
         {renderContactSection("technicalContact", "Contacto técnico")}
+        <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-4 mb-4">
+          <CustomFormButtons
+            isReadOnly={disabledField}
+            onToggle={handleDisabledField}
+          />
+        </FieldGroup>
         {renderContactSection("financialContact", "Contacto financiero")}
-
-        <CustomFormButtons
-          isReadOnly={disabledField}
-          onToggle={handleDisabledField}
-        />
+        <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-4 mb-4">
+          <CustomFormButtons
+            isReadOnly={disabledField}
+            onToggle={handleDisabledField}
+          />
+        </FieldGroup>
       </form>
     </div>
   );
