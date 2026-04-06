@@ -18,3 +18,6 @@ export const API_URL_ANEX = normalizeApiSegment(
   import.meta.env.VITE_API_URL_ANEX as string,
   "annex/",
 );
+/** Mock dispositivos POS en host: `mockups/pos/`. */
+export const POS_API = normalizeApiSegment(import.meta.env.VITE_POS_API as string, "pos/");
+export const CORPORATES_API = normalizeApiSegment(import.meta.env.VITE_CORPORATES_API as string, "corporates/");
