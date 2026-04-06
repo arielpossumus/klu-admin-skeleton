@@ -2,7 +2,7 @@ import { BASE_URL, API_URL_CORPORATE } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { AddCorporateFormValues } from "@/types/corporate/addCorporate";
 
-const CREATE_ENDPOINT = `${BASE_URL}${API_URL_CORPORATE}create`;
+const CREATE_ENDPOINT = `${BASE_URL}${API_URL_CORPORATE}/create`;
 
 /**
  * Crea un corporativo con los datos del formulario.

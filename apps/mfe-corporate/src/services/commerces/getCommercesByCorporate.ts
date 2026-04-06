@@ -11,7 +11,7 @@ export type GetCommercesByCorporateParams = {
     corporateName: string;
 };
 
-const ENDPOINT = `${BASE_URL}${API_URL_COMMERCES}allCommercesByCorporate.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_COMMERCES}/allCommercesByCorporate.json`;
 
 const mapToRow = (b: CommerceBusinessApi): CommerceTableRow => ({
     id: b.id,

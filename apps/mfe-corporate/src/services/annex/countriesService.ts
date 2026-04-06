@@ -1,7 +1,7 @@
 import { API_URL_ANEX, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 
-export type RegionItem = { regionId: number; regionName: string };
+export type RegionItem = { regionId: number; regionName: string; };
 
 export type CountryItem = {
     countryId: number;
@@ -10,7 +10,7 @@ export type CountryItem = {
     regions: RegionItem[];
 };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllcountries.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllcountries.json`;
 
 export const countriesService = {
     getAll: async (): Promise<CountryItem[]> => {

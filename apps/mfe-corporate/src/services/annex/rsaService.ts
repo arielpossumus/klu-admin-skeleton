@@ -3,7 +3,7 @@ import { BASE_URL, API_URL_ANEX } from "@/config/constants";
 
 export type RsaItem = { id: number; value: string; };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllRsa.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllRsa.json`;
 
 export const rsaService = {
     getAll: async (): Promise<RsaItem[]> => {

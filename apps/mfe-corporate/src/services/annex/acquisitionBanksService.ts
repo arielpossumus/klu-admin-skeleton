@@ -1,7 +1,7 @@
 import { API_URL_ANEX, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 
-export type AcquisitionBankItem = { id: number; name: string };
+export type AcquisitionBankItem = { id: number; name: string; };
 
 const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllAdquisitionBanks.json`;
 

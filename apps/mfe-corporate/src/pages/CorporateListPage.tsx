@@ -16,8 +16,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
-import corporatesTypesJson from "@/mockups/annex/getAllCorporatesTypes.json" with { type: "json" };
-import statusJson from "@/mockups/annex/getAllStatus.json" with { type: "json" };
 import { corporateColumns } from "@/components/tables/corporateColumns";
 import { TablesLoader } from "@/components/loaders/TablesLoader";
 import SectionTitle from "@/components/text/SectionTitle";
@@ -37,20 +35,14 @@ import {
 } from "@/components/ui/dropdown-with-search";
 import { DataTable } from "@/components/ui/data-table";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
+import { corporateTypesService } from "@/services/annex/corporateTypesService";
 import { fiidService } from "@/services/annex/fiidService";
+import { getAllStatus } from "@/services/annex/getAllStatus";
 import { getAllCorporates } from "@/services/corporate/getAllCorporates";
 import {
   type CorporateIndexFiltersFormValues,
   EMPTY_CORPORATE_INDEX_FILTERS,
 } from "@/types/filters/CorporateIndexFilters";
-
-type CorporateTypeRow = { typeId: number; typeName: string };
-type StatusRow = { id: string; description: string };
-
-const dataTypes = (corporatesTypesJson ?? []) as CorporateTypeRow[];
-const dataStatusAll = (statusJson ?? []) as StatusRow[];
-const dataStatus = dataStatusAll.filter((s) => s.id === "1" || s.id === "2");
-const statusOptions = dataStatus.map((s) => ({ value: s.description, label: s.description }));
 
 const CorporateListPage = () => {
   const navigate = useNavigate();
@@ -74,9 +66,38 @@ const CorporateListPage = () => {
     staleTime: 60_000,
   });
 
+  const { data: corporateTypes = [], isPending: isCorporateTypesPending } = useQuery({
+    queryKey: ["annex", "corporateTypes"],
+    queryFn: () => corporateTypesService.getAll(),
+    staleTime: 60_000,
+  });
+
+  const { data: statusList = [], isPending: isStatusPending } = useQuery({
+    queryKey: ["annex", "status"],
+    queryFn: getAllStatus,
+    staleTime: 60_000,
+  });
+
+  const typeOptions: DropdownWithSearchOption[] = useMemo(
+    () =>
+      corporateTypes.map((t) => ({
+        value: t.typeName,
+        label: t.typeName,
+      })),
+    [corporateTypes],
+  );
+
   const fiidOptions: DropdownWithSearchOption[] = useMemo(
     () => fiidList.map((item) => ({ value: String(item.id), label: item.value })),
     [fiidList],
+  );
+
+  const statusOptions: DropdownWithSearchOption[] = useMemo(
+    () =>
+      statusList
+        .filter((s) => s.id === "1" || s.id === "2")
+        .map((s) => ({ value: s.description, label: s.description })),
+    [statusList],
   );
 
   const watched = watch();
@@ -162,13 +183,12 @@ const CorporateListPage = () => {
                     render={({ field }) => (
                       <DropdownWithSearch
                         id="corporate-filter-modelo"
-                        options={dataTypes.map((t) => ({
-                          value: t.typeName,
-                          label: t.typeName,
-                        }))}
+                        options={typeOptions}
                         value={field.value}
                         onValueChange={field.onChange}
                         placeholder="Seleccione"
+                        disabled={isCorporateTypesPending}
+                        emptyLabel={isCorporateTypesPending ? "Cargando…" : "Sin resultados"}
                       />
                     )}
                   />
@@ -185,6 +205,8 @@ const CorporateListPage = () => {
                         value={field.value}
                         onValueChange={field.onChange}
                         placeholder="Seleccione"
+                        disabled={isStatusPending}
+                        emptyLabel={isStatusPending ? "Cargando…" : "Sin resultados"}
                       />
                     )}
                   />

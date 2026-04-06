@@ -1,21 +1,21 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Building2 } from "lucide-react";
 import { useParams } from "react-router";
-import corporateByIdJson from "@/mockups/corporates/getCorporateById.json" with { type: "json" };
 import { CustomCard } from "@/components/commons/CustomCard";
-import { CorporateComercialModel } from "@/components/forms/corporate/edit/CorporateComercialModel";
-import { CorporateContactForm } from "@/components/forms/corporate/edit/CorporateContactForm";
-import { CorporateGeneralDetailsForm } from "@/components/forms/corporate/edit/CorporateGeneralDetailsForm";
-import { CorporateLegalrepresentativeForm } from "@/components/forms/corporate/edit/CorporateLegalrepresentativeForm";
+import { CorporateComercialModel } from "@/components/forms/edit/CorporateComercialModel";
+import { CorporateContactForm } from "@/components/forms/edit/CorporateContactForm";
+import { CorporateGeneralDetailsForm } from "@/components/forms/edit/CorporateGeneralDetailsForm";
+import { CorporateLegalrepresentativeForm } from "@/components/forms/edit/CorporateLegalrepresentativeForm";
 import { corporateCommerceColumns } from "@/components/tables/corporate/corporateCommerceColumns";
 import SectionTitle from "@/components/text/SectionTitle";
 import { Card, CardContent } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSectionIcon } from "@/lib/getSectionIcon";
+import { getCorporateById } from "@/services/corporate/getCorporateById";
 import { getCommercesByCorporate } from "@/services/commerces/getCommercesByCorporate";
-import type { Corporate, CorporateByIdResponse } from "@/types/corporate/Corporate";
+import type { Corporate } from "@/types/corporate/Corporate";
 import { INTERNAL_CORPORATE_NAV } from "@/types/internalMenues/internalCorporate";
 
 type CorporateTabId = (typeof INTERNAL_CORPORATE_NAV)[number]["id"];
@@ -24,10 +24,18 @@ const CorporateDetailPage = () => {
   const { corporateId } = useParams<{ corporateId: string; }>();
   const [currentTab, setCurrentTab] = useState<CorporateTabId>("general");
 
-  const corporate = useMemo(() => {
-    const detail = corporateByIdJson as CorporateByIdResponse;
-    return detail.data_response as Corporate;
-  }, []);
+  const {
+    data: corporateData,
+    isPending: isCorporatePending,
+    isError: isCorporateError,
+  } = useQuery({
+    queryKey: ["corporate", "detail", corporateId ?? ""],
+    queryFn: () => getCorporateById(corporateId ?? ""),
+    enabled: Boolean(corporateId?.trim()),
+  });
+
+  const corporate: Corporate =
+    corporateData ?? { name: "", fiid: "", status: "" };
 
   const { data: commerces = [], isPending: isCommercesLoading } = useQuery({
     queryKey: ["corporate-commerces", corporate.fiid, corporate.name],
@@ -36,6 +44,11 @@ const CorporateDetailPage = () => {
         corporateFiid: corporate.fiid,
         corporateName: corporate.name,
       }),
+    enabled:
+      Boolean(corporateId?.trim()) &&
+      Boolean(corporateData?.fiid && corporateData?.name) &&
+      !isCorporatePending &&
+      !isCorporateError,
   });
 
   const legalFiscalAddress = {
@@ -86,6 +99,61 @@ const CorporateDetailPage = () => {
     startHour: "",
     endHour: "",
   };
+
+  if (!corporateId?.trim()) {
+    return (
+      <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
+        <SectionTitle
+          title="Corporativo no especificado"
+          subtitle="No hay id en la ruta."
+          showButton={false}
+          showBadge={false}
+        />
+        <Card>
+          <CardContent className="pt-6 text-sm text-muted-foreground">
+            Volvé al listado y elegí un corporativo para ver el detalle.
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isCorporatePending) {
+    return (
+      <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
+        <SectionTitle
+          title="Cargando corporativo…"
+          subtitle={`id: ${corporateId}`}
+          showButton={false}
+          showBadge={false}
+        />
+        <Card>
+          <CardContent className="pt-6 text-sm text-muted-foreground">
+            Cargando datos del corporativo…
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isCorporateError) {
+    return (
+      <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
+        <SectionTitle
+          title="Error al cargar"
+          subtitle={`id: ${corporateId}`}
+          showButton={false}
+          showBadge={false}
+        />
+        <Card>
+          <CardContent className="pt-6 text-sm text-muted-foreground">
+            No se pudieron obtener los datos. Revisá la conexión y el mock en el host
+            (`mockups/corporates/getCorporateById.json`).
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
@@ -199,15 +267,18 @@ const CorporateDetailPage = () => {
                 <CorporateContactForm
                   defaultValues={{
                     contactData: {
-                      commercialContact:
-                        corporate?.corporateData?.contactData
-                          ?.commercialContact ?? contactDataDefaults,
-                      technicalContact:
-                        corporate?.corporateData?.contactData
-                          ?.technicalContact ?? contactDataDefaults,
-                      financialContact:
-                        corporate?.corporateData?.contactData
-                          ?.financialContact ?? contactDataDefaults,
+                      commercialContact: {
+                        ...contactDataDefaults,
+                        ...corporate?.corporateData?.contactData?.commercialContact,
+                      },
+                      technicalContact: {
+                        ...contactDataDefaults,
+                        ...corporate?.corporateData?.contactData?.technicalContact,
+                      },
+                      financialContact: {
+                        ...contactDataDefaults,
+                        ...corporate?.corporateData?.contactData?.financialContact,
+                      },
                     },
                   }}
                 />

@@ -1,32 +1,27 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import { Input } from "@/components/ui/input";
 import { WeekDaysButtonGroup } from "@/components/commons/WeekDaysButtonGroup";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
-import taxRegimeJson from "@/mockups/annex/getAllTaxRegime.json" with { type: "json" };
-import countriesJson from "@/mockups/annex/getAllcountries.json" with { type: "json" };
+import { countriesService, type CountryItem } from "@/services/annex/countriesService";
+import { taxRegimeService } from "@/services/annex/taxRegimeService";
 import ParagraphH2 from "@/components/text/ParagraphH2";
-
-type CountryItem = { countryId: number; countryCode: string; countryName: string; regions: { regionId: number; regionName: string; }[]; };
-const COUNTRIES = countriesJson as CountryItem[];
-
-const TAX_REGIME_OPTIONS = (taxRegimeJson as { regimeId: number; regimeName: string; }[]).map(
-    (item) => ({ value: item.regimeName, label: item.regimeName })
-);
-
-const COUNTRY_OPTIONS = COUNTRIES.map((c) => ({ value: c.countryCode, label: c.countryName }));
 
 const normalizeForMatch = (s: string) =>
     s.normalize("NFD").replace(/\u0301/g, "").replace(/\u0300/g, "").toLowerCase().trim();
 
-const getDefaultCountryCode = (countryNameOrCode: string | undefined): string => {
+const getDefaultCountryCode = (
+    countries: CountryItem[],
+    countryNameOrCode: string | undefined
+): string => {
     if (!countryNameOrCode) return "";
     const normalized = normalizeForMatch(countryNameOrCode);
-    const found = COUNTRIES.find(
+    const found = countries.find(
         (c) =>
             c.countryCode === countryNameOrCode ||
             normalizeForMatch(c.countryName) === normalized
@@ -35,11 +30,12 @@ const getDefaultCountryCode = (countryNameOrCode: string | undefined): string =>
 };
 
 const getDefaultRegionName = (
+    countries: CountryItem[],
     countryCode: string,
     regionNameOrId: string | undefined
 ): string => {
     if (!regionNameOrId) return "";
-    const country = COUNTRIES.find((c) => c.countryCode === countryCode);
+    const country = countries.find((c) => c.countryCode === countryCode);
     const regions = country?.regions ?? [];
     if (regions.length === 0) return regionNameOrId;
     const normalized = normalizeForMatch(regionNameOrId);
@@ -124,15 +120,33 @@ export function CorporateLegalrepresentativeForm(
     const { defaultValues } = props;
     const [disabledField, setDisabledField] = useState(true);
 
+    const { data: taxRegimeList = [], isPending: isTaxRegimePending } = useQuery({
+        queryKey: ["annex", "taxRegime"],
+        queryFn: () => taxRegimeService.getAll(),
+        staleTime: 60_000,
+    });
+
+    const { data: countries = [], isPending: isCountriesPending } = useQuery({
+        queryKey: ["annex", "countries"],
+        queryFn: () => countriesService.getAll(),
+        staleTime: 60_000,
+    });
+
+    const taxRegimeOptions = useMemo(
+        () => taxRegimeList.map((item) => ({ value: item.regimeName, label: item.regimeName })),
+        [taxRegimeList],
+    );
+
+    const countryOptions = useMemo(
+        () => countries.map((c) => ({ value: c.countryCode, label: c.countryName })),
+        [countries],
+    );
+
     const resolvedFiscalDefaults = useMemo(() => {
         const fa = defaultValues?.fiscalAddress;
-        const countryCode = getDefaultCountryCode(fa?.country);
-        const regionName = getDefaultRegionName(countryCode, fa?.region);
         return {
             ...defaultFiscalAddress,
             ...fa,
-            country: countryCode || defaultFiscalAddress.country,
-            region: regionName,
         };
     }, [defaultValues?.fiscalAddress]);
 
@@ -155,13 +169,31 @@ export function CorporateLegalrepresentativeForm(
         },
     });
 
+    const fiscalDefaultsSyncKey = useRef<string | null>(null);
+    useEffect(() => {
+        if (countries.length === 0) return;
+        const fa = defaultValues?.fiscalAddress;
+        if (!fa?.country && !fa?.region) return;
+        const stableKey = JSON.stringify({ country: fa.country ?? "", region: fa.region ?? "" });
+        if (fiscalDefaultsSyncKey.current === stableKey) return;
+        fiscalDefaultsSyncKey.current = stableKey;
+        const cc = getDefaultCountryCode(countries, fa.country);
+        const rn = getDefaultRegionName(countries, cc, fa.region);
+        if (cc) {
+            setValue("fiscalAddress.country", cc, { shouldDirty: false, shouldValidate: false });
+        }
+        if (rn) {
+            setValue("fiscalAddress.region", rn, { shouldDirty: false, shouldValidate: false });
+        }
+    }, [countries, defaultValues?.fiscalAddress, setValue]);
+
     const taxRegime = watch("taxRegime") ?? defaultValues?.taxRegime ?? "";
     const countryCode = watch("fiscalAddress.country");
     const regionValue = watch("fiscalAddress.region");
 
     const selectedCountry = useMemo(
-        () => COUNTRIES.find((c) => c.countryCode === countryCode),
-        [countryCode]
+        () => countries.find((c) => c.countryCode === countryCode),
+        [countries, countryCode]
     );
 
     const regionOptions = useMemo(() => {
@@ -171,7 +203,7 @@ export function CorporateLegalrepresentativeForm(
 
     const handleCountryChange = (value: string) => {
         setValue("fiscalAddress.country", value);
-        const newCountry = COUNTRIES.find((c) => c.countryCode === value);
+        const newCountry = countries.find((c) => c.countryCode === value);
         const hasRegion = newCountry?.regions?.some((r) => r.regionName === regionValue);
         if (!hasRegion) {
             setValue("fiscalAddress.region", "");
@@ -267,11 +299,12 @@ export function CorporateLegalrepresentativeForm(
                     <FieldLabel htmlFor="legal-taxRegime">Régimen fiscal</FieldLabel>
                     <DropdownWithSearch
                         id="legal-taxRegime"
-                        options={TAX_REGIME_OPTIONS}
+                        options={taxRegimeOptions}
                         value={taxRegime}
                         onValueChange={(value) => setValue("taxRegime", value)}
                         placeholder="Seleccione régimen fiscal"
-                        disabled={disabledField}
+                        disabled={disabledField || isTaxRegimePending}
+                        emptyLabel={isTaxRegimePending ? "Cargando…" : "Sin resultados"}
                         className="min-w-0 w-full"
                     />
                 </Field>
@@ -284,11 +317,12 @@ export function CorporateLegalrepresentativeForm(
                     <FieldLabel htmlFor="fiscal-country">País</FieldLabel>
                     <DropdownWithSearch
                         id="fiscal-country"
-                        options={COUNTRY_OPTIONS}
+                        options={countryOptions}
                         value={countryCode}
                         onValueChange={handleCountryChange}
                         placeholder="Seleccione país"
-                        disabled={disabledField}
+                        disabled={disabledField || isCountriesPending}
+                        emptyLabel={isCountriesPending ? "Cargando…" : "Sin resultados"}
                         className="min-w-0 w-full"
                     />
                 </Field>
@@ -300,7 +334,7 @@ export function CorporateLegalrepresentativeForm(
                         value={regionValue}
                         onValueChange={(value) => setValue("fiscalAddress.region", value)}
                         placeholder={selectedCountry ? (regionOptions.length ? "Seleccione estado o región" : "Sin regiones") : "Seleccione primero un país"}
-                        disabled={disabledField || !selectedCountry}
+                        disabled={disabledField || isCountriesPending || !selectedCountry}
                         className="min-w-0 w-full"
                         emptyLabel="Sin regiones para este país"
                     />

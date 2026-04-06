@@ -1,16 +1,13 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
 import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
-import corporatesModelJson from "@/mockups/annex/getAllCorporatesModel.json" with { type: "json" };
-
-const CORPORATE_MODEL_OPTIONS = (corporatesModelJson as { typeId: number; typeModel: string; }[]).map(
-    (item) => ({ value: item.typeModel.trim(), label: item.typeModel.trim() })
-);
+import { corporateModelsService } from "@/services/annex/corporateModelsService";
 
 export type CorporateGeneralDetailsFormValues = {
     rsa: string;
@@ -28,6 +25,21 @@ export function CorporateGeneralDetailsForm({
     defaultValues,
 }: CorporateGeneralDetailsFormProps) {
     const [disabledField, setDisabledField] = useState(true);
+    const { data: corporateModels = [], isPending: isCorporateModelsPending } = useQuery({
+        queryKey: ["annex", "corporateModels"],
+        queryFn: () => corporateModelsService.getAll(),
+        staleTime: 60_000,
+    });
+
+    const corporateModelOptions = useMemo(
+        () =>
+            corporateModels.map((item) => ({
+                value: item.typeModel.trim(),
+                label: item.typeModel.trim(),
+            })),
+        [corporateModels],
+    );
+
     const normalizedStatus = (defaultValues?.status?.toUpperCase() === "ACTIVO" ? "Activo" : "Inactivo") as "Activo" | "Inactivo";
     const { register, watch, setValue, handleSubmit, formState: { errors } } = useForm<CorporateGeneralDetailsFormValues>({
         defaultValues: {
@@ -113,11 +125,12 @@ export function CorporateGeneralDetailsForm({
                             <FieldLabel htmlFor="modelo-corporativo">Modelo corporativo</FieldLabel>
                             <DropdownWithSearch
                                 id="modelo-corporativo"
-                                options={CORPORATE_MODEL_OPTIONS}
+                                options={corporateModelOptions}
                                 value={modeloCorporativo}
                                 onValueChange={(value) => setValue("modeloCorporativo", value)}
                                 placeholder="Seleccione modelo"
-                                disabled={disabledField}
+                                disabled={disabledField || isCorporateModelsPending}
+                                emptyLabel={isCorporateModelsPending ? "Cargando…" : "Sin resultados"}
                             />
                         </Field>
                     </>

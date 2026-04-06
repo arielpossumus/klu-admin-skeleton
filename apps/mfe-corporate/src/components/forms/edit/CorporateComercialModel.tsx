@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -11,24 +12,11 @@ import { Switch } from "@/components/ui/switch";
 import { DropdownWithSearch } from "@/components/ui/dropdown-with-search";
 import { DataTable } from "@/components/ui/data-table";
 import { CustomFormButtons } from "@/components/commons/CustomFormButtons";
-import adquisitionBanksJson from "@/mockups/annex/getAllAdquisitionBanks.json" with { type: "json" };
-import getAllChannelsJson from "@/mockups/annex/getAllChannels.json" with { type: "json" };
+import { acquisitionBanksService } from "@/services/annex/acquisitionBanksService";
+import { channelsService } from "@/services/annex/channelsService";
 import type { ModelCommercialTransaction } from "@/types/corporate/Corporate";
 import ParagraphH2 from "@/components/text/ParagraphH2";
 import { transactionLiteColumns } from "@/components/tables/corporate/transactionsLiteColumns";
-type AdquisitionBankItem = { id: number; name: string; };
-const ADQUISITION_BANKS = adquisitionBanksJson as AdquisitionBankItem[];
-const ADQUISITION_BANK_OPTIONS = ADQUISITION_BANKS.map((b) => ({
-    value: b.name,
-    label: b.name,
-}));
-
-type ChannelItem = { id: number; name: string; };
-const CHANNELS_LIST = getAllChannelsJson as ChannelItem[];
-const CHANNEL_OPTIONS = CHANNELS_LIST.map((c) => ({
-    value: c.name,
-    label: c.name,
-}));
 
 export type CorporateComercialModelFormValues = {
     adquisition: boolean;
@@ -50,6 +38,36 @@ export type CorporateComercialModelProps = {
 export function CorporateComercialModel(props: CorporateComercialModelProps) {
     const { defaultValues } = props;
     const [disabledField, setDisabledField] = useState(true);
+
+    const { data: acquisitionBanks = [], isPending: isAcquisitionBanksPending } = useQuery({
+        queryKey: ["annex", "acquisitionBanks"],
+        queryFn: () => acquisitionBanksService.getAll(),
+        staleTime: 60_000,
+    });
+
+    const adquisitionBankOptions = useMemo(
+        () =>
+            acquisitionBanks.map((b) => ({
+                value: b.name,
+                label: b.name,
+            })),
+        [acquisitionBanks],
+    );
+
+    const { data: channelsCatalog = [], isPending: isChannelsCatalogPending } = useQuery({
+        queryKey: ["annex", "channels"],
+        queryFn: () => channelsService.getAll(),
+        staleTime: 60_000,
+    });
+
+    const channelOptions = useMemo(
+        () =>
+            channelsCatalog.map((c) => ({
+                value: c.name,
+                label: c.name,
+            })),
+        [channelsCatalog],
+    );
 
     const initialChannels = useMemo(
         () => {
@@ -167,11 +185,12 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
                     <FieldLabel htmlFor="adquisitionBank">Banco de adquisición</FieldLabel>
                     <DropdownWithSearch
                         id="adquisitionBank"
-                        options={ADQUISITION_BANK_OPTIONS}
+                        options={adquisitionBankOptions}
                         value={adquisitionBank}
                         onValueChange={(value) => setValue("adquisitionBank", value)}
                         placeholder="Seleccione banco"
-                        disabled={disabledField}
+                        disabled={disabledField || isAcquisitionBanksPending}
+                        emptyLabel={isAcquisitionBanksPending ? "Cargando…" : "Sin resultados"}
                         className="min-w-0 w-full"
                     />
                 </Field>
@@ -218,10 +237,12 @@ export function CorporateComercialModel(props: CorporateComercialModelProps) {
                         <div className="flex items-end gap-2">
                             <DropdownWithSearch
                                 id="channelToAdd"
-                                options={CHANNEL_OPTIONS}
+                                options={channelOptions}
                                 value={selectedChannelToAdd}
                                 onValueChange={setSelectedChannelToAdd}
                                 placeholder="Agregar canal"
+                                disabled={isChannelsCatalogPending}
+                                emptyLabel={isChannelsCatalogPending ? "Cargando…" : "Sin resultados"}
                                 className="max-w-[90%]"
                             />
                             <Button
