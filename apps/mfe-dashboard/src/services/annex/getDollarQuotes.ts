@@ -1,3 +1,4 @@
+import { BASE_URL, DASHBOARD_API, FINANCES_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type {
     DollarQuoteItem,
@@ -6,7 +7,7 @@ import type {
 } from "@/types/dashboard/DollarQuotesResponse";
 
 /** Mock en `public/mockups/dashboard/` (misma convención que otros servicios estáticos). */
-const ENDPOINT = "/mockups/dashboard/getDollarQuotes.json";
+const ENDPOINT = `${BASE_URL}${DASHBOARD_API}${FINANCES_API}getDollarQuotes.json`;
 
 const str = (raw: unknown, fallback: string): string =>
     typeof raw === "string" && raw.trim() !== "" ? raw.trim() : fallback;

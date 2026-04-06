@@ -1,7 +1,8 @@
+import { BASE_URL, DASHBOARD_API, ALERTS_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { DashboardAlert, DashboardAlertType } from "@/types/dashboard/DashboardAlert";
 
-const ENDPOINT = "/mockups/dashboard/getAlerts.json";
+const ENDPOINT = `${BASE_URL}${DASHBOARD_API}${ALERTS_API}getAlerts.json`;
 
 const ALERT_TYPES: readonly DashboardAlertType[] = ["warning", "info", "error"];
 

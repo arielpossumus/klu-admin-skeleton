@@ -128,7 +128,7 @@ Para autenticación real habrá que sustituir esta lógica por un servicio en `s
 
 ## Variables de entorno
 
-`vite.config.ts` usa `envDir` apuntando a la **raíz del monorepo** (`../../`), alineado con el host y el resto de MFEs. Hoy **no** se consumen `import.meta.env` en el código de `mfe-login`; cuando se agreguen URLs de API u otras constantes, usar prefijo `VITE_` y archivos `.env.*` en la raíz del repo.
+`vite.config.ts` usa `envDir` en **esta carpeta** (`apps/mfe-login/`). Archivos típicos: `.env.localdev`, `.env.develop`, `.env.staging` (según `--mode` al arrancar Vite). Hoy **no** se consumen `import.meta.env` en el código de `mfe-login`; cuando se agreguen URLs de API u otras constantes, usar prefijo `VITE_` y los `.env.*` de este paquete.
 
 ## Build de producción
 

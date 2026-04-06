@@ -1,7 +1,8 @@
+import { BASE_URL, USERS_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { UserListItem } from "@/types/user/UserListItem";
 
-const ENDPOINT = "/mockups/users/getAllUsers.json";
+const ENDPOINT = `${BASE_URL}${USERS_API}getAllUsers.json`;
 
 const str = (raw: unknown, fallback = ""): string =>
     typeof raw === "string" && raw.trim() !== "" ? raw.trim() : fallback;

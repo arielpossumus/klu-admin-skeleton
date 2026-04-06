@@ -1,7 +1,8 @@
+import { ACCOUNT_API, BASE_URL, DASHBOARD_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { OwnAccount, OwnAccountsBundle } from "@/types/accounts/OwnAccount";
 
-const ENDPOINT = "/mockups/accounts/getAccount.json";
+const ENDPOINT = `${BASE_URL}${DASHBOARD_API}${ACCOUNT_API}getAccount.json`;
 
 const emptyAccount = (): OwnAccount => ({
     id: "",

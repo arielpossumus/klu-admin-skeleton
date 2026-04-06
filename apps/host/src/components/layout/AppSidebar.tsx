@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +14,14 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
   SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import avatar from "@/assets/KluAvatarWhite.svg";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -30,8 +37,91 @@ const isPathActive = (pathname: string, itemUrl: string): boolean => {
   return pathname.startsWith(prefix);
 };
 
+const HOVER_CLOSE_MS = 200;
+
+type SidebarCollapsedSubmenuProps = {
+  item: NavMainItem;
+  isParentActive: boolean;
+  pathname: string;
+};
+
+const SidebarCollapsedSubmenu = ({
+  item,
+  isParentActive,
+  pathname,
+}: SidebarCollapsedSubmenuProps) => {
+  const [open, setOpen] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current != null) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
+  const openMenu = useCallback(() => {
+    clearCloseTimer();
+    setOpen(true);
+  }, [clearCloseTimer]);
+
+  const scheduleClose = useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => setOpen(false), HOVER_CLOSE_MS);
+  }, [clearCloseTimer]);
+
+  useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+      <div className="w-full" onMouseEnter={openMenu} onMouseLeave={scheduleClose}>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuButton
+            className="cursor-pointer"
+            isActive={isParentActive && item.url === "#"}
+            tooltip={undefined}
+          >
+            <item.icon />
+            <span>{item.title}</span>
+            <ChevronRight
+              className="ml-auto size-4 opacity-0 pointer-events-none"
+              aria-hidden
+            />
+          </SidebarMenuButton>
+        </DropdownMenuTrigger>
+      </div>
+      <DropdownMenuContent
+        side="right"
+        align="start"
+        sideOffset={8}
+        className="z-[100] min-w-[12rem]"
+        onMouseEnter={openMenu}
+        onMouseLeave={scheduleClose}
+      >
+        {item.items?.map((sub) => {
+          const isActive =
+            pathname === sub.url ||
+            (sub.url !== "#" && isPathActive(pathname, sub.url));
+          return (
+            <DropdownMenuItem key={`${sub.url}-${sub.title}`} asChild>
+              <Link
+                to={sub.url}
+                className={cn("cursor-pointer", isActive && "bg-accent font-medium")}
+                onClick={() => setOpen(false)}
+              >
+                {sub.title}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const AppSidebar = () => {
   const location = useLocation();
+  const { state, isMobile } = useSidebar();
   const [userOpenKeys, setUserOpenKeys] = useState<Set<string>>(() => new Set());
 
   const openKeys = useMemo(() => {
@@ -98,9 +188,24 @@ const AppSidebar = () => {
                   const isParentActive = item.items.some(
                     (sub) =>
                       sub.url !== "#" &&
-                      (location.pathname === sub.url || isPathActive(location.pathname, sub.url))
+                      (location.pathname === sub.url ||
+                        isPathActive(location.pathname, sub.url))
                   );
                   const isOpen = openKeys.has(item.title);
+                  const showCollapsedFlyout = state === "collapsed" && !isMobile;
+
+                  if (showCollapsedFlyout) {
+                    return (
+                      <SidebarMenuItem key={item.url + item.title}>
+                        <SidebarCollapsedSubmenu
+                          item={item}
+                          isParentActive={isParentActive}
+                          pathname={location.pathname}
+                        />
+                      </SidebarMenuItem>
+                    );
+                  }
+
                   return (
                     <SidebarMenuItem key={item.url + item.title}>
                       <SidebarMenuButton
@@ -137,9 +242,13 @@ const AppSidebar = () => {
                           {item.items.map((sub) => {
                             const isActive =
                               location.pathname === sub.url ||
-                              (sub.url !== "#" && isPathActive(location.pathname, sub.url));
+                              (sub.url !== "#" &&
+                                isPathActive(location.pathname, sub.url));
                             return (
-                              <SidebarMenuSubItem key={sub.url} className="cursor-pointer">
+                              <SidebarMenuSubItem
+                                key={sub.url}
+                                className="cursor-pointer"
+                              >
                                 <SidebarMenuSubButton
                                   className="cursor-pointer"
                                   asChild

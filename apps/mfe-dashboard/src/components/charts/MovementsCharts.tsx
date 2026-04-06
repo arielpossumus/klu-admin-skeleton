@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import {
@@ -13,14 +14,12 @@ import {
 import { LINE_CHART_CONFIG } from "@/config/chart.config";
 import { TIME_PERIOD_OPTIONS, type TimePeriodOption } from "@/config/options";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-
-
-import dataByYear from "@/mockups/dashboard/movements/getAllTransactionsByYear.json" with { type: "json" };
-import dataByMonth from "@/mockups/dashboard/movements/getAllTransactionByMonth.json" with { type: "json" };
-import dataByWeek from "@/mockups/dashboard/movements/getAllTransactionsByWeek.json" with { type: "json" };
-import dataByDay from "@/mockups/dashboard/movements/getAllTransactionsByDay.json" with { type: "json" };
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
 import type { MovementsResponse } from "@/types/dashboard/movementsChart";
+import { getAllTransactionsByDay } from "@/services/transactions/getAllTransactionsByDay";
+import { getAllTransactionsByMonth } from "@/services/transactions/getAllTransactionsByMonth";
+import { getAllTransactionsByWeek } from "@/services/transactions/getAllTransactionsByWeek";
+import { getAllTransactionsByYear } from "@/services/transactions/getAllTransactionsByYear";
 import { Card } from "@/components/ui/card";
 
 const toLineData = (raw: MovementsResponse): { hour: string; aprobadas: number; rechazadas: number; }[] =>
@@ -30,29 +29,51 @@ const toLineData = (raw: MovementsResponse): { hour: string; aprobadas: number; 
     rechazadas: item.totalRejected,
   }));
 
-const DATA_SOURCE: Record<TimePeriodOption, MovementsResponse> = {
-  Anual: dataByYear as MovementsResponse,
-  Mensual: dataByMonth as MovementsResponse,
-  Semanal: dataByWeek as MovementsResponse,
-  Diario: dataByDay as MovementsResponse,
-};
-
 export type { LineChartDataItem } from "@/types/dashboard/movementsChart";
 
 export function MovementsChart() {
   const [timePeriod, setTimePeriod] = useState<TimePeriodOption>("Anual");
-  const [isLoading, setIsLoading] = useState(false);
-  const chartData = useMemo(
-    () => toLineData(DATA_SOURCE[timePeriod]),
-    [timePeriod]
-  );
+
+  const yearQ = useQuery({
+    queryKey: ["dashboard", "movementsTransactions", "year"],
+    queryFn: getAllTransactionsByYear,
+  });
+  const monthQ = useQuery({
+    queryKey: ["dashboard", "movementsTransactions", "month"],
+    queryFn: getAllTransactionsByMonth,
+  });
+  const weekQ = useQuery({
+    queryKey: ["dashboard", "movementsTransactions", "week"],
+    queryFn: getAllTransactionsByWeek,
+  });
+  const dayQ = useQuery({
+    queryKey: ["dashboard", "movementsTransactions", "day"],
+    queryFn: getAllTransactionsByDay,
+  });
+
+  const loadingByPeriod = {
+    Anual: yearQ.isPending || yearQ.isFetching,
+    Mensual: monthQ.isPending || monthQ.isFetching,
+    Semanal: weekQ.isPending || weekQ.isFetching,
+    Diario: dayQ.isPending || dayQ.isFetching,
+  } as const;
+
+  const chartData = useMemo(() => {
+    const src: MovementsResponse | undefined =
+      timePeriod === "Anual"
+        ? yearQ.data
+        : timePeriod === "Mensual"
+          ? monthQ.data
+          : timePeriod === "Semanal"
+            ? weekQ.data
+            : dayQ.data;
+    return toLineData(src ?? {});
+  }, [timePeriod, yearQ.data, monthQ.data, weekQ.data, dayQ.data]);
+
+  const isLoading = loadingByPeriod[timePeriod];
 
   const OnChangeTimePeriod = (period: TimePeriodOption) => {
-    setIsLoading(true);
     setTimePeriod(period);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   };
 
   return (
