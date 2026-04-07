@@ -1,12 +1,11 @@
-
-import panelInfoJson from "@/mockups/dashboard/acceptance/getPanelInformation.json" with { type: "json" };
-import incidentsJson from "@/mockups/getAllPosIncidents.json" with { type: "json" };
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { AcceptanceChart } from "@/components/charts/AcceptanceChart";
 import { PANEL_PIE_CHART_CONFIG } from "@/config/chart.config";
 import { IncidentsBarChart } from "@/components/charts/IncidentsBarChart";
 import { TopCorporativosChart } from "@/components/charts/TopCorporativosChart";
-import type { PanelInfoResponse } from "@/types/dashboard/PanelInfoResponse";
-import type { IncidentsResponse } from "@/types/dashboard/IncidentsResponse";
+import { getAllPosIncidents } from "@/services/alerts/posIncidentsService";
+import { getPanelInformation } from "@/services/panelInformation/getPanelInformationService";
 import { BentoPanel } from "@/components/commons/BentoPanel";
 import { DashboardProductShortcuts } from "@/components/bento/DashboardProductShortcuts";
 import { RecentUsersBento } from "@/components/bento/RecentUsersBento";
@@ -19,31 +18,36 @@ import { MovementsGraphs } from "@/components/bento/MovementsGraphs";
 import { Alerts } from "@/components/bento/Alerts";
 import { LastMovements } from "@/components/bento/LastMovements";
 
-const panelInfo = panelInfoJson as PanelInfoResponse;
-
-const panelPieData = [
-    { name: "visa", value: panelInfo.visaAcceptance ?? 0 },
-    { name: "mastercard", value: panelInfo.mastercardAcceptance ?? 0 },
-    { name: "carnet", value: panelInfo.carnetAcceptance ?? 0 },
-    { name: "amex", value: panelInfo.amexAcceptance ?? 0 },
-    { name: "otros", value: panelInfo.otherBrandsAcceptance ?? 0 },
-];
-
-const incidents = incidentsJson as IncidentsResponse;
-
-const incidentsData = [
-    { categoria: "Batería", porcentaje: incidents.batteryIncidentsPercentage ?? 0 },
-    { categoria: "Impresora", porcentaje: incidents.printerIncidentsPercentage ?? 0 },
-    { categoria: "Conexión", porcentaje: incidents.connectionIncidentsPercentage ?? 0 },
-];
-
-
-
-
 const Dashboard = () => {
+    const { data: panelInfo } = useQuery({
+        queryKey: ["dashboard", "panelInformation"],
+        queryFn: getPanelInformation,
+    });
 
+    const { data: incidents } = useQuery({
+        queryKey: ["dashboard", "posIncidents"],
+        queryFn: getAllPosIncidents,
+    });
 
+    const incidentsData = useMemo(
+        () => [
+            { categoria: "Batería", porcentaje: incidents?.batteryIncidentsPercentage ?? 0 },
+            { categoria: "Impresora", porcentaje: incidents?.printerIncidentsPercentage ?? 0 },
+            { categoria: "Conexión", porcentaje: incidents?.connectionIncidentsPercentage ?? 0 },
+        ],
+        [incidents],
+    );
 
+    const panelPieData = useMemo(
+        () => [
+            { name: "visa", value: panelInfo?.visaAcceptance ?? 0 },
+            { name: "mastercard", value: panelInfo?.mastercardAcceptance ?? 0 },
+            { name: "carnet", value: panelInfo?.carnetAcceptance ?? 0 },
+            { name: "amex", value: panelInfo?.amexAcceptance ?? 0 },
+            { name: "otros", value: panelInfo?.otherBrandsAcceptance ?? 0 },
+        ],
+        [panelInfo],
+    );
 
     return (
         <>

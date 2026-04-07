@@ -7,7 +7,7 @@ export type PosBrandItem = {
   Models: string[];
 };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllPosBrands.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllPosBrands.json`;
 
 export const getAllPosBrands = async (): Promise<PosBrandItem[]> => {
   const { data } = await axiosClient.get<unknown>(ENDPOINT);

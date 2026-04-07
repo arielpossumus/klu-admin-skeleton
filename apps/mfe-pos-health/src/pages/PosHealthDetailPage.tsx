@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 import { Card, CardContent } from "@/components/ui/card";
 import SectionTitle from "@/components/text/SectionTitle";
@@ -20,10 +20,10 @@ import {
   CardSim,
   MemoryStick,
 } from "lucide-react";
-import devicesJson from "@/mockups/getDeviceById.json" with { type: "json" };
 import type { DeviceByIdPayload } from "@/types/device/DeviceByIdPayload";
 import { DetailRow } from "@/components/text/detailRow";
 import { CustomCard } from "@/components/commons/CustomCard";
+import { getDeviceById } from "@/services/posHealt/getDeviceById";
 
 const formatValue = (value: unknown): string => {
   if (value === undefined || value === null) return "—";
@@ -31,28 +31,58 @@ const formatValue = (value: unknown): string => {
   return String(value);
 };
 
+const emptyPayload = (): DeviceByIdPayload => ({
+  dispositivo: {},
+  bateria: {},
+  impresora: {},
+  conexion: {},
+});
+
 const PosHealthDetailPage = () => {
   const { serialId } = useParams<{ serialId: string }>();
   const serialDevice = serialId ?? "";
 
-  const deviceData = devicesJson as DeviceByIdPayload;
-  const device = deviceData.dispositivo;
-  const battery = deviceData.bateria as Record<string, unknown>;
-  const printer = deviceData.impresora as Record<string, unknown>;
-  const connection = deviceData.conexion as Record<string, unknown>;
+  const { data: deviceData, isPending, isError } = useQuery({
+    queryKey: ["posHealth", "deviceById", serialDevice],
+    queryFn: () => getDeviceById(serialDevice),
+    enabled: serialDevice.trim() !== "",
+  });
 
-  const [isLoading, setIsLoading] = useState(true);
+  const payload = deviceData ?? emptyPayload();
+  const device = payload.dispositivo;
+  const battery = payload.bateria as Record<string, unknown>;
+  const printer = payload.impresora as Record<string, unknown>;
+  const connection = payload.conexion as Record<string, unknown>;
 
-  useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(t);
-  }, []);
+  const titleText =
+    `${device.posBrand ?? ""} ${device.posModel ?? ""}`.trim() || "Detalle del dispositivo";
 
-  if (isLoading) {
+  if (!serialDevice.trim()) {
     return (
       <div className="flex flex-1 flex-col">
         <SectionTitle
-          title={`${device.posBrand ?? ""} ${device.posModel ?? ""}`}
+          title="Serial no indicado"
+          subtitle="No hay identificador de dispositivo en la ruta."
+          actionName="Editar Dispositivo"
+          showButton={false}
+          showBadge={false}
+        />
+        <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+          <Card>
+            <CardContent className="pt-6 text-sm text-muted-foreground">
+              Volvé al listado de POS Health y elegí un dispositivo para ver el detalle.
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (isPending) {
+    return (
+      <div className="flex flex-1 flex-col">
+        <SectionTitle
+          title="Cargando…"
           subtitle={`Serial: ${serialDevice}`}
           actionName="Editar Dispositivo"
           showButton={false}
@@ -69,10 +99,32 @@ const PosHealthDetailPage = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <div className="flex flex-1 flex-col">
+        <SectionTitle
+          title="Error al cargar"
+          subtitle={`Serial: ${serialDevice}`}
+          actionName="Editar Dispositivo"
+          showButton={false}
+          showBadge={false}
+        />
+        <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
+          <Card>
+            <CardContent className="pt-6 text-sm text-muted-foreground">
+              No se pudieron obtener los datos del dispositivo. Comprobá la conexión y el mock en el host
+              (`mockups/pos/getDeviceById.json`).
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-1 flex-col">
       <SectionTitle
-        title={`${device.posBrand ?? ""} ${device.posModel ?? ""}`}
+        title={titleText}
         subtitle={`Serial: ${serialDevice}`}
         actionName="Editar Dispositivo"
         showButton={false}

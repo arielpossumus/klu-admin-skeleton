@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/config/constants";
+import { API_URL_CORPORATE, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 
@@ -10,7 +10,7 @@ export type GetAllCorporatesResponse = {
   objectList?: unknown;
 };
 
-const ENDPOINT = `${BASE_URL}corporates/getAllCorporates.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_CORPORATE}/getAllCorporates.json`;
 
 export const getAllCorporates = async (): Promise<CorporateGrid[]> => {
   const { data } = await axiosClient.get<GetAllCorporatesResponse>(ENDPOINT);

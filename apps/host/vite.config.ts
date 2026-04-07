@@ -11,7 +11,7 @@ const repoRoot = path.resolve(__dirname, "../..");
 
 /**
  * Shell / host: app admin + Module Federation (remotos en dev por URL fija).
- * Variables .env.* en la raíz del monorepo (envDir).
+ * Variables `VITE_*`: `.env.*` en la raíz del monorepo (`envDir`). Cada MFE usa `.env.*` en su propia carpeta.
  */
 export default defineConfig({
   envDir: repoRoot,

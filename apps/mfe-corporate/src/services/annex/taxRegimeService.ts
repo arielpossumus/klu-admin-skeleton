@@ -1,9 +1,9 @@
 import { API_URL_ANEX, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 
-export type TaxRegimeItem = { regimeId: number; regimeName: string };
+export type TaxRegimeItem = { regimeId: number; regimeName: string; };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllTaxRegime.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllTaxRegime.json`;
 
 export const taxRegimeService = {
     getAll: async (): Promise<TaxRegimeItem[]> => {

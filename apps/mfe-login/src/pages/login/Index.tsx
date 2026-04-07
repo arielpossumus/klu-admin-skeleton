@@ -1,8 +1,10 @@
 import { LoginForm } from "@/components/forms/LoginForm";
 import kluLogLogin from "@/assets/kluLogoLogin.svg";
 import splahsImage from "@/assets/splashLogin.png";
+import { API_URL_LOGIN, BASE_URL } from "@/config/constants";
 
 const Login = () => {
+  console.log(API_URL_LOGIN, BASE_URL);
   return (
     <div className="grid min-h-svh overflow-hidden bg-[var(--color-primary)] md:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">

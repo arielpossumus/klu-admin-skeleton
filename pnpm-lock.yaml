@@ -65,6 +65,9 @@ importers:
       '@fontsource-variable/google-sans-flex':
         specifier: ^5.2.1
         version: 5.2.1
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -144,6 +147,9 @@ importers:
 
   apps/mfe-commerces:
     dependencies:
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -220,6 +226,9 @@ importers:
 
   apps/mfe-corporate:
     dependencies:
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -299,6 +308,9 @@ importers:
 
   apps/mfe-dashboard:
     dependencies:
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -372,9 +384,15 @@ importers:
 
   apps/mfe-login:
     dependencies:
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
+      axios:
+        specifier: ^1.13.6
+        version: 1.13.6
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -439,6 +457,9 @@ importers:
 
   apps/mfe-pos-health:
     dependencies:
+      '@klu/auth-session':
+        specifier: workspace:^
+        version: link:../../packages/auth-session
       '@klu/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -506,6 +527,19 @@ importers:
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+      vite:
+        specifier: ^7.3.1
+        version: 7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.32.0)
+
+  packages/auth-session:
+    dependencies:
+      axios:
+        specifier: ^1.13.6
+        version: 1.13.6
+    devDependencies:
       typescript:
         specifier: ~5.9.3
         version: 5.9.3

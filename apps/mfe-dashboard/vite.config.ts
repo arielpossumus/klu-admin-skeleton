@@ -5,10 +5,9 @@ import { federation } from "@module-federation/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
-const repoRoot = path.resolve(__dirname, "../..");
-
 export default defineConfig({
-  envDir: repoRoot,
+  /** Variables `VITE_*` por app: `.env.*` en esta carpeta. */
+  envDir: path.resolve(__dirname),
   plugins: [
     react(),
     tailwindcss(),

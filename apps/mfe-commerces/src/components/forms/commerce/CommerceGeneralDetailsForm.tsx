@@ -76,128 +76,125 @@ export const CommerceGeneralDetailsForm = ({
 
   return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)} className="contents">
-      <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
-
-      {!isReadOnly && (
-        <FieldGroup className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Field className="grid gap-2">
-            <FieldLabel htmlFor="commerce-corporate">
-              Nombre de corporativo
-              <span className="text-destructive">*</span>
-            </FieldLabel>
-            <Input
-              id="commerce-corporate"
-              type="text"
-              placeholder="Corporativo"
-              aria-invalid={Boolean(errors.corporateName)}
-              aria-required
-              {...register("corporateName", {
-                required: "El nombre de corporativo es obligatorio",
-              })}
-            />
-            <FieldError
-              errors={errors.corporateName ? [errors.corporateName] : undefined}
-            />
-          </Field>
-          <Field className="grid gap-2">
-            <FieldLabel htmlFor="commerce-business-name">
-              Nombre de comercio
-              <span className="text-destructive">*</span>
-            </FieldLabel>
-            <Input
-              id="commerce-business-name"
-              type="text"
-              placeholder="Nombre del comercio"
-              aria-invalid={Boolean(errors.businessName)}
-              aria-required
-              {...register("businessName", {
-                required: "El nombre de comercio es obligatorio",
-              })}
-            />
-            <FieldError
-              errors={errors.businessName ? [errors.businessName] : undefined}
-            />
-          </Field>
-        </FieldGroup>
-      )}
-
-      <FieldGroup className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Field className="grid gap-2">
-          <FieldLabel htmlFor="commerce-mcc">
-            MCC<span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            id="commerce-mcc"
-            type="text"
-            placeholder="Ej. 5411"
-            aria-invalid={Boolean(errors.mcc)}
-            aria-required
-            {...register("mcc", {
-              required: "El MCC es obligatorio",
-            })}
-            disabled={isReadOnly}
-          />
-          <FieldError errors={errors.mcc ? [errors.mcc] : undefined} />
-        </Field>
-        <Field className="grid gap-2">
-          <FieldLabel htmlFor="commerce-giro">Giro comercial</FieldLabel>
-          <Input
-            id="commerce-giro"
-            type="text"
-            placeholder="Giro comercial"
-            aria-invalid={Boolean(errors.commercialLine)}
-            {...register("commercialLine")}
-            disabled={isReadOnly}
-          />
-          <FieldError
-            errors={errors.commercialLine ? [errors.commercialLine] : undefined}
-          />
-        </Field>
-      </FieldGroup>
-
-      {!isReadOnly && (
-        <FieldGroup className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Field className="grid gap-2 md:col-span-1">
-            <FieldLabel>Status</FieldLabel>
-            <div className="flex items-center gap-2">
-              <Switch
-                checked={status === "Activo"}
-                onCheckedChange={(checked) =>
-                  setValue("status", checked ? "Activo" : "Inactivo")
-                }
-                className="data-[state=checked]:bg-[var(--success-dark)] data-[state=unchecked]:bg-[var(--error-dark)]"
+      <form onSubmit={handleSubmit(onSubmit)} className="contents">
+        {!isReadOnly && (
+          <FieldGroup className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Field className="grid gap-2">
+              <FieldLabel htmlFor="commerce-corporate">
+                Nombre de corporativo
+                <span className="text-destructive">*</span>
+              </FieldLabel>
+              <Input
+                id="commerce-corporate"
+                type="text"
+                placeholder="Corporativo"
+                aria-invalid={Boolean(errors.corporateName)}
+                aria-required
+                {...register("corporateName", {
+                  required: "El nombre de corporativo es obligatorio",
+                })}
               />
-              <span className="text-sm text-muted-foreground">
-                {status === "Activo" ? "Activo" : "Inactivo"}
-              </span>
-            </div>
+              <FieldError
+                errors={errors.corporateName ? [errors.corporateName] : undefined}
+              />
+            </Field>
+            <Field className="grid gap-2">
+              <FieldLabel htmlFor="commerce-business-name">
+                Nombre de comercio
+                <span className="text-destructive">*</span>
+              </FieldLabel>
+              <Input
+                id="commerce-business-name"
+                type="text"
+                placeholder="Nombre del comercio"
+                aria-invalid={Boolean(errors.businessName)}
+                aria-required
+                {...register("businessName", {
+                  required: "El nombre de comercio es obligatorio",
+                })}
+              />
+              <FieldError
+                errors={errors.businessName ? [errors.businessName] : undefined}
+              />
+            </Field>
+          </FieldGroup>
+        )}
+
+        <FieldGroup className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field className="grid gap-2">
+            <FieldLabel htmlFor="commerce-mcc">
+              MCC<span className="text-destructive">*</span>
+            </FieldLabel>
+            <Input
+              id="commerce-mcc"
+              type="text"
+              placeholder="Ej. 5411"
+              aria-invalid={Boolean(errors.mcc)}
+              aria-required
+              {...register("mcc", {
+                required: "El MCC es obligatorio",
+              })}
+              disabled={isReadOnly}
+            />
+            <FieldError errors={errors.mcc ? [errors.mcc] : undefined} />
+          </Field>
+          <Field className="grid gap-2">
+            <FieldLabel htmlFor="commerce-giro">Giro comercial</FieldLabel>
+            <Input
+              id="commerce-giro"
+              type="text"
+              placeholder="Giro comercial"
+              aria-invalid={Boolean(errors.commercialLine)}
+              {...register("commercialLine")}
+              disabled={isReadOnly}
+            />
+            <FieldError
+              errors={errors.commercialLine ? [errors.commercialLine] : undefined}
+            />
           </Field>
         </FieldGroup>
-      )}
 
-      <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
-    </form>
+        {!isReadOnly && (
+          <FieldGroup className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <Field className="grid gap-2 md:col-span-1">
+              <FieldLabel>Status</FieldLabel>
+              <div className="flex items-center gap-2">
+                <Switch
+                  checked={status === "Activo"}
+                  onCheckedChange={(checked) =>
+                    setValue("status", checked ? "Activo" : "Inactivo")
+                  }
+                  className="data-[state=checked]:bg-[var(--success-dark)] data-[state=unchecked]:bg-[var(--error-dark)]"
+                />
+                <span className="text-sm text-muted-foreground">
+                  {status === "Activo" ? "Activo" : "Inactivo"}
+                </span>
+              </div>
+            </Field>
+          </FieldGroup>
+        )}
+        <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
+      </form>
 
-    <section
-      className="mt-8 space-y-3"
-      aria-labelledby="commerce-affiliations-heading"
-    >
-      <h3
-        id="commerce-affiliations-heading"
-        className="text-sm font-semibold text-foreground"
+      <section
+        className="mt-8 space-y-3"
+        aria-labelledby="commerce-affiliations-heading"
       >
-        Afiliaciones
-      </h3>
-      <DataTable
-        columns={commerceAffiliationsColumns}
-        data={affiliations}
-        pagination={false}
-        getRowId={(row) =>
-          `${row.idMembership ?? ""}-${row.membershipNumber ?? ""}-${row.processor ?? ""}`
-        }
-      />
-    </section>
+        <h3
+          id="commerce-affiliations-heading"
+          className="text-sm font-semibold text-foreground"
+        >
+          Afiliaciones
+        </h3>
+        <DataTable
+          columns={commerceAffiliationsColumns}
+          data={affiliations}
+          pagination={false}
+          getRowId={(row) =>
+            `${row.idMembership ?? ""}-${row.membershipNumber ?? ""}-${row.processor ?? ""}`
+          }
+        />
+      </section>
     </>
   );
 };

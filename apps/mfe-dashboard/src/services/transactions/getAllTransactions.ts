@@ -1,8 +1,9 @@
+import { BASE_URL, TRANSACTIONS_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { RecentMovementRow } from "@/types/transactions/RecentMovementRow";
 import type { TransactionListApiRow, TransactionListResponse } from "@/types/transactions/TransactionListResponse";
 
-const MOCK_ENDPOINT = "/mockups/transactions/getAllTransactions.json";
+const MOCK_ENDPOINT = `${BASE_URL}${TRANSACTIONS_API}getAllTransactions.json`;
 
 const formatFechaHora = (date: string | undefined, hour: string | undefined): string => {
     if (!date?.trim()) return hour?.trim() ?? "—";

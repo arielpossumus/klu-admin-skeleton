@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import {
@@ -11,15 +12,10 @@ import {
 import { TOP_CORPORATIVOS_CHART_CONFIG, BAR_COLORS } from "@/config/chart.config";
 import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts";
 import ParagraphH4 from "@/components/text/ParagraphH4";
-import dataFebrero from "@/mockups/dashboard/top/getlAllTopCorporativosFebrero.json" with { type: "json" };
-import dataMarzo from "@/mockups/dashboard/top/getlAllTopCorporativosMarzo.json" with { type: "json" };
-import type { TopResponse, TopCorporativosMonthOption } from "@/types/dashboard/topCorporativosChart";
+import type { TopCorporativosMonthOption } from "@/types/dashboard/topCorporativosChart";
+import { getCorporativosFebrero } from "@/services/top/getCorporativosFebreroService";
+import { getCorporativosMarzo } from "@/services/top/getCorporativosMarzoService";
 import { Card } from "@/components/ui/card";
-
-const DATA_SOURCE = {
-  Febrero: dataFebrero as TopResponse,
-  Marzo: dataMarzo as TopResponse,
-} as const;
 
 const LEFT_ALIGN_X = 4;
 const LABEL_MAX_CHARS_ONE_LINE = 18;
@@ -69,11 +65,20 @@ function YAxisTickLeft(props: { x?: number; y?: number; payload?: { value?: stri
 export function TopCorporativosChart() {
   const [month, setMonth] = useState<TopCorporativosMonthOption>("Febrero");
 
+  const { data: febrero } = useQuery({
+    queryKey: ["dashboard", "topCorporativos", "febrero"],
+    queryFn: getCorporativosFebrero,
+  });
+  const { data: marzo } = useQuery({
+    queryKey: ["dashboard", "topCorporativos", "marzo"],
+    queryFn: getCorporativosMarzo,
+  });
+
   const { chartData } = useMemo(() => {
-    const source = DATA_SOURCE[month];
-    const data = (source.data ?? []).slice().sort((a, b) => a.ranking - b.ranking);
-    return { period: source.period ?? month, chartData: data };
-  }, [month]);
+    const source = month === "Febrero" ? febrero : marzo;
+    const data = (source?.data ?? []).slice().sort((a, b) => a.ranking - b.ranking);
+    return { period: source?.period ?? month, chartData: data };
+  }, [month, febrero, marzo]);
 
   const formatMonto = (value: number) =>
     new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", minimumFractionDigits: 2 }).format(value);

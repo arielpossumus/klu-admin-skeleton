@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode localdev",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@klu/auth-session": "workspace:^",
     "@klu/ui-kit": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.6",

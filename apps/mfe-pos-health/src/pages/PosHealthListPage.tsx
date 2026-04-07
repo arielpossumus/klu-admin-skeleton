@@ -17,42 +17,55 @@ import type { Device } from "@/types/device/Device";
 import type { DeviceBattery } from "@/types/device/DeviceBattery";
 import type { DevicePrinter } from "@/types/device/DevicePrinter";
 import type { DeviceConnection } from "@/types/device/DeviceConnection";
-import devicesJson from "@/mockups/getAlldevices.json" with { type: "json" };
-import devicesBatteryJson from "@/mockups/getAllDevicesBatery.json" with { type: "json" };
-import devicesPrinterJson from "@/mockups/getAllPrinterDevices.json" with { type: "json" };
-import devicesConnectionJson from "@/mockups/getAllconectionsDevices.json" with { type: "json" };
 import { TablesLoader } from "@/components/loaders/TablesLoader";
-import corporatesJson from "@/mockups/corporates/getAllCorporates.json" with { type: "json" };
-import type { CorporateGrid } from "@/types/corporate/CorporateGrid";
 import { CustomCollapsibleCard } from "@/components/commons/CustomCollapsibleCard";
 import { type PosHealthFiltersFormValues, EMPTY_FILTERS } from "@/types/filters/posHealthFilters";
 import { DropdownWithSearch, type DropdownWithSearchOption } from "@/components/ui/dropdown-with-search";
+import { getAllConnectionsdevice } from "@/services/posHealt/getAllConnectionsdevice";
+import { getAllDeviceBattery } from "@/services/posHealt/getAllDeviceBattery";
+import { getAllPrintersDevice } from "@/services/posHealt/getAllPrintersDevice";
+import { getAllCorporates } from "@/services/corporates/getAllCorporates";
+import { getAllDevices } from "@/services/posHealt/getAllDevices";
 import { getAllPosBrands } from "@/services/posHealt/getAllPosBrands";
 
 const PosHealthListPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
   const [expandedType, setExpandedType] = useState<PosHealthExpandedType>(null);
   const [, setFilters] = useState<PosHealthFiltersFormValues | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(true);
-  const dataCorporates = (corporatesJson?.rows ?? []) as CorporateGrid[];
 
-  useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(t);
-  }, []);
+  const { data: dataCorporates = [] } = useQuery({
+    queryKey: ["posHealth", "corporates"],
+    queryFn: getAllCorporates,
+  });
 
-  const devicesData = devicesJson as { total: number; rows: Device[] };
-  const devices: Device[] = devicesData.rows ?? [];
+  const { data: devicesData, isPending: isDevicesPending } = useQuery({
+    queryKey: ["posHealth", "devices"],
+    queryFn: getAllDevices,
+  });
 
-  const devicesBatteryData = devicesBatteryJson as { total: number; rows: DeviceBattery[] };
-  const batteries: DeviceBattery[] = devicesBatteryData.rows ?? [];
+  const devices: Device[] = devicesData?.rows ?? [];
 
-  const devicesPrinterData = devicesPrinterJson as { total: number; rows: DevicePrinter[] };
-  const printers: DevicePrinter[] = devicesPrinterData.rows ?? [];
+  const { data: batteriesData } = useQuery({
+    queryKey: ["posHealth", "deviceBattery"],
+    queryFn: getAllDeviceBattery,
+  });
 
-  const devicesConnectionData = devicesConnectionJson as { total: number; rows: DeviceConnection[] };
-  const connections: DeviceConnection[] = devicesConnectionData.rows ?? [];
+  const batteries: DeviceBattery[] = batteriesData?.rows ?? [];
+
+  const { data: printersData } = useQuery({
+    queryKey: ["posHealth", "printerDevices"],
+    queryFn: getAllPrintersDevice,
+  });
+
+  const printers: DevicePrinter[] = printersData?.rows ?? [];
+
+  const { data: connectionsData } = useQuery({
+    queryKey: ["posHealth", "connectionDevices"],
+    queryFn: getAllConnectionsdevice,
+  });
+
+  const connections: DeviceConnection[] = connectionsData?.rows ?? [];
 
   const handleActionClick = (serial: string, type: PosHealthExpandedType) => {
     if (!type) return;
@@ -244,7 +257,7 @@ const PosHealthListPage = () => {
           </Card>
         </CustomCollapsibleCard>
         <Card className="p-4">
-          {isLoading ? (
+          {isDevicesPending ? (
             <TablesLoader columnCount={7} rowCount={10} loadingText="Cargando datos de dispositivos POS" />
           ) : (
             <DataTable<Device, unknown>

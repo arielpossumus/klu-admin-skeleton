@@ -122,22 +122,22 @@ const buildDefaults = (
 /** Obligatorio solo al editar; en solo lectura no valida (evita errores con campos deshabilitados). */
 const requiredWhenEditing =
   (readOnly: boolean, message: string) =>
-  (value: unknown): true | string => {
-    if (readOnly) return true;
-    if (value == null) return message;
-    if (typeof value === "string" && value.trim() === "") return message;
-    return true;
-  };
+    (value: unknown): true | string => {
+      if (readOnly) return true;
+      if (value == null) return message;
+      if (typeof value === "string" && value.trim() === "") return message;
+      return true;
+    };
 
 const emailWhenEditing =
   (readOnly: boolean) =>
-  (value: unknown): true | string => {
-    if (readOnly) return true;
-    const s = value == null ? "" : String(value).trim();
-    if (s === "") return "El correo es obligatorio";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)) return "Ingresá un correo válido";
-    return true;
-  };
+    (value: unknown): true | string => {
+      if (readOnly) return true;
+      const s = value == null ? "" : String(value).trim();
+      if (s === "") return "El correo es obligatorio";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)) return "Ingresá un correo válido";
+      return true;
+    };
 
 export const CommerceLegaldata = ({
   legalData,
@@ -296,15 +296,13 @@ export const CommerceLegaldata = ({
 
   const hasContent = Boolean(legalData ?? fiscalData ?? legalContact);
 
-  return (
+    return (
     <div
       aria-label={
         hasContent ? "Datos legales del comercio" : "Sin datos legales"
       }
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
-
         <section
           className="space-y-4"
           aria-labelledby="commerce-legal-rep-heading"
@@ -469,6 +467,7 @@ export const CommerceLegaldata = ({
                 }
               />
             </Field>
+
           </FieldGroup>
 
           <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-12 mb-12">
@@ -682,8 +681,11 @@ export const CommerceLegaldata = ({
               />
             </Field>
           </FieldGroup>
-        </section>
 
+        </section>
+        <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-4 mb-4">
+          <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
+        </FieldGroup>
         <section
           className="space-y-4"
           aria-labelledby="commerce-fiscal-heading"
@@ -999,7 +1001,9 @@ export const CommerceLegaldata = ({
             </Field>
           </FieldGroup>
         </section>
-
+        <FieldGroup className="grid grid-cols-1  gap-4 px-0 mt-4 mb-4">
+          <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
+        </FieldGroup>
         <section
           className="space-y-4"
           aria-labelledby="commerce-legal-contact-heading"
@@ -1090,6 +1094,6 @@ export const CommerceLegaldata = ({
 
         <CustomFormButtons isReadOnly={isReadOnly} onToggle={handleToggle} />
       </form>
-    </div>
-  );
+        </div>
+    );
 };

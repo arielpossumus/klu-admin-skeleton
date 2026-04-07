@@ -1,4 +1,4 @@
-/** Dirección (representante legal, fiscal, etc.) */
+
 export type CommerceAddress = {
   street?: string;
   outNumber?: string;
@@ -9,7 +9,6 @@ export type CommerceAddress = {
   zip?: string;
   country?: string;
   region?: string;
-  /** Entidad federativa / estado */
   state?: string;
 };
 
@@ -24,7 +23,7 @@ export type CommerceLegalRepresentative = {
   address?: CommerceAddress;
 };
 
-/** Bloque `legalData` del detalle (claves API con espacios) */
+
 export type CommerceLegalData = {
   "Legal Representative"?: CommerceLegalRepresentative;
 };
@@ -47,7 +46,28 @@ export type CommerceFiscalData = {
   legalContact?: CommerceLegalContact;
 };
 
-/** Fila de la grilla de afiliaciones en detalle de comercio */
+
+export type CommerceContactPerson = {
+  name?: string;
+  lastName?: string;
+  maternalLastName?: string;
+  email?: string;
+  phone?: string;
+  ext?: string;
+  phone2?: string;
+  ext2?: string;
+  days?: string[];
+  startHour?: string;
+  endHour?: string;
+};
+
+export type CommerceContactData = {
+  commercialContact?: CommerceContactPerson;
+  technicalContact?: CommerceContactPerson;
+  financialContact?: CommerceContactPerson;
+};
+
+
 export type CommerceAffiliationRow = {
   idMembership?: string;
   membershipNumber?: string;
@@ -61,11 +81,75 @@ export type CommerceAffiliationRow = {
   currency?: string;
 };
 
+/** Fila de tasas de comercio (`tradesRates` en detalle). API puede usar inglés o español. */
+export type CommerceTradeRateRow = {
+  rateName?: string;
+  ratePercentage?: string;
+  ivaIncluded?: boolean;
+  chargeType?: string;
+  channelType?: string;
+  nombreTasa?: string;
+  porcentajeTasa?: string;
+  ivaIncluido?: string;
+  tipoCobro?: string;
+  tipoCanal?: string;
+};
+
+/** Fila de comisión MSI (`msiRates` en detalle). */
+export type CommerceMsiRateRow = {
+  month?: string;
+  visaMastercardPorcentage?: string;
+  amexPorcentage?: string;
+};
+
+/** Plazos de pago (`paymentTerms` en detalle). */
+export type CommercePaymentTerms = {
+  nationalDeadline?: number;
+  internationalDeadline?: number;
+  amexDeadline?: number;
+};
+
+/** Cuenta bancaria para depósito (`accountData` en detalle). La API puede usar `Owner*` en PascalCase. */
+export type CommerceAccountData = {
+  bankName?: string;
+  bankCode?: string;
+  OwnerName?: string;
+  OwnerLastName?: string;
+  OwnerMaternalLastName?: string;
+};
+
+/** Modelo comercial (`commercialModel` en detalle por ID). */
+export type CommerceCommercialModel = {
+  name?: string;
+  lastName?: string;
+  maternalLastName?: string;
+  email?: string;
+  phone?: string;
+  ext?: string;
+  phone2?: string;
+  ext2?: string;
+  days?: string[];
+  startHour?: string;
+  endHour?: string;
+  monthlyRent?: string;
+  averageTicket?: string;
+  cancellationDays?: number;
+  minimumMonthlyAmount?: string;
+  equipmentRent?: string;
+  penalty?: string;
+  settlementPeriod?: string;
+  affiliation?: string;
+  processor?: string;
+  credit?: string;
+  debit?: string;
+  creditInt?: string;
+  debitInt?: string;
+};
+
 export type AllCommercesGridApiRow = {
   businessId: number;
   corporate?: string;
   businessName?: string;
-  /** Merchant Category Code */
   mcc?: string;
   businessMembership?: string;
   businessSubmembership?: string;
@@ -74,9 +158,14 @@ export type AllCommercesGridApiRow = {
   businessEmail?: string;
   businessStatus?: string;
   affiliations?: CommerceAffiliationRow[];
-  /** Presente en respuesta de detalle (`commerceById`) */
   legalData?: CommerceLegalData;
   fiscalData?: CommerceFiscalData;
+  contactData?: CommerceContactData;
+  tradesRates?: CommerceTradeRateRow[];
+  msiRates?: CommerceMsiRateRow[];
+  paymentTerms?: CommercePaymentTerms;
+  accountData?: CommerceAccountData;
+  commercialModel?: CommerceCommercialModel;
 };
 
 export type AllCommercesGridListResponse = {
