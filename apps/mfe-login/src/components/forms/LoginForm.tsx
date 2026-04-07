@@ -60,6 +60,7 @@ export function LoginForm({
           firstName: data.firstName,
           lastName: data.lastName,
           image: data.image,
+          role: data.role,
         },
       });
       setDescription("Acceso correcto, redirigiendo...");

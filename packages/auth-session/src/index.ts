@@ -10,6 +10,8 @@ export type AuthProfile = {
   firstName?: string;
   lastName?: string;
   image?: string;
+  /** Rol del usuario (p. ej. DummyJSON: `admin`, `moderator`, `user`). */
+  role?: string;
 };
 
 const emitAuthChanged = () => {
