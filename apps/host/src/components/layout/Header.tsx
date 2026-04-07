@@ -11,14 +11,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { NavUser } from "./NavUser";
 import { getBreadcrumb } from "@/config/navigation";
-
-const user = {
-  name: "Ariel Karlen",
-  roleName: "Administrador",
-  avatar: "/avatars/shadcn.jpg",
-} as const;
+import { useAuth } from "@/context/AuthContext";
 
 const Header = () => {
+  const { user } = useAuth();
   const location = useLocation();
   const items = getBreadcrumb(location.pathname);
 
