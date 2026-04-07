@@ -29,7 +29,9 @@ export const CustomFormButtons = ({
           <Button
             type="button"
             onClick={onToggle}
-            className="group flex h-10 w-10 overflow-hidden bg-[var(--error-dark)] p-0 text-white transition-[width] duration-200 ease-out hover:w-28 hover:bg-[var(--error-dark)]/90"
+            className={cn(
+              "btn-form-action btn-cancel group flex h-10 w-10 overflow-hidden p-0 transition-[width] duration-200 ease-out hover:w-28",
+            )}
           >
             <span className="flex min-w-0 w-full items-center justify-center gap-2 pr-2 transition-[justify-content] duration-200 ease-out group-hover:justify-end group-hover:pr-3">
               <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-[max-width,opacity,margin] duration-200 ease-out group-hover:max-w-20 group-hover:opacity-100 group-hover:mr-2">

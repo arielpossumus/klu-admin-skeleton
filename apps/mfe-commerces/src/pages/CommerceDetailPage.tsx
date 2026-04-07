@@ -24,6 +24,7 @@ import { CommercesRatesData } from "@/components/forms/commerce/CommercesRatesDa
 import { CommerceMsiRatesData } from "@/components/forms/commerce/CommerceMsiRatesData";
 import PaymentsTermsData from "@/components/forms/commerce/CommercePaymentTermsData";
 import { CommerceDepositData } from "@/components/forms/commerce/CommerceDepositData";
+import { CommerceComercialModelData } from "@/components/forms/commerce/CommerceComercialModelData";
 
 type CommerceTabId = (typeof INTERNAL_COMMERCES_NAV)[number]["id"];
 
@@ -252,6 +253,23 @@ const CommerceDetailPage = () => {
             <Card>
               <CardContent>
                 <CommerceDepositData accountData={commerce.accountData} />
+              </CardContent>
+            </Card>
+          </CustomCard>
+        </TabsContent>
+        <TabsContent value="commercialModel" className="mt-6">
+          <CustomCard
+            title={
+              INTERNAL_COMMERCES_NAV.find((item) => item.id === "commercialModel")
+                ?.label ?? "Modelo comercial"
+            }
+            icon={getSectionIcon(INTERNAL_COMMERCES_NAV, "paymentTerms", {
+              fallbackIcon: Building2,
+            })}
+          >
+            <Card>
+              <CardContent>
+                <CommerceComercialModelData commercialModel={commerce.commercialModel} />
               </CardContent>
             </Card>
           </CustomCard>

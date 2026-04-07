@@ -118,6 +118,34 @@ export type CommerceAccountData = {
   OwnerMaternalLastName?: string;
 };
 
+/** Modelo comercial (`commercialModel` en detalle por ID). */
+export type CommerceCommercialModel = {
+  name?: string;
+  lastName?: string;
+  maternalLastName?: string;
+  email?: string;
+  phone?: string;
+  ext?: string;
+  phone2?: string;
+  ext2?: string;
+  days?: string[];
+  startHour?: string;
+  endHour?: string;
+  monthlyRent?: string;
+  averageTicket?: string;
+  cancellationDays?: number;
+  minimumMonthlyAmount?: string;
+  equipmentRent?: string;
+  penalty?: string;
+  settlementPeriod?: string;
+  affiliation?: string;
+  processor?: string;
+  credit?: string;
+  debit?: string;
+  creditInt?: string;
+  debitInt?: string;
+};
+
 export type AllCommercesGridApiRow = {
   businessId: number;
   corporate?: string;
@@ -137,6 +165,7 @@ export type AllCommercesGridApiRow = {
   msiRates?: CommerceMsiRateRow[];
   paymentTerms?: CommercePaymentTerms;
   accountData?: CommerceAccountData;
+  commercialModel?: CommerceCommercialModel;
 };
 
 export type AllCommercesGridListResponse = {
