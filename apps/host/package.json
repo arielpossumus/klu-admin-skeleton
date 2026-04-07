@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fontsource-variable/google-sans-flex": "^5.2.1",
+    "@klu/auth-session": "workspace:^",
     "@klu/ui-kit": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-table": "^8.21.3",

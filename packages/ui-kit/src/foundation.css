@@ -225,19 +225,20 @@
       }
     }
 
-    .btn-cancel {
+  .btn-cancel {
+    border-radius: 9999px !important;
+    background-color: var(--error-dark) !important;
+    color: var(--error-light) !important;
+    &:hover {
       background-color: var(--error-dark) !important;
-      color: var(--error-light) !important;
-      &:hover {
-        background-color: var(--error-dark) !important;
-      }
     }
     &:focus-visible {
-        outline: none !important;
-      }
-      &:active:not(:disabled) {
-        background-color: var(--error-dark) !important;
-      }  
+      outline: none !important;
+    }
+    &:active:not(:disabled) {
+      background-color: var(--error-dark) !important;
+    }
+  }
 }
 
 @layer base {

@@ -1,3 +1,4 @@
+import { BASE_URL, DASHBOARD_API, FINANCES_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type {
     BalanceCurrencyCode,
@@ -5,7 +6,7 @@ import type {
     TrxBalancesBundle,
 } from "@/types/dashboard/TrxBalanceSummary";
 
-const ENDPOINT = "/mockups/getTrxValues.json";
+const ENDPOINT = `${BASE_URL}${DASHBOARD_API}${FINANCES_API}getTrxValues.json`;
 
 const emptySummary = (currency: BalanceCurrencyCode): TrxBalanceSummary => ({
     currency,

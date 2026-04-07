@@ -24,6 +24,8 @@ declare module "mfe_login/RemoteApp" {
   export default RemoteApp;
 }
 
+declare module "mfe_login/LoginStyles" {}
+
 declare module "mfe_dashboard/RemoteApp" {
   import type { FC } from "react";
   const RemoteApp: FC;

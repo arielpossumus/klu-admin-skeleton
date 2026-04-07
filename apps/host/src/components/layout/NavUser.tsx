@@ -1,6 +1,5 @@
 "use client";
 
-import { useNavigate } from "react-router";
 import {
     Bell,
     LogOut,
@@ -28,6 +27,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getNameInitials } from "@/lib/format";
+import { useAuth } from "@/context/AuthContext";
 
 
 export function NavUser({
@@ -39,7 +39,7 @@ export function NavUser({
         avatar: string;
     };
 }) {
-    const navigate = useNavigate();
+    const { logout } = useAuth();
     const initials = getNameInitials(user.name);
 
     return (
@@ -100,7 +100,7 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/")}>
+                        <DropdownMenuItem className="cursor-pointer" onClick={() => logout()}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>

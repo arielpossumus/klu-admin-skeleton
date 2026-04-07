@@ -3,7 +3,7 @@ import { BASE_URL, API_URL_ANEX } from "@/config/constants";
 
 export type CorporateModelItem = { typeId: number; typeModel: string; };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllCorporateModelsV2.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllCorporatesModel.json`;
 
 export const corporateModelsService = {
     getAll: async (): Promise<CorporateModelItem[]> => {

@@ -1,0 +1,218 @@
+{
+    "status": true,
+    "message": "OK",
+    "total": 304,
+    "data_response": {
+        "businessSubmembership": "",
+        "businessEmail": "drs@grupoaffinitas.com",
+        "businessMembership": "8994920",
+        "corporate": "AFFIPAY",
+        "businessLine": "GIROS BANCARIOS/POSTALES",
+        "businessId": 1,
+        "businessName": "PRUEBAS LACPI BP",
+        "businessStatus": "ACTIVO",
+        "businessPhone": "5582508350",
+        "mcc": "1234567890",
+        "affiliations": [
+            {
+                "idMembership": "141",
+                "processor": "PROSA-PESO MEXICANO",
+                "currency": "96",
+                "membershipNumber": "8226471",
+                "debitRate": "2.26 %",
+                "creditRate": "1.65 %",
+                "creditIntRate": "2.10 %",
+                "debitIntRate": "2.50 %",
+                "tipo": "Nacional",
+                "regla": "Estándar"
+            },
+            {
+                "idMembership": "142",
+                "processor": "PROSA-DOLAR AMERICANO",
+                "currency": "96",
+                "membershipNumber": "8226472",
+                "debitRate": "1.26 %",
+                "creditRate": "1.05 %",
+                "creditIntRate": "1.10 %",
+                "debitIntRate": "1.50 %",
+                "tipo": "Internacional",
+                "regla": "Estándar"
+            }
+        ],
+        "legalData": {
+            "Legal Representative": {
+                "firstName": "PAUL",
+                "paternalLastName": "LERNER",
+                "maternalLastName": "LERNER",
+                "documentType": "INE",
+                "documentNumber": "ABC523452345",
+                "birthDate": "15/11/1981",
+                "representativeRfc": "YAVE412341234",
+                "address": {
+                    "street": "MONTE CAMERU",
+                    "outNumber": "212",
+                    "inNumber": "NA",
+                    "city": "MEXICO",
+                    "town": "LOMAS DE CHAPULTEPEC",
+                    "municipaly": "MIGUEL HIDALGO",
+                    "zip": "11000",
+                    "country": "MÉXICO",
+                    "region": "CIUDAD DE MÉXICO"
+                }
+            }
+        },
+        "fiscalData": {
+            "rfc": "AFIN121212121",
+            "legalName": "AFFINITAS",
+            "fiscalRegime": "SUELDOS Y SALARIOS E INGRESOS ASIMILADOS A SALARIOS",
+            "propertyType": "CORPORATION PRIVATE",
+            "fiscalAddress": {
+                "street": "MONTE KAMERUN",
+                "outNumber": "---",
+                "inNumber": "212",
+                "country": "MÉXICO",
+                "region": "ESTADO DE MÉXICO",
+                "city": "MEXICO",
+                "town": "LOMAS DE CHAPULTEPEC",
+                "municipaly": "MIGUEL HIDALGO",
+                "zip": "11000"
+            },
+            "legalContact": {
+                "preferredLanguage": "ESPAÑOL",
+                "email": "drs@grupoaffinitas.com",
+                "phone": "5582508350",
+                "phoneExtension": "---",
+                "additionalPhone": "---",
+                "additionalPhoneExtension": "---"
+            }
+        },
+        "contactData": {
+            "commercialContact": {
+                "name": "ARIEL",
+                "lastName": "NAJERA",
+                "maternalLastName": "HERNANDEZ",
+                "email": "anh@grupoaffinitas.com",
+                "phone": "5582508350",
+                "ext": "",
+                "phone2": "",
+                "ext2": "",
+                "days": [
+                    "Lunes",
+                    "Martes",
+                    "Jueves",
+                    "Viernes"
+                ],
+                "startHour": "11:00",
+                "endHour": "12:00"
+            },
+            "technicalContact": {
+                "name": "ANGEL",
+                "lastName": "SANDOVAL",
+                "maternalLastName": "GALVAN",
+                "email": "asg@grupoaffinitas.com",
+                "phone": "5582508350",
+                "ext": "",
+                "phone2": "5582508350",
+                "ext2": "322",
+                "days": [
+                    "Miércoles",
+                    "Jueves",
+                    "Viernes"
+                ],
+                "startHour": "09:00",
+                "endHour": "18:00"
+            },
+            "financialContact": {
+                "name": "ANGEL",
+                "lastName": "SANDOVAL",
+                "maternalLastName": "GALVAN",
+                "email": "asg@grupoaffinitas.com",
+                "phone": "5582508350",
+                "ext": "",
+                "phone2": "5582508350",
+                "ext2": "322",
+                "days": [
+                    "Viernes"
+                ],
+                "startHour": "15:00",
+                "endHour": "18:00"
+            }
+        },
+        "tradesRates": [
+            {
+                "rateName": "Tasa estándar nacional débito",
+                "ratePercentage": "2.26 %",
+                "ivaIncluded": true,
+                "chargeType": "Por transacción",
+                "channelType": "Presencial"
+            },
+            {
+                "rateName": "Tasa internacional crédito",
+                "ratePercentage": "1.65 %",
+                "ivaIncluded": false,
+                "chargeType": "Por transacción",
+                "channelType": "E-commerce"
+            }
+        ],
+        "msiRates": [
+            {
+                "month": "6 Meses",
+                "visaMastercardPorcentage": "2.26 %",
+                "amexPorcentage": "2.78"
+            },
+            {
+                "month": "12 Meses",
+                "visaMastercardPorcentage": "5 %",
+                "amexPorcentage": "2.50 %"
+            },
+            {
+                "month": "24 Meses",
+                "visaMastercardPorcentage": "8 %",
+                "amexPorcentage": "2.50 %"
+            }
+        ],
+        "paymentTerms": {
+            "nationalDeadline": 2,
+            "internationalDeadline": 5,
+            "amexDeadline": 10
+        },
+        "accountData": {
+            "bankName": "Banco Multiva",
+            "bankCode": "012",
+            "OwnerName": "AFFINITAS",
+            "OwnerLastName": "AFFINITAS",
+            "OwnerMaternalLastName": "AFFINITAS"
+        },
+        "commercialModel": {
+            "name": "ARIEL",
+            "lastName": "NAJERA",
+            "maternalLastName": "HERNANDEZ",
+            "email": "anh@grupoaffinitas.com",
+            "phone": "5582508350",
+            "ext": "",
+            "phone2": "",
+            "ext2": "",
+            "days": [
+                "Lunes",
+                "Martes",
+                "Jueves",
+                "Viernes"
+            ],
+            "startHour": "11:00",
+            "endHour": "12:00",
+            "monthlyRent": "$50,000.00",
+            "averageTicket": "$50,000.00",
+            "cancellationDays": 30,
+            "minimumMonthlyAmount": "$1,000.00",
+            "equipmentRent": "$150.00",
+            "penalty": "$50.00",
+            "settlementPeriod": "---",
+            "affiliation": "8994920",
+            "processor": "PROSA-PESO MEXICANO",
+            "credit": "4.0000",
+            "debit": "4.0000",
+            "creditInt": "0.0000",
+            "debitInt": "0.0000"
+        }
+    }
+}

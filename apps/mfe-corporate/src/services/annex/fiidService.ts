@@ -1,9 +1,9 @@
 import { API_URL_ANEX, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 
-export type FiidItem = { id: number; value: string };
+export type FiidItem = { id: number; value: string; };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllFiid.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllFiid.json`;
 
 export const fiidService = {
   getAll: async (): Promise<FiidItem[]> => {

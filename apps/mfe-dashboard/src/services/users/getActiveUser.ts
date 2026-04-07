@@ -1,7 +1,8 @@
+import { BASE_URL, USERS_API } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 import type { ActiveUser } from "@/types/user/ActiveUser";
 
-const ENDPOINT = "/mockups/users/getUser.json";
+const ENDPOINT = `${BASE_URL}${USERS_API}getUser.json`;
 
 const emptyUser = (): ActiveUser => ({
     userName: "",

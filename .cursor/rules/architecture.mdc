@@ -50,7 +50,7 @@ alwaysApply: true
     │
     ├── 📄 package.json                   # scripts con `--filter @klu/host`, `@klu/mfe-*`, etc.
     ├── 📄 pnpm-workspace.yaml
-    └── 📄 .env.localdev / .env.*         # variables `VITE_*` (Vite `envDir` apunta a la raíz del repo)
+    └── 📄 .env.localdev / .env.*         # host (`envDir` raíz); cada MFE: `.env.*` en `apps/mfe-*` (`envDir` de esa app)
 
     **Reglas de ubicación**
     - UI base reutilizable entre apps → **packages/ui-kit** (o consumo vía `@/components/ui` gracias al alias).

@@ -74,7 +74,7 @@ pnpm run dev:develop
 pnpm run dev:staging
 ```
 
-Para levantar **todo integrado**:
+Para levantar **todo integrado** (remotos en modo **develop**; cada MFE lee `apps/mfe-*/.env.develop`):
 
 ```bash
 # Terminal A
@@ -83,6 +83,9 @@ pnpm dev:mf:remotes
 # Terminal B
 pnpm dev:mf:host
 ```
+
+- **Mocks / local**: `pnpm dev:mf:remotes:local` + `pnpm dev:mf:host:local` (modo `localdev`, `.env.localdev` por MFE).
+- **Staging**: `pnpm stg:mf:remotes` + `pnpm stg:mf:host` (modo `staging`: MFEs leen `apps/mfe-*/.env.staging`; el host lee `.env.staging` en la **raíz** del repo).
 
 Rutas principales del shell:
 

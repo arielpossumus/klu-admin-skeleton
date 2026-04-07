@@ -1,6 +1,7 @@
 import { LogOut, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import { clearAuthSession } from "@klu/auth-session";
 import { getActiveUser } from "@/services/users/getActiveUser";
 import { Button } from "@/components/ui/button";
 import KluOs from "@/assets/KluOs.svg";
@@ -14,6 +15,7 @@ export const WelcomeDashboard = () => {
         queryFn: getActiveUser,
     });
     const handleLogout = () => {
+        clearAuthSession();
         navigate("/", { replace: true });
     };
     return (

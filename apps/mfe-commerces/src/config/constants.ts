@@ -14,6 +14,10 @@ const normalizeApiSegment = (value: string | undefined, fallback: string): strin
 };
 
 export const BASE_URL = normalizeBasePath(import.meta.env.VITE_BASE_URL as string, "/mockups/");
+export const API_URL_ANEX = normalizeApiSegment(
+  import.meta.env.VITE_API_URL_ANEX as string,
+  "annex/",
+);
 export const API_URL_COMMERCES = normalizeApiSegment(
   import.meta.env.VITE_API_URL_COMMERCES as string,
   "commerces/",

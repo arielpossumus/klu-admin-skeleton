@@ -1,9 +1,9 @@
 import { API_URL_ANEX, BASE_URL } from "@/config/constants";
 import { axiosClient } from "@/services/axiosClient";
 
-export type ChannelItem = { id: number; name: string };
+export type ChannelItem = { id: number; name: string; };
 
-const ENDPOINT = `${BASE_URL}${API_URL_ANEX}getAllChannels.json`;
+const ENDPOINT = `${BASE_URL}${API_URL_ANEX}/getAllChannels.json`;
 
 export const channelsService = {
     getAll: async (): Promise<ChannelItem[]> => {

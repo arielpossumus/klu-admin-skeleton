@@ -41,8 +41,8 @@ Los tres listados (**corporativo**, **POS Health**, **comercios físicos**) est�
 
 ## Desarrollo
 
-1. **Terminal A** — remotos: `pnpm dev:mf:remotes`
-2. **Terminal B** — host: `pnpm dev:mf:host` (o `pnpm dev`)
+1. **Terminal A** — remotos: `pnpm dev:mf:remotes` (modo **develop**; variables en `apps/mfe-*/.env.develop`). Para mocks como antes: `pnpm dev:mf:remotes:local` (`.env.localdev` por MFE). Staging: `pnpm stg:mf:remotes`.
+2. **Terminal B** — host: `pnpm dev:mf:host` (mismo criterio de modo que los remotos) o `pnpm dev`
 3. **[http://localhost:5000](http://localhost:5000)** — con remotos levantados, `/`, `/dashboard`, `/corporate`, `/pos-health` y `/commerces/physical` cargan los MFE.
 
 En Federation, `react-router`, `@tanstack/react-query` y `@tanstack/react-table` van como `**shared` + `singleton: true`** en host y en los remotos que cargan listados con tabla/query.
