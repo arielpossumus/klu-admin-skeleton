@@ -17,13 +17,7 @@ declare module "mfe_pos_health/RemoteApp" {
   export default RemoteApp;
 }
 
-declare module "mfe_corporate/RemoteApp" {
-  import type { FC } from "react";
-  const RemoteApp: FC;
-  export default RemoteApp;
-}
-
-declare module "mfe_commerces/RemoteApp" {
+declare module "mfe_entity/RemoteApp" {
   import type { FC } from "react";
   const RemoteApp: FC;
   export default RemoteApp;

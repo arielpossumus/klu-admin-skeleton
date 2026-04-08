@@ -148,5 +148,5 @@ Salida: `remoteEntry.js` + assets para el host.
 ## Relación con otros README
 
 - Shell: [`../host/README.md`](../host/README.md)
-- Corporativo: [`../mfe-corporate/README.md`](../mfe-corporate/README.md)
+- Entity (corporativo + comercios): [`../mfe-entity/README.md`](../mfe-entity/README.md)
 - Vista general apps: [`../README.md`](../README.md)

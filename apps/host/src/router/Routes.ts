@@ -8,8 +8,7 @@ import {
   MfLoginPage,
   MfDashboardPage,
   MfPosHealthPage,
-  MfCorporatePage,
-  MfCommercesPage,
+  MfEntityPage,
 } from "@/pages/microfrontends/MfRemotePages";
 
 export const routes = [
@@ -50,7 +49,7 @@ export const routes = [
           {
             path: "*",
             Component: AdminLayout,
-            children: [{ path: "*", Component: MfCorporatePage }],
+            children: [{ path: "*", Component: MfEntityPage }],
           },
         ],
       },
@@ -61,7 +60,7 @@ export const routes = [
           {
             path: "*",
             Component: AdminLayout,
-            children: [{ path: "*", Component: MfCommercesPage }],
+            children: [{ path: "*", Component: MfEntityPage }],
           },
         ],
       },

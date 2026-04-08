@@ -5,27 +5,27 @@
     const importMap = {
       
         "@tanstack/react-query": async () => {
-          let pkg = await import("__mf__virtual/host__prebuild___mf_0_tanstack_mf_1_react_mf_2_query__prebuild__.js");
+          let pkg = await import("__mf__virtual/mfe_entity__prebuild___mf_0_tanstack_mf_1_react_mf_2_query__prebuild__.js");
             return pkg;
         }
       ,
         "@tanstack/react-table": async () => {
-          let pkg = await import("__mf__virtual/host__prebuild___mf_0_tanstack_mf_1_react_mf_2_table__prebuild__.js");
+          let pkg = await import("__mf__virtual/mfe_entity__prebuild___mf_0_tanstack_mf_1_react_mf_2_table__prebuild__.js");
             return pkg;
         }
       ,
         "react": async () => {
-          let pkg = await import("__mf__virtual/host__prebuild__react__prebuild__.js");
+          let pkg = await import("__mf__virtual/mfe_entity__prebuild__react__prebuild__.js");
             return pkg;
         }
       ,
         "react-dom": async () => {
-          let pkg = await import("__mf__virtual/host__prebuild__react_mf_2_dom__prebuild__.js");
+          let pkg = await import("__mf__virtual/mfe_entity__prebuild__react_mf_2_dom__prebuild__.js");
             return pkg;
         }
       ,
         "react-router": async () => {
-          let pkg = await import("__mf__virtual/host__prebuild__react_mf_2_router__prebuild__.js");
+          let pkg = await import("__mf__virtual/mfe_entity__prebuild__react_mf_2_router__prebuild__.js");
             return pkg;
         }
       
@@ -37,7 +37,7 @@
             version: "5.95.2",
             scope: ["default"],
             loaded: false,
-            from: "host",
+            from: "mfe_entity",
             async get () {
               if (false) {
                 throw new Error(`[Module Federation] Shared module '${"@tanstack/react-query"}' must be provided by host`);
@@ -69,7 +69,7 @@
             version: "8.21.3",
             scope: ["default"],
             loaded: false,
-            from: "host",
+            from: "mfe_entity",
             async get () {
               if (false) {
                 throw new Error(`[Module Federation] Shared module '${"@tanstack/react-table"}' must be provided by host`);
@@ -101,7 +101,7 @@
             version: "19.2.4",
             scope: ["default"],
             loaded: false,
-            from: "host",
+            from: "mfe_entity",
             async get () {
               if (false) {
                 throw new Error(`[Module Federation] Shared module '${"react"}' must be provided by host`);
@@ -133,7 +133,7 @@
             version: "19.2.4",
             scope: ["default"],
             loaded: false,
-            from: "host",
+            from: "mfe_entity",
             async get () {
               if (false) {
                 throw new Error(`[Module Federation] Shared module '${"react-dom"}' must be provided by host`);
@@ -165,7 +165,7 @@
             version: "7.13.2",
             scope: ["default"],
             loaded: false,
-            from: "host",
+            from: "mfe_entity",
             async get () {
               if (false) {
                 throw new Error(`[Module Federation] Shared module '${"react-router"}' must be provided by host`);
@@ -194,38 +194,6 @@
         
     }
       const usedRemotes = [
-                {
-                  entryGlobalName: "mfe_login",
-                  name: "mfe_login",
-                  type: "module",
-                  entry: "http://localhost:5001/remoteEntry.js",
-                  shareScope: "default",
-                }
-          ,
-                {
-                  entryGlobalName: "mfe_dashboard",
-                  name: "mfe_dashboard",
-                  type: "module",
-                  entry: "http://localhost:5005/remoteEntry.js",
-                  shareScope: "default",
-                }
-          ,
-                {
-                  entryGlobalName: "mfe_pos_health",
-                  name: "mfe_pos_health",
-                  type: "module",
-                  entry: "http://localhost:5002/remoteEntry.js",
-                  shareScope: "default",
-                }
-          ,
-                {
-                  entryGlobalName: "mfe_entity",
-                  name: "mfe_entity",
-                  type: "module",
-                  entry: "http://localhost:5003/remoteEntry.js",
-                  shareScope: "default",
-                }
-          
       ]
       export {
         usedShared,

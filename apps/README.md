@@ -1,47 +1,56 @@
 # Microfrontends (esqueleto)
 
+## Repositorios (separación del monorepo)
+
+La arquitectura objetivo reparte el código en **varios repositorios**:
+
+| Repo | Contenido |
+|------|-----------|
+| **1 — Shell / skeleton** | `apps/host` + `packages/*` (p. ej. `ui-kit`, `auth-session`). Sin carpetas `mfe-*`. |
+| **2** | `mfe-login` |
+| **3** | `mfe-dashboard` |
+| **4** | `mfe-pos-health` |
+| **5** | `mfe-entity` (corporativo + comercios físicos; reemplaza `mfe-corporate` y `mfe-commerces`) |
+
+En este monorepo, durante la transición, pueden convivir shell, paquetes y MFEs; al extraer un repo, copiá la carpeta del MFE (o del host) junto con los `packages` que declare como dependencias workspace y ajustá `pnpm-workspace.yaml` y URLs de Federation en el host.
+
 ## Estructura
 
-
-| Paquete                    | Puerto | Rol                                                                                          |
-| -------------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| `@klu/host`           | 5000   | App admin + shell Federation (`**pnpm dev` en la raíz** apunta acá)                          |
-| `@klu/mfe-login`      | 5001   | Pantalla de **Login** en `/`                                                                 |
-| `@klu/mfe-pos-health` | 5002   | Listado **POS Health** en `/pos-health`                                                      |
-| `@klu/mfe-corporate`  | 5003   | Listado **Corporativo** en `/corporate`                                                      |
-| `@klu/mfe-commerces`  | 5004   | Listado **Comercios físicos** en `/commerces/physical`                                       |
-| `@klu/mfe-dashboard`  | 5005   | Home **Dashboard** en `/dashboard`                                                           |
-| `@klu/ui-kit`         | —      | Shadcn, `text`, `**commons/`** (BentoPanel, CustomCard, …), `foundation.css`, `vite-aliases` |
-
+| Paquete | Puerto | Rol |
+| -------- | ------ | --- |
+| `@klu/host` | 5000 | App admin + shell Federation (`**pnpm dev` en la raíz** apunta acá) |
+| `@klu/mfe-login` | 5001 | Pantalla de **Login** en `/` |
+| `@klu/mfe-pos-health` | 5002 | Listado **POS Health** en `/pos-health` |
+| `@klu/mfe-entity` | 5003 | **Corporativo** (`/corporate/*`) y **comercios físicos** (`/commerces/*`) |
+| `@klu/mfe-dashboard` | 5005 | Home **Dashboard** en `/dashboard` |
+| `@klu/ui-kit` | — | Shadcn, `text`, `**commons/`** (BentoPanel, CustomCard, …), `foundation.css`, `vite-aliases` |
 
 La aplicación admin vive en `**apps/host**`.
 
 ### Rutas shell vs locales
 
+| Ruta host | Contenido |
+| --------- | --------- |
+| `/` | Remoto `mfe_login` |
+| `/dashboard` | Remoto `mfe_dashboard` |
+| `/pos-health` | Remoto `mfe_pos_health` |
+| `/pos-health/:serialId` | Remoto `mfe_pos_health` |
+| `/corporate` | Remoto `mfe_entity` |
+| `/corporate/add-corporate` | Remoto `mfe_entity` — alta |
+| `/corporate/:corporateId` | Remoto `mfe_entity` — detalle |
+| `/commerces/physical` | Remoto `mfe_entity` |
+| `/commerces/physical/:idCommerce` | Remoto `mfe_entity` |
 
-| Ruta host                         | Contenido                        |
-| --------------------------------- | -------------------------------- |
-| `/`                               | Remoto `mfe_login`               |
-| `/dashboard`                      | Remoto `mfe_dashboard`           |
-| `/pos-health`                     | Remoto `mfe_pos_health`          |
-| `/pos-health/:serialId`           | Remoto `mfe_pos_health`          |
-| `/corporate`                      | Remoto `mfe_corporate`           |
-| `/corporate/add-corporate`        | Remoto `mfe_corporate` — alta    |
-| `/corporate/:corporateId`         | Remoto `mfe_corporate` — detalle |
-| `/commerces/physical`             | Remoto `mfe_commerces`           |
-| `/commerces/physical/:idCommerce` | Remoto `mfe_commerces`           |
-
-
-Los tres listados (**corporativo**, **POS Health**, **comercios físicos**) están implementados en `apps/mfe-corporate`, `apps/mfe-pos-health` y `apps/mfe-commerces` (cada uno con mocks bajo `public/mockups/` donde aplica).
+**Corporativo** y **comercios físicos** están en `apps/mfe-entity`. **POS Health** está en `apps/mfe-pos-health`. Los mocks bajo `apps/host/public/mockups/` se usan según `VITE_BASE_URL` en cada MFE.
 
 ### `@klu/ui-kit`
 
-- `**commons/`**: componentes compartidos antes en el host; opciones del donut de `DistributionListCard` viven en `commons/distributionChartConfig.ts`.
+- `**commons/`**: componentes compartidos; opciones del donut de `DistributionListCard` viven en `commons/distributionChartConfig.ts`.
 - Alias Vite/TS: `@/components/commons` → `packages/ui-kit/src/commons` (incluido en `vite-aliases.mjs`).
 
 ## Desarrollo
 
-1. **Terminal A** — remotos: `pnpm dev:mf:remotes` (modo **develop**; variables en `apps/mfe-*/.env.develop`). Para mocks como antes: `pnpm dev:mf:remotes:local` (`.env.localdev` por MFE). Staging: `pnpm stg:mf:remotes`.
+1. **Terminal A** — remotos: `pnpm dev:mf:remotes` (modo **develop**; variables en `apps/mfe-*/.env.develop`). Para mocks: `pnpm dev:mf:remotes:local` (`.env.localdev` por MFE). Staging: `pnpm stg:mf:remotes`.
 2. **Terminal B** — host: `pnpm dev:mf:host` (mismo criterio de modo que los remotos) o `pnpm dev`
 3. **[http://localhost:5000](http://localhost:5000)** — con remotos levantados, `/`, `/dashboard`, `/corporate`, `/pos-health` y `/commerces/physical` cargan los MFE.
 
@@ -55,8 +64,7 @@ Desde `**apps/host**`: `npx shadcn@latest add …`
 
 - `**commons/**` movido a `@klu/ui-kit`; alias `@/components/commons` en host y MFE.
 - Rutas reales del shell: `/`, `/dashboard`, `/corporate`, `/pos-health` y `/commerces/physical` cargan remotos.
-- `POS Health`, `Comercios` y `Corporate` renderizan detalle desde sus MFE.
-- Listados migrados: `**mfe-corporate**` (`CorporateListPage`), `**mfe-pos-health**` (`PosHealthListPage` + carpeta `components/tables/posHealth`), `**mfe-commerces**` (`CommerceListPage`).
+- `mfe-corporate` y `mfe-commerces` unificados en **`@klu/mfe-entity`** (`mfe_entity`, puerto **5003**).
 - `CorporateDetailPage` remoto completado con tabs/forms de edición.
 
 ## Próximos pasos
@@ -72,14 +80,7 @@ Pensalo como una casa:
 - Cada `mfe-`* es una **habitación**: tiene su propia UI, páginas, servicios y mocks.
 - `@klu/ui-kit` es la **caja de piezas compartidas**: botones, cards, tablas, textos y utilidades visuales.
 
-Que logramos en esta migración:
-
-1. Movimos vistas grandes del host a MFEs (Corporate, Pos Health, Commerces, Login, Dashboard).
-2. El host dejó de renderizar esas pantallas localmente y ahora las consume por Module Federation.
-3. Dejamos librerías clave compartidas como singleton (`react-router`, `react-query`, `react-table`) para evitar errores de contexto.
-4. Cada MFE puede correr aislado en su puerto y también integrado desde el host.
-
-Resultado: menos acoplamiento, despliegues más independientes y código más ordenado por dominio.
+`mfe-entity` agrupa dos “habitaciones” que antes eran remotos distintos (corporativo y comercios), para un solo despliegue y un solo `remoteEntry.js`.
 
 ## Cómo crear una nueva Seccion (ejemplo: Transacciones)
 
@@ -88,7 +89,7 @@ Resultado: menos acoplamiento, despliegues más independientes y código más or
 - Carpeta: `apps/mfe-transactions`
 - Archivos base:
   - `package.json`
-  - `vite.config.ts` (federation name: `mfe_transactions`, puerto sugerido `5006`)
+  - `vite.config.ts` (federation name: `mfe_transactions`, puerto sugerido `5006` — evitar **5003** reservado a `mfe_entity`)
   - `tsconfig.json`
   - `index.html`
   - `src/main.tsx`
@@ -135,4 +136,3 @@ Resultado: menos acoplamiento, despliegues más independientes y código más or
 - Build mínimo:
   - `pnpm --filter @klu/mfe-transactions build`
   - `pnpm --filter @klu/host build`
-

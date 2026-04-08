@@ -2,8 +2,7 @@ import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
 const RemotePosHealth = lazy(() => import("mfe_pos_health/RemoteApp"));
-const RemoteCorporate = lazy(() => import("mfe_corporate/RemoteApp"));
-const RemoteCommerces = lazy(() => import("mfe_commerces/RemoteApp"));
+const RemoteEntity = lazy(() => import("mfe_entity/RemoteApp"));
 const RemoteLogin = lazy(() => import("mfe_login/RemoteApp"));
 const RemoteDashboard = lazy(() => import("mfe_dashboard/RemoteApp"));
 
@@ -37,14 +36,9 @@ export const MfDashboardPage = () => (
   </Suspense>
 );
 
-export const MfCorporatePage = () => (
+/** Corporativo + comercios físicos (remoto `mfe_entity`). */
+export const MfEntityPage = () => (
   <Suspense fallback={<MfFallback />}>
-    <RemoteCorporate />
-  </Suspense>
-);
-
-export const MfCommercesPage = () => (
-  <Suspense fallback={<MfFallback />}>
-    <RemoteCommerces />
+    <RemoteEntity />
   </Suspense>
 );

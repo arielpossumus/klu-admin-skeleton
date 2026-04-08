@@ -24,18 +24,17 @@ alwaysApply: true
     │   ├── 📁 mfe-login/                 # Login en `/` (remoto Federation)
     │   ├── 📁 mfe-dashboard/             # Dashboard en `/dashboard/*`
     │   ├── 📁 mfe-pos-health/          # POS Health en `/pos-health/*`
-    │   ├── 📁 mfe-corporate/           # Corporativo en `/corporate/*`
-    │   └── 📁 mfe-commerces/           # Comercios en `/commerces/*`
-    │       └── 📁 src/                  # patrón típico por MFE:
-    │           ├── 📁 exposes/          # `RemoteApp.tsx` (entrada federada + rutas internas)
-    │           ├── 📁 pages/            # vistas del módulo
-    │           ├── 📁 components/       # UI específica del dominio (si no es genérica)
-    │           ├── 📁 services/         # Axios + funciones por recurso (**por app**)
-    │           ├── 📁 types/             # tipos del dominio
-    │           ├── 📁 config/            # constantes `VITE_*` / endpoints relativos al módulo
-    │           ├── 📁 mockups/          # JSON de desarrollo (import desde `src/`, no desde `public/` en imports)
-    │           ├── 📄 main.tsx          # standalone: BrowserRouter + RemoteApp
-    │           └── 📄 index.css         # mismo patrón de foundation + Tailwind que el host
+    │   ├── 📁 mfe-entity/              # Corporativo + comercios físicos (`/corporate/*`, `/commerces/*`)
+    │   │   └── 📁 src/                 # patrón típico por MFE:
+    │   │       ├── 📁 exposes/         # `RemoteApp.tsx` (entrada federada + rutas internas)
+    │   │       ├── 📁 pages/           # vistas del módulo
+    │   │       ├── 📁 components/      # UI específica del dominio (si no es genérica)
+    │   │       ├── 📁 services/        # Axios + funciones por recurso (**por app**)
+    │   │       ├── 📁 types/           # tipos del dominio
+    │   │       ├── 📁 config/          # constantes `VITE_*` / endpoints relativos al módulo
+    │   │       ├── 📁 mockups/         # JSON de desarrollo (import desde `src/`, no desde `public/` en imports)
+    │   │       ├── 📄 main.tsx         # standalone: BrowserRouter + RemoteApp
+    │   │       └── 📄 index.css        # mismo patrón de foundation + Tailwind que el host
     │
     ├── 📁 packages/
     │   └── 📁 ui-kit/                    # **@klu/ui-kit** — diseño compartido
@@ -55,7 +54,7 @@ alwaysApply: true
     **Reglas de ubicación**
     - UI base reutilizable entre apps → **packages/ui-kit** (o consumo vía `@/components/ui` gracias al alias).
     - Layout y rutas del producto completo → **apps/host**.
-    - Páginas, datos y servicios de un dominio → carpeta `apps/mfe-*` (ej. `mfe-corporate`; cada uno con su `axiosClient` / servicios).
+    - Páginas, datos y servicios de un dominio → carpeta `apps/mfe-*` (ej. `mfe-entity`; cada uno con su `axiosClient` / servicios).
     - Nuevo módulo → nuevo paquete bajo `apps/mfe-*`, expone `./RemoteApp`, registro en `host` (remotes + ruta con `/*` cuando el MFE tenga sub-rutas).
 
     **Integración técnica**

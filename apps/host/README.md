@@ -8,7 +8,7 @@ Shell principal del admin de KLU. Esta app orquesta la navegacion global, el lay
 
 - Definir rutas globales del producto.
 - Renderizar layouts compartidos (sidebar, header y contenedores).
-- Cargar cada MFE remoto (`mfe-login`, `mfe-dashboard`, `mfe-pos-health`, `mfe-corporate`, `mfe-commerces`).
+- Cargar cada MFE remoto (`mfe-login`, `mfe-dashboard`, `mfe-pos-health`, `mfe-entity`).
 - Proveer contexto transversal (React Query, toaster, estilos base).
 
 ## Stack
@@ -27,8 +27,7 @@ Shell principal del admin de KLU. Esta app orquesta la navegacion global, el lay
 | `@klu/host` | `5000` | `host` |
 | `@klu/mfe-login` | `5001` | `mfe_login` |
 | `@klu/mfe-pos-health` | `5002` | `mfe_pos_health` |
-| `@klu/mfe-corporate` | `5003` | `mfe_corporate` |
-| `@klu/mfe-commerces` | `5004` | `mfe_commerces` |
+| `@klu/mfe-entity` | `5003` | `mfe_entity` |
 | `@klu/mfe-dashboard` | `5005` | `mfe_dashboard` |
 
 En `vite.config.ts` del host, los remotos se resuelven con `http://localhost:<puerto>/remoteEntry.js`.
@@ -50,8 +49,8 @@ Para evitar multiples instancias de contexto, el host comparte como singleton:
 | `/` | `mfe_login` |
 | `/dashboard/*` | `mfe_dashboard` |
 | `/pos-health/*` | `mfe_pos_health` |
-| `/corporate/*` | `mfe_corporate` |
-| `/commerces/*` | `mfe_commerces` |
+| `/corporate/*` | `mfe_entity` |
+| `/commerces/*` | `mfe_entity` |
 
 > Nota: algunas subrutas especificas dependen de la configuracion interna de cada remoto.
 
@@ -149,3 +148,4 @@ Abrir `http://localhost:5000`.
 - Monorepo: `README.md` (raiz)
 - Apps overview: `apps/README.md`
 - Login: `apps/mfe-login/README.md`
+- Entity (corporate + comercios): `apps/mfe-entity/README.md`

@@ -6,6 +6,7 @@ Panel de administración en arquitectura **Microfrontends** con React, TypeScrip
 
 - [Stack](#stack)
 - [Estructura del proyecto](#estructura-del-proyecto)
+- [Repositorios (multi-repo)](#repositorios-multi-repo)
 - [Desarrollo](#desarrollo)
 - [Build](#build)
 - [Lint y formato](#lint-y-formato)
@@ -36,14 +37,25 @@ Panel de administración en arquitectura **Microfrontends** con React, TypeScrip
 
 Monorepo **pnpm**: el panel usa `apps/host` como **shell** y carga dominios desde `apps/mfe-*` por Module Federation. UI compartida en `packages/ui-kit`.
 
+### Repositorios (multi-repo)
+
+La división objetivo en **repos independientes**:
+
+1. **Shell / skeleton**: `apps/host` + `packages/*` (sin `mfe-*`).
+2. **`mfe-login`**
+3. **`mfe-dashboard`**
+4. **`mfe-pos-health`**
+5. **`mfe-entity`**: corporativo + comercios físicos (un solo remoto `mfe_entity`, puerto **5003**).
+
+Mientras migrás, el monorepo puede seguir conteniendo todo; al extraer, copiá cada app y los `packages` referenciados, y actualizá las URLs de `remotes` en el host.
+
 ```
 admin_momentum/
 ├── apps/
 │   ├── host/                # Shell Federation + router principal — puerto 5000
 │   ├── mfe-login/           # Login — 5001
 │   ├── mfe-pos-health/      # 5002
-│   ├── mfe-corporate/       # 5003
-│   ├── mfe-commerces/       # 5004
+│   ├── mfe-entity/          # Corporate + comercios — 5003 (`mfe_entity`)
 │   ├── mfe-dashboard/       # 5005
 │   └── README.md
 ├── packages/
@@ -92,8 +104,7 @@ Rutas principales del shell:
 - `/` -> `mfe_login`
 - `/dashboard` -> `mfe_dashboard`
 - `/pos-health` -> `mfe_pos_health`
-- `/corporate` -> `mfe_corporate`
-- `/commerces/physical` -> `mfe_commerces`
+- `/corporate/*` y `/commerces/*` -> `mfe_entity`
 
 Más detalle de puertos/rutas en `apps/README.md`.
 
@@ -107,6 +118,7 @@ pnpm run build:mf     # host + todos los mfe
 # Builds puntuales:
 pnpm --filter @klu/mfe-login build
 pnpm --filter @klu/mfe-dashboard build
+pnpm --filter @klu/mfe-entity build
 pnpm --filter @klu/host build
 ```
 
@@ -168,21 +180,23 @@ import Settings from "@/pages/settings/Settings";
 
 ### 2) Ruta remota (recomendado para dominio)
 
-En host se enruta a `Mf<Feature>Page`:
+En host se enruta a `Mf<Feature>Page` (ej. `MfEntityPage` para corporate y comercios):
 
 ```tsx
 {
-  path: "/corporate",
-  Component: AdminLayout,
+  path: "/corporate/*",
+  Component: ProtectedRoute,
   children: [
-    { index: true, Component: MfCorporatePage },
-    { path: "add-corporate", Component: MfCorporatePage },
-    { path: ":corporateId", Component: MfCorporatePage },
+    {
+      path: "*",
+      Component: AdminLayout,
+      children: [{ path: "*", Component: MfEntityPage }],
+    },
   ],
 },
 ```
 
-La página real vive en el remoto (`apps/mfe-.../src/exposes/RemoteApp.tsx` + páginas internas).
+La página real vive en el remoto (`apps/mfe-entity/src/exposes/RemoteApp.tsx` + páginas internas).
 
 ### 3) Menú lateral (opcional)
 
@@ -350,7 +364,7 @@ export default MiPagina;
 
 ### Ejemplos en el proyecto
 
-- **Corporativos:** listado, alta y detalle en **`apps/mfe-corporate`** (`CorporateListPage`, `AddCorporate`, `CorporateDetailPage`); columnas de transacciones lite: `src/components/tables/corporate/transactionsLiteColumns.tsx`.
+- **Corporativos y comercios físicos:** en **`apps/mfe-entity`** (`CorporateListPage`, `AddCorporate`, `CorporateDetailPage`, `CommerceListPage`, `CommerceDetailPage`); columnas de transacciones lite: `src/components/tables/corporate/transactionsLiteColumns.tsx`.
 - **POS Health (dispositivos):** listado y detalle en **`apps/mfe-pos-health`** (`PosHealthListPage`, `PosHealthDetailPage`); columnas de detalle de dispositivo en host: `deviceBatteryColumns`, `devicePrinterColumns`, `deviceconectionsColumns`.
 - **Batería:** `src/components/tables/deviceBatteryColumns.tsx` (barra de progreso por nivel de carga)
 - **Impresora:** `src/components/tables/devicePrinterColumns.tsx` (badge por disponibilidad)
@@ -467,7 +481,7 @@ Viven en **`packages/ui-kit/src/commons/`** (paquete `@klu/ui-kit`). En **`apps/
 </CustomCollapsibleCard>
 ```
 
-Los listados de **corporativo**, **POS Health** y **comercios físicos** viven en **`apps/mfe-corporate`**, **`apps/mfe-pos-health`** y **`apps/mfe-commerces`** (ver `apps/README.md`).
+Los listados de **corporativo** y **comercios físicos** viven en **`apps/mfe-entity`**; **POS Health** en **`apps/mfe-pos-health`** (ver `apps/README.md`).
 
 ---
 
@@ -476,7 +490,7 @@ Los listados de **corporativo**, **POS Health** y **comercios físicos** viven e
 En host quedó principalmente UI transversal.  
 Formularios de negocio viven en MFEs (ej. corporate/login).
 
-En `mfe-corporate`:
+En `mfe-entity` (corporativo):
 
 - **CustomFormButtons:** botones estándar para formularios.
 - **corporate/edit/**:

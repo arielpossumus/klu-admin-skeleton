@@ -44,18 +44,11 @@ export default defineConfig({
           entryGlobalName: "mfe_pos_health",
           shareScope: "default",
         },
-        mfe_corporate: {
+        mfe_entity: {
           type: "module",
-          name: "mfe_corporate",
+          name: "mfe_entity",
           entry: REMOTE_ENTRY(5003),
-          entryGlobalName: "mfe_corporate",
-          shareScope: "default",
-        },
-        mfe_commerces: {
-          type: "module",
-          name: "mfe_commerces",
-          entry: REMOTE_ENTRY(5004),
-          entryGlobalName: "mfe_commerces",
+          entryGlobalName: "mfe_entity",
           shareScope: "default",
         },
       },
