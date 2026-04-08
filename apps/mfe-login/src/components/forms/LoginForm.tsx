@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { setAuthSession } from "@klu/auth-session";
@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import EmptyCardLoader from "../loaders/EmptyCardLoader";
 import type { LoginFormValues } from "@/types/auth/LoginFormValues";
 import { loginService } from "@/services/auth/loginService";
+import { logoutService } from "@/services/auth/logoutService";
 
 export function LoginForm({
   className,
@@ -40,6 +41,13 @@ export function LoginForm({
   const [description, setDescription] = useState("Verificando usuario y contraseña...");
   const [okIcon, setOkIcon] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [bootstrapping, setBootstrapping] = useState(true);
+
+  useEffect(() => {
+    void logoutService.notifyTokenerAndClearLocal().finally(() => {
+      setBootstrapping(false);
+    });
+  }, []);
 
   const onSubmit = async (values: LoginFormValues) => {
     setLoginError(null);
@@ -54,13 +62,10 @@ export function LoginForm({
       setAuthSession({
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
+        oauthPasswordHash: data.oauthPasswordHash,
         profile: {
-          username: data.username,
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          image: data.image,
-          role: data.role,
+          username: data.userName,
+          email: data.userName,
         },
       });
       setDescription("Acceso correcto, redirigiendo...");
@@ -80,7 +85,14 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
 
       <Card>
-        {isLoading ? <EmptyCardLoader title="Iniciando sesión" description={description} okIcon={okIcon} /> :
+        {bootstrapping ? (
+          <EmptyCardLoader
+            title="Preparando acceso"
+            description="Cerrando sesión en el servidor…"
+          />
+        ) : isLoading ? (
+          <EmptyCardLoader title="Iniciando sesión" description={description} okIcon={okIcon} />
+        ) : (
           <>
 
             <CardContent>
@@ -92,7 +104,7 @@ export function LoginForm({
                       id="username"
                       type="text"
                       autoComplete="username"
-                      placeholder="ej. emilys"
+                      placeholder="usuario@empresa.com"
                       aria-invalid={Boolean(errors.username)}
                       aria-describedby="username-hint"
                       {...register("username", {
@@ -104,8 +116,7 @@ export function LoginForm({
                       })}
                     />
                     <p id="username-hint" className="text-xs text-muted-foreground">
-                      Prueba DummyJSON: <span className="font-mono">emilys</span> /{" "}
-                      <span className="font-mono">emilyspass</span>
+                      Ingresá tu usuario corporativo.
                     </p>
                     <FieldError errors={errors.username ? [errors.username] : undefined} />
                   </Field>
@@ -147,7 +158,7 @@ export function LoginForm({
               </form>
             </CardContent>
           </>
-        }
+        )}
       </Card>
     </div>
   );

@@ -14,6 +14,7 @@ import {
   getAuthProfile,
   type AuthProfile,
 } from "@klu/auth-session";
+import { callTokenerLogout } from "@/services/auth/logoutService";
 
 export type AuthHeaderUser = {
   name: string;
@@ -24,7 +25,7 @@ export type AuthHeaderUser = {
 type AuthContextValue = {
   user: AuthHeaderUser;
   profile: AuthProfile | null;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -60,9 +61,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const user = useMemo(() => profileToHeaderUser(profile), [profile]);
 
-  const logout = useCallback(() => {
-    clearAuthSession();
-    navigate("/", { replace: true });
+  const logout = useCallback(async () => {
+    try {
+      await callTokenerLogout();
+    } catch {
+      // Cerrar sesión local aunque el tokener falle.
+    } finally {
+      clearAuthSession();
+      navigate("/", { replace: true });
+    }
   }, [navigate]);
 
   const value = useMemo(
