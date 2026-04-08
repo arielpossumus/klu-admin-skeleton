@@ -351,7 +351,7 @@ export const CommerceComercialModelData = ({
               placeholder="Afiliación"
               aria-invalid={Boolean(err?.affiliation)}
               {...register("commercialModel.affiliation")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.affiliation ? [err.affiliation] : undefined} />
           </Field>
@@ -363,7 +363,7 @@ export const CommerceComercialModelData = ({
               placeholder="Procesador"
               aria-invalid={Boolean(err?.processor)}
               {...register("commercialModel.processor")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.processor ? [err.processor] : undefined} />
           </Field>
@@ -375,7 +375,7 @@ export const CommerceComercialModelData = ({
               placeholder="Crédito"
               aria-invalid={Boolean(err?.credit)}
               {...register("commercialModel.credit")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.credit ? [err.credit] : undefined} />
           </Field>
@@ -387,7 +387,7 @@ export const CommerceComercialModelData = ({
               placeholder="Débito"
               aria-invalid={Boolean(err?.debit)}
               {...register("commercialModel.debit")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.debit ? [err.debit] : undefined} />
           </Field>
@@ -399,7 +399,7 @@ export const CommerceComercialModelData = ({
               placeholder="Crédito internacional"
               aria-invalid={Boolean(err?.creditInt)}
               {...register("commercialModel.creditInt")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.creditInt ? [err.creditInt] : undefined} />
           </Field>
@@ -411,7 +411,7 @@ export const CommerceComercialModelData = ({
               placeholder="Débito internacional"
               aria-invalid={Boolean(err?.debitInt)}
               {...register("commercialModel.debitInt")}
-              disabled={disabledField}
+              disabled
             />
             <FieldError errors={err?.debitInt ? [err.debitInt] : undefined} />
           </Field>

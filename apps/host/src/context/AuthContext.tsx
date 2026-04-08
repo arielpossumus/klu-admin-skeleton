@@ -37,7 +37,8 @@ const profileToHeaderUser = (p: AuthProfile | null): AuthHeaderUser => {
     "Usuario";
   return {
     name,
-    roleName: "Sesión activa",
+    roleName:
+      p?.role != null && p.role.trim() !== "" ? p.role.trim() : "Sesión activa",
     avatar: p?.image ?? "/avatars/shadcn.jpg",
   };
 };
