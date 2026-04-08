@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Solo versionar `apps/host` en el remoto; el resto de apps (MFEs) queda solo en local.
+# Si ya estaban trackeados: `git rm -r --cached apps/mfe-*` (y otros bajo apps/ que no sean host).
+apps/*
+!apps/host/
+!apps/host/**

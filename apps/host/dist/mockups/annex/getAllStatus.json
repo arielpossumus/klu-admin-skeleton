@@ -1,0 +1,130 @@
+[
+    {
+        "id": "1",
+        "name": "ACTIVO",
+        "code": "1",
+        "description": "ACTIVO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "2",
+        "name": "BLOQUEADO",
+        "code": "2",
+        "description": "BLOQUEADO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "3",
+        "name": "CANCELADO",
+        "code": "3",
+        "description": "CANCELADO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "4",
+        "name": "PENDIENTE",
+        "code": "4",
+        "description": "PENDIENTE",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "5",
+        "name": "APROBADA",
+        "code": "5",
+        "description": "APROBADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "6",
+        "name": "RECHAZADA",
+        "code": "6",
+        "description": "RECHAZADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "7",
+        "name": "ERROR",
+        "code": "7",
+        "description": "ERROR",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "8",
+        "name": "CONCILIADA",
+        "code": "8",
+        "description": "CONCILIADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "9",
+        "name": "NO CONCILIADA",
+        "code": "9",
+        "description": "NO CONCILIADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "10",
+        "name": "PAGADA",
+        "code": "10",
+        "description": "PAGADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "11",
+        "name": "NO PAGADA",
+        "code": "11",
+        "description": "NO PAGADA",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "12",
+        "name": "REPRESENTACIÓN",
+        "code": "12",
+        "description": "REPRESENTACIÓN",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "13",
+        "name": "1ER CONTRACARGO",
+        "code": "13",
+        "description": "1ER CONTRACARGO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "14",
+        "name": "2DO CONTRACARGO",
+        "code": "14",
+        "description": "2DO CONTRACARGO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "15",
+        "name": "LIQUIDADO",
+        "code": "15",
+        "description": "LIQUIDADO",
+        "extra": null,
+        "other": null
+    },
+    {
+        "id": "16",
+        "name": "DEVUELTO",
+        "code": "16",
+        "description": "DEVUELTO",
+        "extra": null,
+        "other": null
+    }
+]

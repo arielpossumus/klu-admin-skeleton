@@ -1,0 +1,153 @@
+{
+    "status": true,
+    "date": "06/03/2026",
+    "time": "12:25:52",
+    "data_response": {
+        "name": "AFFIPAY",
+        "fiid": "AUTOFIN MEXICO",
+        "status": "ACTIVO",
+        "corporateData": {
+            "rsaKey": "A000BMPY70",
+            "logoIndex": "splash1.png",
+            "logoTicket": "1.png",
+            "ModeloCorporativo": "Agregador",
+            "legalData": {
+                "LegalRepresentative": {
+                    "name": "Alfonso",
+                    "lastName": "Lopez",
+                    "maternalLastName": "Diaz"
+                },
+                "taxInformation": {
+                    "rfc": "A000BMPY70",
+                    "socialReason": "AFFINITAS MEDIOS DE PAGO",
+                    "taxRegime": "General de Ley Personas Morales"
+                },
+                "fiscalAddress": {
+                    "country": "Mexico",
+                    "region": "Mexico",
+                    "city": "Mexico",
+                    "street": "MONTE KAMERUN",
+                    "zipCode": "11000",
+                    "externalNumber": "212",
+                    "internalNumber": "-",
+                    "colony": "LOMAS DE CHAPULTEPEC",
+                    "municipality": "MÉXICO",
+                    "state": "MIGUEL HIDALGO",
+                    "email": "mfc@grupoaffinitas.com",
+                    "phone": "5582508350",
+                    "ext": "322"
+                },
+                "legalContact": {
+                    "name": "Mary Carmen",
+                    "lastName": "Fuentes",
+                    "maternalLastName": "Camargo",
+                    "email": "mcfc@grupoaffinitas.com",
+                    "phone": "55825202008350",
+                    "ext": "2020",
+                    "phone2": "5582520200",
+                    "ext2": "2020",
+                    "days": [
+                        "Lunes",
+                        "Martes",
+                        "Jueves"
+                    ],
+                    "startHour": "08:00",
+                    "endHour": "17:00"
+                }
+            },
+            "contactData": {
+                "commercialContact": {
+                    "name": "ARIEL",
+                    "lastName": "NAJERA",
+                    "maternalLastName": "HERNANDEZ",
+                    "email": "anh@grupoaffinitas.com",
+                    "phone": "5582508350",
+                    "ext": "",
+                    "phone2": "",
+                    "ext2": "",
+                    "days": [
+                        "Lunes",
+                        "Martes",
+                        "Jueves",
+                        "Viernes"
+                    ],
+                    "startHour": "11:00",
+                    "endHour": "12:00"
+                },
+                "technicalContact": {
+                    "name": "ANGEL",
+                    "lastName": "SANDOVAL",
+                    "maternalLastName": "GALVAN",
+                    "email": "asg@grupoaffinitas.com",
+                    "phone": "5582508350",
+                    "ext": "",
+                    "phone2": "5582508350",
+                    "ext2": "322",
+                    "days": [
+                        "Miércoles",
+                        "Jueves",
+                        "Viernes"
+                    ],
+                    "startHour": "09:00",
+                    "endHour": "18:00"
+                },
+                "financialContact": {
+                    "name": "ANGEL",
+                    "lastName": "SANDOVAL",
+                    "maternalLastName": "GALVAN",
+                    "email": "asg@grupoaffinitas.com",
+                    "phone": "5582508350",
+                    "ext": "",
+                    "phone2": "5582508350",
+                    "ext2": "322",
+                    "days": [
+                        "Viernes"
+                    ],
+                    "startHour": "15:00",
+                    "endHour": "18:00"
+                }
+            },
+            "modelCommercial": {
+                "adquisition": false,
+                "adquisitionBank": "Cruz Roja",
+                "channels": [
+                    "EGLOBAL-PESO MEXICANO",
+                    "PRISMA-PESO MEXICANO",
+                    "PRISMA-DÓLAR ESTADOUNIDENSE",
+                    "FEENICIA AMEX-PESO MEXICANO",
+                    "FEENICIA AMEX-DÓLAR ESTADOUNIDENSE",
+                    "PAYWORKS BANORTE-PESO MEXICANO",
+                    "KUSHKI-PESO MEXICANO"
+                ],
+                "monthlyRent": 1000,
+                "cancelationDay": 10,
+                "transactions": [
+                    {
+                        "transactionRange": "1 - 250,000",
+                        "costPerTransaction": 0.100000,
+                        "iva": "M/N 0.016000",
+                        "total": 0.260000
+                    },
+                    {
+                        "transactionRange": "250,001 - 500,000",
+                        "costPerTransaction": 0.100000,
+                        "iva": "M/N 0.016000",
+                        "total": 0.260000
+                    },
+                    {
+                        "transactionRange": "500,001 - 800,000",
+                        "costPerTransaction": 0.100000,
+                        "iva": "M/N 0.016000",
+                        "total": 0.260000
+                    },
+                    {
+                        "transactionRange": "800,001 - ≤",
+                        "costPerTransaction": 0.100000,
+                        "iva": "M/N 0.016000",
+                        "total": 0.260000
+                    }
+                ]
+            }
+        }
+    }
+}

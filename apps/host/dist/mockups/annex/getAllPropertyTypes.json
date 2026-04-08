@@ -1,0 +1,42 @@
+[
+  {
+    "propertyTypeId": 1,
+    "propertyTypeName": "CORPORATION PRIVATE"
+  },
+  {
+    "propertyTypeId": 2,
+    "propertyTypeName": "CORP PUBLICLY TRADED"
+  },
+  {
+    "propertyTypeId": 3,
+    "propertyTypeName": "LLC PRIVATE"
+  },
+  {
+    "propertyTypeId": 4,
+    "propertyTypeName": "LLC PUBLICLY TRADED"
+  },
+  {
+    "propertyTypeId": 5,
+    "propertyTypeName": "PARTNERSHIP PRIVATE"
+  },
+  {
+    "propertyTypeId": 6,
+    "propertyTypeName": "PARTNERSHIP PUBLICLY TRADED"
+  },
+  {
+    "propertyTypeId": 7,
+    "propertyTypeName": "SOLE PROPRIETORSHIP"
+  },
+  {
+    "propertyTypeId": 8,
+    "propertyTypeName": "NON PROFIT"
+  },
+  {
+    "propertyTypeId": 9,
+    "propertyTypeName": "GOVERNMENT"
+  },
+  {
+    "propertyTypeId": 10,
+    "propertyTypeName": "AMERICAN EXPRESS RESERVED INDICATOR"
+  }
+]
