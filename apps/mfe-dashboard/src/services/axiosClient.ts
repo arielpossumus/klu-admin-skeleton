@@ -11,4 +11,5 @@ export const axiosClient = axios.create({
     },
 });
 
+// Authorization: Bearer <access_token> en cada request (token de sesión post-login).
 attachAuthInterceptors(axiosClient);
