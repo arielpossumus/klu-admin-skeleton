@@ -9,6 +9,11 @@ const REMOTE_ENTRY = (port: number) => `http://localhost:${port}/remoteEntry.js`
 
 const repoRoot = path.resolve(__dirname, "../..");
 
+const useSyncExternalStoreShim = path.resolve(
+  __dirname,
+  "./src/vite-shims/use-sync-external-store-shim.ts",
+);
+
 /**
  * Shell / host: app admin + Module Federation (remotos en dev por URL fija).
  * Variables `VITE_*`: `.env.*` en la raíz del monorepo (`envDir`). Cada MFE usa `.env.*` en su propia carpeta.
@@ -62,7 +67,13 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: withAppRootAlias(path.resolve(__dirname, "./src")),
+    alias: [
+      {
+        find: "use-sync-external-store/shim",
+        replacement: useSyncExternalStoreShim,
+      },
+      ...withAppRootAlias(path.resolve(__dirname, "./src")),
+    ],
   },
   server: {
     port: 5000,
