@@ -100,9 +100,14 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => logout()}>
+                        <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => {
+                                void logout();
+                            }}
+                        >
                             <LogOut />
-                            Log out
+                            Cerrar sesión
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

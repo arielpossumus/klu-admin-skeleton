@@ -12,9 +12,10 @@ import { useNavigate } from "react-router";
 import {
   clearAuthSession,
   getAuthProfile,
+  postTokenerLogout,
   type AuthProfile,
 } from "@klu/auth-session";
-import { callTokenerLogout } from "@/services/auth/logoutService";
+import { TOKENER_LOGOUT_URL } from "@/config/tokenerLogoutUrl";
 
 export type AuthHeaderUser = {
   name: string;
@@ -62,14 +63,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useMemo(() => profileToHeaderUser(profile), [profile]);
 
   const logout = useCallback(async () => {
-    try {
-      await callTokenerLogout();
-    } catch {
-      // Cerrar sesión local aunque el tokener falle.
-    } finally {
-      clearAuthSession();
-      navigate("/", { replace: true });
-    }
+    await postTokenerLogout(TOKENER_LOGOUT_URL);
+    clearAuthSession();
+    navigate("/", { replace: true });
   }, [navigate]);
 
   const value = useMemo(
