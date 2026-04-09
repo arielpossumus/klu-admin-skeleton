@@ -1,4 +1,4 @@
-import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, { isAxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from "axios";
 
 export const ACCESS_TOKEN_KEY = "klu_access_token";
 export const REFRESH_TOKEN_KEY = "klu_refresh_token";
@@ -35,6 +35,17 @@ export const getBearerAccessToken = (): string | null => {
   const parts = t.split(".");
   if (parts.length !== 3) return null;
   return t;
+};
+
+/**
+ * Access token tal como debe ir en `Authorization: Bearer` al llamar logout u otros endpoints.
+ * No valida forma JWT (algunos tokens tienen más segmentos o el tokener acepta el string crudo).
+ */
+export const getAccessTokenForBearerHeader = (): string | null => {
+  const raw = getAccessToken();
+  if (raw == null) return null;
+  const t = raw.replace(/^Bearer\s+/i, "").trim();
+  return t === "" ? null : t;
 };
 
 export const getRefreshToken = (): string | null => {
@@ -121,6 +132,58 @@ export const clearAuthSession = (): void => {
   sessionStorage.removeItem(AUTH_PROFILE_KEY);
   sessionStorage.removeItem(OAUTH_PASSWORD_HASH_KEY);
   emitAuthChanged();
+};
+
+const joinBaseAndPath = (base: string, path: string): string => {
+  const b = base.replace(/\/$/, "");
+  const p = path.replace(/^\//, "");
+  return `${b}/${p}`;
+};
+
+/**
+ * URL de POST logout del tokener según env del bundle (host o MFE).
+ * - Preferencia: `VITE_TOKENER_BASE_URL` + `VITE_TOKENER_API_URL_LOGOUT`.
+ * - Si no: `VITE_BASE_URL` + `VITE_API_URL_LOGOUT` solo si la base es http(s) absoluta y no es ruta de mockups.
+ */
+export const resolveTokenerLogoutUrl = (): string => {
+  const tokenerBase = (import.meta.env.VITE_TOKENER_BASE_URL as string | undefined)?.trim();
+  if (tokenerBase !== undefined && tokenerBase !== "") {
+    const path =
+      (import.meta.env.VITE_TOKENER_API_URL_LOGOUT as string | undefined)?.trim() ?? "oauth/logout";
+    return joinBaseAndPath(tokenerBase, path);
+  }
+
+  const base = (import.meta.env.VITE_BASE_URL as string | undefined)?.trim() ?? "";
+  const path = (import.meta.env.VITE_API_URL_LOGOUT as string | undefined)?.trim() ?? "";
+  if (base === "" || path === "") return "";
+  if (!/^https?:\/\//i.test(base)) return "";
+  if (base.toLowerCase().includes("/mockups")) return "";
+  return joinBaseAndPath(base, path);
+};
+
+/**
+ * Invalida sesión en el tokener (`Authorization: Bearer` + cuerpo vacío).
+ * No limpia `sessionStorage` ni lanza errores HTTP.
+ *
+ * @param logoutUrlOverride URL absoluta preferida (definila en código de cada app con `import.meta.env` para que Vite la inlinee; el paquete enlazado no siempre recibe `VITE_*` del host).
+ */
+export const postTokenerLogout = async (logoutUrlOverride?: string): Promise<void> => {
+  const fromOverride = logoutUrlOverride?.trim() ?? "";
+  const url =
+    fromOverride !== "" ? fromOverride : resolveTokenerLogoutUrl().trim();
+  if (url === "") return;
+
+  const jwt = getAccessTokenForBearerHeader();
+  if (jwt == null) return;
+
+  try {
+    await axios.post(url, null, {
+      headers: { Authorization: `Bearer ${jwt}` },
+      timeout: 15_000,
+    });
+  } catch (e: unknown) {
+    if (isAxiosError(e) && e.code === "ERR_NETWORK") return;
+  }
 };
 
 export type AuthInterceptorOptions = {
